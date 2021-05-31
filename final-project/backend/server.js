@@ -24,6 +24,19 @@ const User = mongoose.model('User', {
   }
 })
 
+const authenticateUser = async (req, res, next) => {
+  const accessToken = req.header('Authorization');
+  try {
+    const user = await User.findOne({ accessToken });
+    if (user) {
+      next();
+    } else {
+      res.status(401).json({ success: false, message: 'Not authorized' });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: 'Invalid request', error });
+  }
+}
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
 //
@@ -39,6 +52,24 @@ app.use(express.json())
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
+
+app.get('/tasks', authenticateUser);
+app.get('/tasks', async (req, res) => {
+  const tasks = await Task.find();
+  res.json({ success: true, tasks});
+});
+
+app.post('/tasks', authenticateUser);
+app.post('/tasks', async (req, res) => {
+  const { item } = req.body;
+
+  try {
+    const newTask = await new Task({ item }).save();
+    res.json({ success: true, newTask});
+  } catch (error) {
+    res.status(400).json({ success: false, message: 'Invalid request', error });
+   }
+});
 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
