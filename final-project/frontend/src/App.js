@@ -4,6 +4,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import user from './reducers/user'
+import myTrip from './reducers/myTrip'
 
 import Login from './pages/Login'
 import MyTrip from './pages/MyTrip'
@@ -13,7 +14,8 @@ import Checklist from './pages/Checklist'
 
 
 const reducer = combineReducers({
-  user: user.reducer
+  user: user.reducer,
+  myTrip: myTrip.reducer,
 })
  const store = configureStore({ reducer })
 
@@ -22,7 +24,7 @@ export const App = () => {
     <BrowserRouter>
       <Provider store={store}>
         <Switch>
-          <Route path="/login" component={Login}/>
+          <Route exact path="/" component={Login}/>
           <Route exact path="/my-trip" component={MyTrip}/>
           <Route path="/my-trip/departure" component={Departure}/>
           <Route path="/info" component={Info}/>

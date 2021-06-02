@@ -8,11 +8,14 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
+
 const User = mongoose.model('User', {
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true, 
+    minlength: 4,
+    maxlength: 20
   },
   password: {
     type: String, 
@@ -26,6 +29,7 @@ const User = mongoose.model('User', {
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization');
+
   try {
     const user = await User.findOne({ accessToken });
     if (user) {
@@ -37,7 +41,7 @@ const authenticateUser = async (req, res, next) => {
     res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 }
-// Defines the port the app will run on. Defaults to 8080, but can be 
+
 // overridden when starting the server. For example:
 //
 //   PORT=9000 npm start
@@ -53,23 +57,10 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
-app.get('/tasks', authenticateUser);
-app.get('/tasks', async (req, res) => {
-  const tasks = await Task.find();
-  res.json({ success: true, tasks});
-});
-
-app.post('/tasks', authenticateUser);
-app.post('/tasks', async (req, res) => {
-  const { item } = req.body;
-
-  try {
-    const newTask = await new Task({ item }).save();
-    res.json({ success: true, newTask});
-  } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', error });
-   }
-});
+app.get('/my-trip', authenticateUser);
+app.get('/my-trip', async (req, res) => {
+  res.json({ success: true, message: 'malaga 10aug ' })
+})
 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
@@ -84,7 +75,7 @@ app.post('/signup', async (req, res) => {
       success: true,
       userID: newUser._id,
       username: newUser.username,
-      accesToken: newUser.accessToken
+      accessToken: newUser.accessToken
     })
   } catch (error) {
     res.status(400).json({ success: false, message: 'Invalig request', error })
@@ -100,7 +91,7 @@ app.post('/signin', async (req, res) => {
         success: true,
         userID: user._id,
         username: user.username,
-        accesToken: user.accessToken
+        accessToken: user.accessToken
       })
     } else {
       res.status(404).json({ success: false, message: 'User nog found' })
