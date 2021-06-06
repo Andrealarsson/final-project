@@ -166,6 +166,7 @@ const UserInput = styled.input`
 border-radius: 15px;
 border: solid 3px #F3F3F3;
 color: #000000;
+outline: none;
 padding: 5px;
 margin: 5px 15px;
 background: #ffffff;

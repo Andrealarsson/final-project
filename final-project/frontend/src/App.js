@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import user from './reducers/user'
 import myTrip from './reducers/myTrip'
+import todos from './reducers/todos'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -18,6 +19,7 @@ import Checklist from './pages/Checklist'
 const reducer = combineReducers({
   user: user.reducer,
   myTrip: myTrip.reducer,
+  // todos: todos.reducer,
 })
  const store = configureStore({ reducer })
 

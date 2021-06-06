@@ -27,6 +27,25 @@ const User = mongoose.model('User', {
   }
 })
 
+const Todos = mongoose.model('Todos', {
+  items: [{
+    id: { 
+      type: Number, 
+      default: 1}, 
+    description: { 
+      type: String, 
+      minlength: 5, 
+      maxlength: 50, 
+      requered: true},
+    time: { 
+      type: Date, 
+      default: Date.now }, 
+    isComplete: { 
+      type: Boolean, 
+      default: false }
+  }]
+});
+
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization');
 
@@ -59,7 +78,7 @@ app.get('/', (req, res) => {
 
 app.get('/my-trip', authenticateUser);
 app.get('/my-trip', async (req, res) => {
-  res.json({ success: true, message: 'malaga 10aug ' })
+  res.json({ success: true })
 })
 
 app.post('/signup', async (req, res) => {
@@ -100,6 +119,25 @@ app.post('/signin', async (req, res) => {
   res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
+
+app.get('/checklist', authenticateUser);
+app.get('/checklist', async (req, res) => {
+  const todos = await Todos.find();
+  res.json({ success: true, todos});
+});
+
+app.post('/checklist', authenticateUser);
+app.post('/checklist', async (req, res) => {
+  const { items } = req.body;
+
+  try {
+    const newTodo = await new Todo({ items }).save();
+    res.json({ success: true, newTodo});
+  } catch (error) {
+    res.status(400).json({ success: false, message: 'Invalid request', error });
+  }
+});
+
 // Start the server
 app.listen(port, () => {
   // eslint-disable-next-line

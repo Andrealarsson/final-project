@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import Navbar from 'components/Navbar'
 
 const Header = () =>  {
 
   return(
     <>
     <Title>Travel Pocket</Title>
+    <Navbar/>
     </>
   )
 }
