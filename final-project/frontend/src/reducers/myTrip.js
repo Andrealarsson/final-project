@@ -3,13 +3,17 @@ import { createSlice } from '@reduxjs/toolkit';
 const myTrip= createSlice({
     name: 'myTrip',
     initialState: {
-        items: [],
+        destination: null, 
+        departureDate: null, 
+        departureTime: null,
         errors: null
     },
     reducers: {
         setTrip: (store, action) => {
-            store.items = action.payload
-            
+        const {destination, departureDate, departureTime } = action.payload
+          store.destination = destination
+          store.detartureDate = departureDate
+          store.departureTime = departureTime  
         },
         setErrors: (store, action) => {
             store.errors = action.payload

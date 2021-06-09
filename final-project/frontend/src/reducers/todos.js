@@ -3,9 +3,25 @@ import { createSlice } from '@reduxjs/toolkit'
 const todos = createSlice({
   name: 'todos',
   initialState: {
-    items: [],
-  },
+  items: {
+    _id: null,
+    description: null,
+    createdAt: null,
+    isComplete: null,
+    errors: null
+  }},
+
   reducers: {
+    setItems: (store, action) => {
+      const { _id, description, createdAt, isComplete } = action.payload
+      store.items._id = _id
+      store.items.description = description
+      store.items.createdAt = createdAt
+      store.items.isComplete = isComplete
+    },
+    setErrors: (store, action) => {
+      store.errors = action.payload
+  },
     toggleComplete: (store, action) => {
       const updatedItems = store.items.map(todo => {
         if (todo.id === action.payload){
@@ -32,5 +48,7 @@ const todos = createSlice({
     } 
   }
 })
-
+ 
 export default todos
+
+

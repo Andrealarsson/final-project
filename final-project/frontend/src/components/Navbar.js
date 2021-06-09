@@ -5,18 +5,14 @@ const Navbar = () =>  {
 
   return(
     <>
-    <Navbar>
       <ul>
-        <li>Min Resa</li>
-        <li>Viktig info</li>
-        <li>Checklista</li>
+        <li><a href='/my-trip'>Min Resa</a></li>
+        <li><a href='/info'>Viktig info</a></li>
+        <li><a href='/checklist'>Checklista</a></li>
       </ul>
-    </Navbar>
     </>
   )
 }
 
 export default Navbar
 
-// const Navbar = styled.div`
-// background: black;`

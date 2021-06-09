@@ -23,13 +23,13 @@ const AddTodo =() => {
   }
   return(
     <>
-      <AddTodoText>ADD A NEW TASK AND CLICK ON THE +</AddTodoText>
+      <AddTodoText></AddTodoText>
       <TodoForm onSubmit={onFormSubmit}>
         <TodoInput
           type='text'
           required
           value={value}
-          placeholder="Do next . . .✏️"
+          placeholder="Packa ner. . .✏️"
           onChange={e => setValue (e.target.value)}
         />
         <AddButton type='submit' disabled={
