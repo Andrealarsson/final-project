@@ -3,12 +3,13 @@ import styled from 'styled-components/macro'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import LogOutButton from '../components/LogOutButton'
-import myTrip from '../reducers/myTrip'
+import trip from '../reducers/trip'
+// import user from '../reducers/user'
 import { API_URL } from '../reusable/urls' 
 
-const MyTrip = () => {
+const Trip = () => {
     const accessToken = useSelector(store => store.user.accessToken)
-
+    const trips = useSelector(store => store.trip.trip)
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -25,26 +26,32 @@ const MyTrip = () => {
             Authorization: accessToken
           }  
       }
-      fetch(API_URL('myTrip'), option)
+      fetch(API_URL('users/trip'), option)
       .then((res) => res.json())
       .then(data => {
           if(data.success) { 
-            dispatch(myTrip.actions.setTrip({destination: data.destination, detartureDate: data.departureDate, departureTime: data.departureTime})) 
-            dispatch(myTrip.actions.setTrip(null))
+            dispatch(trip.actions.setTrip(data.trip
+              /*{
+              destination: data.destination, 
+              detartureDate: data.departureDate, 
+              departureTime: data.departureTime}*/)) 
+            dispatch(trip.actions.setErrors(null))
           } else {
-            dispatch(myTrip.actions.setTrip({errors:''}))
+            dispatch(trip.actions.setErrors(data))
           }
       })
-      .catch()
+     .catch()
   },[accessToken, dispatch])
 
  return (
  <> 
-   
-   <h2>my trips</h2>
+   <div>{trips.map(trip => (
+        <div key={trip._id}>{trips.destination}</div>
+      ))}</div>
+   <h2>trips</h2>
    <LogOutButton>Log out</LogOutButton>
  </>
  )
 }
 
-export default MyTrip
+export default Trip

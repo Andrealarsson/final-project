@@ -5,14 +5,34 @@ const Navbar = () =>  {
 
   return(
     <>
-      <ul>
-        <li><a href='/users/:userId/my-trip'>Min Resa</a></li>
-        <li><a href='/users/info'>Viktig info</a></li>
-        <li><a href='/users/:userId/checklist'>Checklista</a></li>
-      </ul>
+      <HeaderNavbar>
+        <TripPage><Link href='/users/trip'>MINA RESOR</Link></TripPage>
+        <InfoPage><Link href='/users/info'>VIKTIG INFO</Link></InfoPage>
+        <ChecklistPage><Link href='/users/checklist'>CHECKLISTA</Link></ChecklistPage>
+      </HeaderNavbar>
     </>
   )
 }
 
 export default Navbar
+
+const HeaderNavbar = styled.ul`
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+list-style-type:  none;
+`
+
+const Link = styled.a`
+text-decoration: none;
+`
+
+const TripPage = styled.li`
+`
+
+const InfoPage = styled.li`
+`
+
+const ChecklistPage = styled.li`
+`
 

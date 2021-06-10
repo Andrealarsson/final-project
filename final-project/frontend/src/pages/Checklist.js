@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import todos from '../reducers/todos'
+import { useHistory } from 'react-router-dom'
+// import todos from '../reducers/todos'
+// import user from '../reducers/user'
 // import AddTodo from '../components/AddTodo'
 // import TodoList from '../components/TodoList'
 // import RemoveAllTodos from '../components/RemoveAllTodos'
@@ -9,41 +11,45 @@ import { API_URL } from '../reusable/urls'
 
 const Checklist = () => {
   const accessToken = useSelector(store => store.user.accessToken)
-  const items = useSelector(store => store.todos.items)
+  const todos = useSelector(store => store.todos.items)
   
-  // const history = useHistory();
+  const history = useHistory();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (!accessToken) {
-  //     history.push('/');
-  //   }
-  // }, [accessToken, history]);
+  useEffect(() => {
+    if (!accessToken) {
+    history.push('/');
+    }
+  }, [accessToken, history]);
 
   useEffect(() => {
-    const option = {
+    const options = {
         method: 'GET',
         headers: {
           Authorization: accessToken
         }  
     }
-    fetch(API_URL('checklist'), option)
+    fetch(API_URL('users/checklist'), options)
     .then((res) => res.json())
     .then(data => {
         if(data.success) { 
-          dispatch(todos.actions.setItems({id: data._id, description: data.description, createdAt: data.createdAt, isComplete: data.isComplete})) 
-          dispatch(todos.actions.setItems(null))
+          dispatch(todos.actions.setItems({_id: data._id, description: data.description, createdAt: data.createdAt, isComplete: data.isComplete})) 
+          dispatch(todos.actions.setErrors(null))
+        
         } else {
-          dispatch(todos.actions.setItems({errors:''}))
+          dispatch(todos.actions.setErrors(data))
         }
     })
     .catch()
-},[accessToken, dispatch])
+},[accessToken, todos, dispatch])
 
 return (
   <>
     <TodoListContainer>
-      {items.map(todo => (
+      {todos.map(todo => (
+        <div key={todo._id}>{todo.description}</div>
+      ))}
+      {/* {items.map(todo => (
         <TodoItem key={todo._id}>
           <Checkbox
             type='checkbox'
@@ -58,13 +64,14 @@ return (
           </RemoveButton>    
            <TimeAdded>
             {/* {moment(todo.time).format('ddd HH:mm')} */}
-          </TimeAdded>
+          {/* </TimeAdded>
         </TodoItem>
-      ))}
+      ))}  */}
     </TodoListContainer>
   </>
 )
 }
+
 
 export default Checklist
 
@@ -73,7 +80,7 @@ border-radius: 5px;
 min-height: 280px;
 background: #112d32;
 `
-const TodoItem = styled.div`
+/*const TodoItem = styled.div`
 position: relative;
 border-radius: 5px;
 display: flex;
@@ -119,5 +126,5 @@ color: #112d32;
 }
 @media (min-width: 768px) {
 transform: scale(1.9);
-}`
+}`*/
   

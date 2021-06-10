@@ -4,39 +4,34 @@ import { useHistory } from 'react-router-dom'
 
 import styled from 'styled-components/macro'
 import user from '../reducers/user'
-import TextInput from '../components/TextInput'
 import { API_URL } from '../reusable/urls'
 import mobile from '../assets/mobile.jpg'
 import logowhite from '../assets/logowhite.png'
 
 const LoginSignup = () => {
-  const [value, setValue] = useState({ password: '', username: ''})
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [mode, setMode] = useState(null);
 
   const history = useHistory();
   const dispatch = useDispatch();
   const accessToken = useSelector(store => store.user.accessToken)
   
-
-  const handleChange = (props) => (e) => {
-    e.preventDefault()
-    setValue({...value, [props]: e.target.value})
- }
   useEffect(() => {
     if(accessToken) {
-    history.push('/users/:userId/my-trip');
+    history.push('/users/trip');
   }
 }, [ accessToken,history]);
 
-    const handleSubmit = (e) => {
+    const onFormSubmit = (e) => {
       e.preventDefault()
+
       const options = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'                
         },  
-        body: JSON.stringify({ username: value.username,
-          password: value.password})
+        body: JSON.stringify({ username, password })
         }
 
     fetch(API_URL(mode), options)
@@ -44,9 +39,10 @@ const LoginSignup = () => {
       .then(data => {
         console.log(data)
         if (data.success) {
-          dispatch(user.actions.setUser({userId: data.userId, username: data.username, accessToken: data.accessToken, errors: null}))
+          dispatch(user.actions.setUser({userId: data.userId, username: data.username, accessToken: data.accessToken}))
+          dispatch(user.actions.setErrors(null))
         } else {
-          dispatch(user.actions.setUser({errors:''}))
+          dispatch(user.actions.setErrors(data))
         }})
         .catch()
       }
@@ -60,31 +56,32 @@ const LoginSignup = () => {
           Här kan du registrera dina kommande resor, få hjälp med din packlista och få viktig info om pass, 
           visum och försäkringar. Allt på ett och samma ställe.</InformationText>
       </InformationContainer>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={onFormSubmit}>
         <InputContainer>
         <InputTitle>VÄLKOMMEN TILL TRAVEL POCKET</InputTitle>
         {/* <img src= {logored} alt='logo'/> */}
         <InputText>Logga in eller registrera dig för att börja din planering</InputText>
-          <TextInput
+          <InputRow
               type='text'
-              value={value.username}
-              handleChange={handleChange('username')} title="Username"
+              value={username}
+              title='Username'
+              onChange={(e) => setUsername(e.target.value)}
               minLength='4'
               maxLength='20'
               required
               placeholder='Användarnamn'
             />
-            <TextInput
-              type="password"
-              value={value.password}
-              handleChange={handleChange('password')} title="Password" 
+            <InputRow
+              type='password'
+              value={password}
+              title='Password'
+              onChange={(e) => setPassword(e.target.value)}
               minLength='4'
               maxLength='20'
               required
               placeholder='Lösenord'
             />
         </InputContainer>
-         {/* {userId === null && <ErrorMessage className="error-message">{error}</ErrorMessage>} */}
         <ButtonContainer>
           <SubmitButton type="submit" onClick={() => setMode('login')}>LOGGA IN</SubmitButton>
           <SubmitButton type="submit" onClick={() => setMode('signup')}>REGISTRERA DIG</SubmitButton>
@@ -166,6 +163,23 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 margin: 10px;
+`
+const InputRow = styled.input`
+border-radius: 15px;
+border: solid 3px #F3F3F3;
+color: #000000;
+outline: none;
+padding: 5px;
+margin: 5px 15px;
+background: #ffffff;
+::placeholder,
+::-webkit-input-placeholder {
+  text-align: center;
+  color: #A4A3A3;
+}
+:-ms-input-placeholder {
+   color: #A4A3A3;
+}
 `
 const ButtonContainer = styled(InputContainer)`
 `

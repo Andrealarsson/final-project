@@ -10,11 +10,13 @@ const user = createSlice({
   },
     reducers: {
     setUser: (store, action) => {
-      const {userId, username, accessToken, errors } = action.payload
+      const {userId, username, accessToken } = action.payload
         store.userId = userId
         store.username = username
         store.accessToken = accessToken
-        store.errors = errors
+      },
+      setErrors: (store, action) => {
+          store.errors = action.payload
    
     }
   }
