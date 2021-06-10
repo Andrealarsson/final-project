@@ -24,7 +24,7 @@ const LoginSignup = () => {
  }
   useEffect(() => {
     if(accessToken) {
-    history.push("/my-trip");
+    history.push('/users/:userId/my-trip');
   }
 }, [ accessToken,history]);
 

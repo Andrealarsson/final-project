@@ -6,9 +6,9 @@ const Navbar = () =>  {
   return(
     <>
       <ul>
-        <li><a href='/my-trip'>Min Resa</a></li>
-        <li><a href='/info'>Viktig info</a></li>
-        <li><a href='/checklist'>Checklista</a></li>
+        <li><a href='/users/:userId/my-trip'>Min Resa</a></li>
+        <li><a href='/users/info'>Viktig info</a></li>
+        <li><a href='/users/:userId/checklist'>Checklista</a></li>
       </ul>
     </>
   )

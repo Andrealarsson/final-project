@@ -29,11 +29,11 @@ export const App = () => {
       <Provider store={store}>
         <Header/>
         <Switch>
-          <Route exact path="/" component={LoginSignup}/>
-          <Route path="users/:userId/my-trip" component={MyTrip}/>
-          <Route path="/departure" component={Departure}/>
-          <Route path="/info" component={Info}/>
-          <Route path='users/:userId/checklist' component={Checklist}/>
+          <Route exact path='/' component={LoginSignup}/>
+          <Route path='/users/:userId/my-trip' component={MyTrip}/>
+          <Route path='/users/:userId/departure' component={Departure}/>
+          <Route path='/users/info' component={Info}/>
+          <Route path='/users/:userId/checklist' component={Checklist}/>
         </Switch>
         <Footer/>
       </Provider>
