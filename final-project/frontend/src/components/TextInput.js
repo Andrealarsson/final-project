@@ -19,11 +19,11 @@ background: #ffffff;
 }
 `
 
-const TextInput = ({value, handleChange, title, type}) => {
+const TextInput = ({value, handleChange, type}) => {
 
 return( 
  <>
-    <Input id="username" value={value} onChange={handleChange} type={type} />
+    <Input id={value} value={value} onChange={handleChange} type={type} />
  </>)
 }
 

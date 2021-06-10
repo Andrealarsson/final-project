@@ -44,7 +44,7 @@ const LoginSignup = () => {
       .then(data => {
         console.log(data)
         if (data.success) {
-          dispatch(user.actions.setUser({userID: data.userID, username: data.username, accessToken: data.accessToken, errors: null}))
+          dispatch(user.actions.setUser({userId: data.userId, username: data.username, accessToken: data.accessToken, errors: null}))
         } else {
           dispatch(user.actions.setUser({errors:''}))
         }})

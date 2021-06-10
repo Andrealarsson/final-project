@@ -30,10 +30,10 @@ export const App = () => {
         <Header/>
         <Switch>
           <Route exact path="/" component={LoginSignup}/>
-          <Route exact path="/my-trip" component={MyTrip}/>
+          <Route path="users/:userId/my-trip" component={MyTrip}/>
           <Route path="/departure" component={Departure}/>
           <Route path="/info" component={Info}/>
-          <Route path="/checklist" component={Checklist}/>
+          <Route path='users/:userId/checklist' component={Checklist}/>
         </Switch>
         <Footer/>
       </Provider>

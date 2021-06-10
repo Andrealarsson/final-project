@@ -30,9 +30,7 @@ const userSchema = new mongoose.Schema({
     unique: true
   },
   // Array of tasks
-  items: [{
-    // id: { 
-    //  type: Number }, 
+  items: [{ 
     description: { 
       type: String 
       },
@@ -82,7 +80,7 @@ app.post('/signup', async (req, res) => {
     }).save()
     res.json({
       success: true,
-      userID: user._id,
+      userId: user._id,
       username: user.username,
       accessToken: user.accessToken
     })
@@ -98,24 +96,25 @@ app.post('/login', async (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
         success: true,
-        userID: user._id,
+        userId: user._id,
         username: user.username,
         accessToken: user.accessToken
       })
     } else {
-      res.status(404).json({ success: false, errorMessage: 'User not found' })
+      res.status(404).json({ success: false, message: 'User not found' })
     }
   } catch (error) {
-  res.status(400).json({ success: false, errorMessage: 'Invalid request', error })
+  res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
 
-app.get('/users/:id/my-trip', authenticateUser);
-app.get('/users/:id/my-trip', async (req, res) => {
-  res.json({ success: true })
+app.get('/users/:userId/my-trip', authenticateUser);
+app.get('/users/:userId/my-trip', async (req, res) => {
+  const myTrips = await MyTrips.find();
+  res.json({ success: true, myTrips })
 })
 
-app.post('/users/:id/checklist', async (req, res) => {
+app.post('/users/:userId/checklist', async (req, res) => {
   try {
     const userId = req.params.id
     const { isComplete, description, createdAt } = req.body
@@ -125,49 +124,33 @@ app.post('/users/:id/checklist', async (req, res) => {
     } catch(error) {
       throw "User not found"
     }
-      user.items.push({ isComplete: isComplete, description: description, createdAt: createdAt})
+      user.items.push({ 
+        isComplete: isComplete, 
+        description: description, 
+        createdAt: createdAt})
       user.save()
-      // const addedItems = user.items[user.items.length-1]
-      res.status(200).json
+      res.status(200).json({ success: true })
     } catch(error) {
-      res.status(404).json({ success: false, errorMessage: 'Could not add item', error })
+      res.status(400).json({ success: false, message: 'Could not add item', error })
     }
 })
 
-app.get("/users/:id/checklist", async (req, res) => {
+app.get("/users/:userId/checklist", async (req, res) => {
   try {
     const userId = req.params.id
     // const { items } = req.params
-    const { isComplete, description, createdAt } = req.body
+    const { _id, isComplete, description, createdAt } = req.body
     let user;
     try {
       user = await User.findById(userId) 
     } catch(error) {
         throw "User not found";
     }
-    // const arrayOfItems = res.json.map(item)
-    // res.status(200).json({ success: true, arrayOfItems})
-    
-    res.status(200).json({ isComplete: isComplete, description: description, createdAt: createdAt})
+    res.status(200).json({ success: true, _id: _id, isComplete: isComplete, description: description, createdAt: createdAt})
   } catch(error) {
-    res.status(404).json({ success: false, errorMessage: 'Could not get items', error })
+    res.status(404).json({ success: false, message: 'Could not get items', error })
   }
 });
-
-//   res.json({ success: true, todos});
-// });
-
-/*app.post('/checklist', authenticateUser);
-app.post('/checklist', async (req, res) => {
-  const { items } = req.body
-
-  try {
-    const newTodo = await new Todo({ items }).save();
-    res.json({ success: true, newTodo})
-  } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', error })
-  }
-});*/
 
 // Start the server
 app.listen(port, () => {

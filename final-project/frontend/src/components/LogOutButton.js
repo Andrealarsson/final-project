@@ -7,9 +7,9 @@ import user from '../reducers/user'
 const LogOutButton = () => {
 
   const dispatch = useDispatch();
-  
+
   const handleClick = () => {
-  dispatch(user.actions.setUser({userID: null, accessToken: null, errors: null})) 
+  dispatch(user.actions.setUser({userId: null, accessToken: null, errors: null})) 
   }
   return(
     <>

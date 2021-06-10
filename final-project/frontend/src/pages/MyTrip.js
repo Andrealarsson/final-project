@@ -25,7 +25,7 @@ const MyTrip = () => {
             Authorization: accessToken
           }  
       }
-      fetch(API_URL('my-trip'), option)
+      fetch(API_URL('myTrip'), option)
       .then((res) => res.json())
       .then(data => {
           if(data.success) { 
