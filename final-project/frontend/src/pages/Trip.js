@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import LogOutButton from '../components/LogOutButton'
 import trip from '../reducers/trip'
-// import user from '../reducers/user'
+import user from '../reducers/user'
 import { API_URL } from '../reusable/urls' 
 
 const Trip = () => {

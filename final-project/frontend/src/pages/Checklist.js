@@ -11,7 +11,9 @@ import { API_URL } from '../reusable/urls'
 
 const Checklist = () => {
   const accessToken = useSelector(store => store.user.accessToken)
+  const userId = useSelector(store => store.user.userId)
   const todos = useSelector(store => store.todos.items)
+  // const error = useSelector(store => store.todos.errors)
   
   const history = useHistory();
   const dispatch = useDispatch();
@@ -29,19 +31,20 @@ const Checklist = () => {
           Authorization: accessToken
         }  
     }
-    fetch(API_URL('users/checklist'), options)
+    fetch(API_URL(`users/${userId}/checklist`), options)
     .then((res) => res.json())
     .then(data => {
         if(data.success) { 
-          dispatch(todos.actions.setItems({_id: data._id, description: data.description, createdAt: data.createdAt, isComplete: data.isComplete})) 
+          dispatch(todos.actions.setItems(data.items))
+            // {_id: data._id, description: data.description, createdAt: data.createdAt, isComplete: data.isComplete})) 
           dispatch(todos.actions.setErrors(null))
         
         } else {
-          dispatch(todos.actions.setErrors(data))
+          dispatch(todos.actions.setErrors(data.error))
         }
     })
-    .catch()
-},[accessToken, todos, dispatch])
+    .catch()},)
+// },[accessToken, dispatch])
 
 return (
   <>

@@ -32,9 +32,6 @@ const User = mongoose.model( 'User',{
 //   //Array of trips
 //   const Trip = mongoose.model( 'Trip',{
   trip: [{
-    _id:{
-      type: String
-    },
     destination: {
       type: String,
       required: true
@@ -52,9 +49,6 @@ const User = mongoose.model( 'User',{
 //   // Array of tasks
 //   const Items = mongoose.model( 'Items',{
   items: [{ 
-    _id:{
-      type: String
-    },
     description: { 
       type: String 
       },
@@ -133,7 +127,7 @@ app.post('/login', async (req, res) => {
 app.post('/users/:userId/trip', authenticateUser, async (req, res) => {
   try {
     const {userId} = req.params
-    const { _id, destination, departureDate, departureTime } = req.body
+    const { destination, departureDate, departureTime } = req.body
     let user;
     try {
       user = await User.findOne({_id: userId})
@@ -141,7 +135,6 @@ app.post('/users/:userId/trip', authenticateUser, async (req, res) => {
       throw "User not found"
     }
       user.trip.push({ 
-        _id: _id,
         destination: destination, 
         departureDate: departureDate, 
         departureTime: departureTime})
@@ -151,15 +144,16 @@ app.post('/users/:userId/trip', authenticateUser, async (req, res) => {
       res.status(400).json({ success: false, message: 'Could not add trip', error })
     }
   })
+
 // Get Trip
 app.get('/users/:userId/trip', authenticateUser, async (req, res) => {
   try {
     const { userId } = req.params
     const user = await User.findOne({ _id: userId })
 
-    res.status(200).json({ trip: user.trip })
+    res.status(200).json({ success: true, trip: user.trip })
   } catch {
-    res.status(400).json({ message: 'Something went wrong, could not fetch trip',error })
+    res.status(400).json({ success: false, message: 'Something went wrong, could not fetch trip',error })
   }
 })
 
@@ -167,7 +161,7 @@ app.get('/users/:userId/trip', authenticateUser, async (req, res) => {
 app.post('/users/:userId/checklist', authenticateUser, async (req, res) => {
   try {
     const {userId} = req.params
-    const { _id, isComplete, description, createdAt } = req.body
+    const { isComplete, description, createdAt } = req.body
     let user;
     try {
       user = await User.findOne({ _id: userId })
@@ -175,7 +169,6 @@ app.post('/users/:userId/checklist', authenticateUser, async (req, res) => {
       throw "User not found"
     }
       user.items.push({ 
-        _id: _id,
         isComplete: isComplete, 
         description: description, 
         createdAt: createdAt})
@@ -192,9 +185,9 @@ app.get("/users/:userId/checklist", authenticateUser, async (req, res) => {
     const { userId } = req.params
     const user = await User.findOne({ _id: userId })
 
-    res.status(200).json({ items: user.items })
+    res.status(200).json({ success: true, items: user.items })
   } catch {
-    res.status(400).json({ message: 'Something went wrong, could not fetch checklist', error })
+    res.status(400).json({ success: false, message: 'Something went wrong, could not fetch checklist', error })
   }
 })
   

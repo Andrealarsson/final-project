@@ -1,14 +1,17 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import { useSelector } from 'react-redux'
+import {Link } from 'react-router-dom'
 
 const Navbar = () =>  {
+  const userId = useSelector(store => store.user.userId)
 
   return(
     <>
       <HeaderNavbar>
-        <TripPage><Link href='/users/:userId/trip'>MINA RESOR</Link></TripPage>
-        <InfoPage><Link href='/users/info'>VIKTIG INFO</Link></InfoPage>
-        <ChecklistPage><Link href='/users/:userId/checklist'>CHECKLISTA</Link></ChecklistPage>
+        <TripPage><Link to={`/users/${userId}/trip`}>MINA RESOR</Link></TripPage>
+        <InfoPage><Link to='/users/info'>VIKTIG INFO</Link></InfoPage>
+        <ChecklistPage><Link to={`/users/${userId}/checklist`}>CHECKLISTA</Link></ChecklistPage>
       </HeaderNavbar>
     </>
   )
@@ -23,9 +26,9 @@ justify-content: space-around;
 list-style-type:  none;
 `
 
-const Link = styled.a`
-text-decoration: none;
-`
+// const Link = styled.a`
+// text-decoration: none;
+// `
 
 const TripPage = styled.li`
 `

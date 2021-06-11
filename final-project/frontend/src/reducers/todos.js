@@ -3,21 +3,14 @@ import { createSlice } from '@reduxjs/toolkit'
 const todos = createSlice({
   name: 'todos',
   initialState: {
-    items: [{
-    _id: null,
-    description: null,
-    createdAt: null,
-    isComplete: null,
-  }],
+    items: [],
     errors: null
   },
+
   reducers: {
     setItems: (store, action) => {
-      const { _id, description, createdAt, isComplete } = action.payload
-      store.items._id = _id
-      store.items.description = description
-      store.items.createdAt = createdAt
-      store.items.isComplete = isComplete
+      store.items = [ action.payload, ...store.items]
+      //maybee store.todos?
 
     },
     setErrors: (store, action) => {
