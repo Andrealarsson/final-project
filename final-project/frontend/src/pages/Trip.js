@@ -9,6 +9,7 @@ import { API_URL } from '../reusable/urls'
 
 const Trip = () => {
     const accessToken = useSelector(store => store.user.accessToken)
+    const userId = useSelector(store => store.user.userId)
     const trips = useSelector(store => store.trip.trip)
     const history = useHistory();
     const dispatch = useDispatch();
@@ -20,34 +21,37 @@ const Trip = () => {
     }, [accessToken, history]);
 
     useEffect(() => {
-      const option = {
+      const options = {
           method: 'GET',
           headers: {
             Authorization: accessToken
           }  
       }
-      fetch(API_URL('users/trip'), option)
+      fetch(API_URL(`users/${userId}/trip`), options)
       .then((res) => res.json())
       .then(data => {
           if(data.success) { 
-            dispatch(trip.actions.setTrip(data.trip
-              /*{
-              destination: data.destination, 
-              detartureDate: data.departureDate, 
-              departureTime: data.departureTime}*/)) 
+            dispatch(trip.actions.setTrip(data.trip))
+              // ({
+              // _id: data._id,
+              // destination: data.destination, 
+              // detartureDate: data.departureDate, 
+              // departureTime: data.departureTime}))
+              
             dispatch(trip.actions.setErrors(null))
           } else {
             dispatch(trip.actions.setErrors(data))
           }
       })
      .catch()
-  },[accessToken, dispatch])
+  },[accessToken, userId, dispatch])
 
+  console.log(trips)
  return (
  <> 
-   <div>{trips.map(trip => (
-        <div key={trip._id}>{trips.destination}</div>
-      ))}</div>
+    {/* <div>{trips.map((trip) => (
+        <div key={trip._id}>{trip}</div>
+    ))}</div>  */}
    <h2>trips</h2>
    <LogOutButton>Log out</LogOutButton>
  </>

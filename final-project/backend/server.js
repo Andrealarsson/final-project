@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt'
 
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
 
@@ -26,8 +26,7 @@ const User = mongoose.model( 'User',{
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex'),
-    unique: true
+    default: () => crypto.randomBytes(128).toString('hex')
   },
 // })
 //   //Array of trips
@@ -68,6 +67,12 @@ const User = mongoose.model( 'User',{
   }]
 })
 
+const port = process.env.PORT || 8080
+const app = express()
+
+app.use(cors())
+app.use(express.json())
+
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
   try {
@@ -78,15 +83,9 @@ const authenticateUser = async (req, res, next) => {
       res.status(401).json({ success: false, message: 'Not authorized' });
     }
   } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', error });
+    res.status(400).json({ success: false, message: 'Invalid request', errors:err });
   }
 }
-
-const port = process.env.PORT || 8080
-const app = express()
-
-app.use(cors())
-app.use(bodyParser.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
@@ -131,13 +130,13 @@ app.post('/login', async (req, res) => {
   }
 })
 // Post Trip
-app.post('/users/trip', authenticateUser, async (req, res) => {
+app.post('/users/:userId/trip', authenticateUser, async (req, res) => {
   try {
-    const userId = req.params.id
+    const {userId} = req.params
     const { _id, destination, departureDate, departureTime } = req.body
     let user;
     try {
-      user = await User.findOne(userId)
+      user = await User.findOne({_id: userId})
     } catch(error) {
       throw "User not found"
     }
@@ -153,47 +152,30 @@ app.post('/users/trip', authenticateUser, async (req, res) => {
     }
   })
 // Get Trip
-app.get('/users/trip', authenticateUser, async (req, res) => {
-  /*
-  const trip = await Trip.find()
-  res.json({ success: true, trip})
-})*/
-/*
-  const { accessToken } = req.body;
-
+app.get('/users/:userId/trip', authenticateUser, async (req, res) => {
   try {
-    if (accessToken) {
-      const user = await User.findOne({ accessToken });
-      const trip = user.trip;*/
-      // const trip = await Trip.find();
-      try {
-        const userId = req.params.id
-        const { trip } = req.body
-        // const { _id, isComplete, description, createdAt } = req.body
-        let user;
-        try {
-          user = await User.findById(userId) 
-        } catch(error) {
-            throw "User not found";
-        }
-        res.status(200).json({ success: true, trip})
-      } catch(error) {
-        res.status(400).json({ success: false, message: 'Could not get trip', error })
-      }
-    });
+    const { userId } = req.params
+    const user = await User.findOne({ _id: userId })
+
+    res.status(200).json({ trip: user.trip })
+  } catch {
+    res.status(400).json({ message: 'Something went wrong, could not fetch trip',error })
+  }
+})
 
 // POST Items
-app.post('/users/checklist', authenticateUser, async (req, res) => {
+app.post('/users/:userId/checklist', authenticateUser, async (req, res) => {
   try {
-    const userId = req.params.id
-    const { isComplete, description, createdAt } = req.body
+    const {userId} = req.params
+    const { _id, isComplete, description, createdAt } = req.body
     let user;
     try {
-      user = await User.findOne(userId)
+      user = await User.findOne({ _id: userId })
     } catch(error) {
       throw "User not found"
     }
       user.items.push({ 
+        _id: _id,
         isComplete: isComplete, 
         description: description, 
         createdAt: createdAt})
@@ -205,28 +187,17 @@ app.post('/users/checklist', authenticateUser, async (req, res) => {
 })
 
 // GET Items
-app.get("/users/checklist", authenticateUser, async (req, res) => {
-  /*const { accessToken } = req.body;
+app.get("/users/:userId/checklist", authenticateUser, async (req, res) => {
   try {
-    if (accessToken) {
-      const user = await User.findOne({ accessToken });
-      const items = user.items;
-      res.status(200).json({ success: true, items})}*/
-  try {
-    const userId = req.params.id
-    const { items } = req.body
-    // const { _id, isComplete, description, createdAt } = req.body
-    let user;
-    try {
-      user = await User.findById(userId) 
-    } catch(error) {
-        throw "User not found";
-    }
-    res.status(200).json({ success: true, items})
-  } catch(error) {
-    res.status(400).json({ success: false, message: 'Could not get items', error })
+    const { userId } = req.params
+    const user = await User.findOne({ _id: userId })
+
+    res.status(200).json({ items: user.items })
+  } catch {
+    res.status(400).json({ message: 'Something went wrong, could not fetch checklist', error })
   }
-});
+})
+  
 
 // Start the server
 app.listen(port, () => {

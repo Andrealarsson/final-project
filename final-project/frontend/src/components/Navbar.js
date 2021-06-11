@@ -6,9 +6,9 @@ const Navbar = () =>  {
   return(
     <>
       <HeaderNavbar>
-        <TripPage><Link href='/users/trip'>MINA RESOR</Link></TripPage>
+        <TripPage><Link href='/users/:userId/trip'>MINA RESOR</Link></TripPage>
         <InfoPage><Link href='/users/info'>VIKTIG INFO</Link></InfoPage>
-        <ChecklistPage><Link href='/users/checklist'>CHECKLISTA</Link></ChecklistPage>
+        <ChecklistPage><Link href='/users/:userId/checklist'>CHECKLISTA</Link></ChecklistPage>
       </HeaderNavbar>
     </>
   )

@@ -9,12 +9,13 @@ const trip= createSlice({
         departureDate: null, 
         departureTime: null,
     }],
-    errors: null
-},
+        errors: null
+    },
+    
     reducers: {
         setTrip: (store, action) => {
         const { _id, destination, departureDate, departureTime } = action.payload
-          store._id.destination = _id
+          store.trip._id = _id
           store.trip.destination = destination
           store.trip.detartureDate = departureDate
           store.trip.departureTime = departureTime  

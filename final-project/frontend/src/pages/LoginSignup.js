@@ -16,12 +16,13 @@ const LoginSignup = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const accessToken = useSelector(store => store.user.accessToken)
+  const userId = useSelector(store => store.user.userId)
   
   useEffect(() => {
     if(accessToken) {
-    history.push('/users/trip');
+    history.push(`/users/${userId}/trip`);
   }
-}, [ accessToken,history]);
+}, [ accessToken, history, userId]);
 
     const onFormSubmit = (e) => {
       e.preventDefault()
@@ -31,7 +32,7 @@ const LoginSignup = () => {
         headers: {
           'Content-Type': 'application/json'                
         },  
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ userId, username, password })
         }
 
     fetch(API_URL(mode), options)
