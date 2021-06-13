@@ -9,13 +9,13 @@ const todos = createSlice({
 
   reducers: {
     setItems: (store, action) => {
-      store.items = [ action.payload, ...store.items]
+      store.items = [ store.items, ... action.payload]
       //maybee store.todos?
 
     },
     setErrors: (store, action) => {
       store.errors = action.payload
-    }
+    
     /*
     setItems: (store, action) => {
       store.items = action.payload
@@ -25,11 +25,11 @@ const todos = createSlice({
   /*
     setErrors: (store, action) => {
       const { errors } = action.payload
-      store.errors = errors
-  },/*
+      store.errors = errors*/
+  },
     toggleComplete: (store, action) => {
       const updatedItems = store.items.map(todo => {
-        if (todo.id === action.payload){
+        if (todo._id === action.payload){
           return {
             ...todo, 
             isComplete: !todo.isComplete
@@ -41,7 +41,7 @@ const todos = createSlice({
       store.items=updatedItems
     },
     removeTodo: (store, action) => {
-      const decreasedItems= store.items.filter(todo => todo.id !== action.payload)
+      const decreasedItems= store.items.filter(todo => todo._id !== action.payload)
       store.items = decreasedItems
     },
     addTodo: (store,action) => {
@@ -50,7 +50,7 @@ const todos = createSlice({
     removeAll: (store) => {
       let emptyArray = store.items
       emptyArray.length = 0
-    } */
+    } 
   }
 })
  

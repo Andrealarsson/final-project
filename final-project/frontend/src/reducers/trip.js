@@ -9,7 +9,7 @@ const trip= createSlice({
     
     reducers: {
         setTrip: (store, action) => {
-            store.trip = [ action.payload, ...store.trip]
+            store.trip = [ store.trip, ...action.payload]
 
         },
         setErrors: (store, action) => {

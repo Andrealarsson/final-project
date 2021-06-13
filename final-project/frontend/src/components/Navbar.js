@@ -9,9 +9,9 @@ const Navbar = () =>  {
   return(
     <>
       <HeaderNavbar>
-        <TripPage><Link to={`/users/${userId}/trip`}>MINA RESOR</Link></TripPage>
-        <InfoPage><Link to='/users/info'>VIKTIG INFO</Link></InfoPage>
-        <ChecklistPage><Link to={`/users/${userId}/checklist`}>CHECKLISTA</Link></ChecklistPage>
+        <TripPage><PageLink to={`/users/${userId}/trip`}>MINA RESOR</PageLink></TripPage>
+        <InfoPage><PageLink to='/users/info'>VIKTIG INFO</PageLink></InfoPage>
+        <ChecklistPage><PageLink to={`/users/${userId}/checklist`}>CHECKLISTA</PageLink></ChecklistPage>
       </HeaderNavbar>
     </>
   )
@@ -25,12 +25,17 @@ flex-direction: row;
 justify-content: space-around;
 list-style-type:  none;
 `
+const PageLink = styled(Link)`
+    text-decoration: none;
+    color: #ffffff;
 
-// const Link = styled.a`
-// text-decoration: none;
-// `
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+        `
 
 const TripPage = styled.li`
+text-decoration: none;
+
 `
 
 const InfoPage = styled.li`

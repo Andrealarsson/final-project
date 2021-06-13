@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-// import todos from '../reducers/todos'
+import moment from 'moment';
+import todos from '../reducers/todos'
 // import user from '../reducers/user'
-// import AddTodo from '../components/AddTodo'
+import AddTodo from '../components/AddTodo'
 // import TodoList from '../components/TodoList'
 // import RemoveAllTodos from '../components/RemoveAllTodos'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { API_URL } from '../reusable/urls' 
+
 
 const Checklist = () => {
   const accessToken = useSelector(store => store.user.accessToken)
   const userId = useSelector(store => store.user.userId)
-  const todos = useSelector(store => store.todos.items)
-  // const error = useSelector(store => store.todos.errors)
-  
+  const todosItems = useSelector(store => store.todos.items)  
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -40,36 +40,36 @@ const Checklist = () => {
           dispatch(todos.actions.setErrors(null))
         
         } else {
-          dispatch(todos.actions.setErrors(data.error))
+          dispatch(todos.actions.setErrors(data))
         }
     })
-    .catch()},)
-// },[accessToken, dispatch])
+    .catch()
+ },[accessToken, userId, dispatch])
+
+ console.log(todosItems)
 
 return (
   <>
+    <AddTodo/>
     <TodoListContainer>
-      {todos.map(todo => (
-        <div key={todo._id}>{todo.description}</div>
-      ))}
-      {/* {items.map(todo => (
+      {todosItems.map((todo) => (
         <TodoItem key={todo._id}>
           <Checkbox
             type='checkbox'
             checked={todo.isComplete}
-            onChange={() => dispatch(todos.actions.toggleComplete(todo.id))}
+            onChange={() => dispatch(todos.actions.toggleComplete(todo._id))}
           />
           <p style={{ textDecoration: todo.isComplete ? "line-through" : "" }}>
             {todo.description}
           </p>
-          <RemoveButton onClick={() => dispatch(todos.actions.removeTodo(todo.id))}>
-            🗑 
+          <RemoveButton onClick={() => dispatch(todos.actions.removeTodo(todo._id))}>
+            Ta bort
           </RemoveButton>    
            <TimeAdded>
-            {/* {moment(todo.time).format('ddd HH:mm')} */}
-          {/* </TimeAdded>
-        </TodoItem>
-      ))}  */}
+            {moment(todo.createdAt).format('ddd HH:mm')}
+          </TimeAdded>
+          </TodoItem>
+      ))}  
     </TodoListContainer>
   </>
 )
@@ -81,17 +81,17 @@ export default Checklist
 const TodoListContainer = styled.div`
 border-radius: 5px;
 min-height: 280px;
-background: #112d32;
+background: #ffffff;
 `
-/*const TodoItem = styled.div`
+const TodoItem = styled.div`
 position: relative;
 border-radius: 5px;
 display: flex;
 flex-direction: row;
 align-items: center;
 justify-content: space-between;
-background: #88bdbc;
-color: #ffffff;
+background: #ffffff;
+color: black;
 margin: 3px;
 padding: 5px;
 `
@@ -116,18 +116,18 @@ transform: scale(1.9);
 }
 `
 const RemoveButton = styled.button`
-transform: scale(1.7);
-background-color: #88bdbc;
-color: #ffffff;
+font-size: 13px;
+background-color: #ffffff;
+color: red;
 cursor: pointer;
-border: none;
-border-radius: 3px;
+border-radius: 15px;
+border: solid 1px #F3F3F3;
 margin-right: 8px;
 outline: none;
 &:hover {
-color: #112d32;
+color: #ffffff;
+background-color: #F3F3F3;
 }
 @media (min-width: 768px) {
-transform: scale(1.9);
-}`*/
+}`
   

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import LogOutButton from '../components/LogOutButton'
+import moment from 'moment';
 import trip from '../reducers/trip'
 import user from '../reducers/user'
 import { API_URL } from '../reusable/urls' 
@@ -49,13 +49,43 @@ const Trip = () => {
   console.log(trips)
  return (
  <> 
-    {/* <div>{trips.map((trip) => (
-        <div key={trip._id}>{trip}</div>
-    ))}</div>  */}
-   <h2>trips</h2>
-   <LogOutButton>Log out</LogOutButton>
+    <TripTitle>Kommande avresor</TripTitle>
+    <TripContainer>{trips.map((trip) => (
+        <TripList key={trip._id}>
+          <Destination>{trip.destination}</Destination>
+          <Departure>{moment(trip.departure).format('D MMM YYYY, HH:mm')}</Departure>
+        </TripList>
+    ))}</TripContainer>   
  </>
  )
 }
 
 export default Trip
+
+const TripTitle = styled.h1`
+color: #ffffff;`
+const TripContainer = styled.div`
+background-color: #ffffff;
+min-height: 500px;
+widht: 80vw;
+margin: 30px, 20px;
+font-size: 18px;
+border-radius: 30px;;
+text-align: center;
+justify-content: center;
+box-shadow: 3px 40px 30px 2px #ccc;`
+
+const TripList = styled.div`
+display: flex;
+flex-direction: row;
+
+text-align: start;`
+
+const Destination = styled.h2`
+font-size: 18px;
+margin: 0px, 20px;
+`
+
+const Departure = styled.h2`
+font-size: 18px;
+`

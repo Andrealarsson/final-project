@@ -23,6 +23,6 @@ export default LogOutButton
 const Button = styled.button`
  background: white;
  border: none;
- box-shadow: 2px 2px 1px 2px grey;
- border-radius: 5px;
+//  box-shadow: 2px 2px 1px 2px grey;
+ border-radius: 1px;
  `

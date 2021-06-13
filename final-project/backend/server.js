@@ -36,14 +36,14 @@ const User = mongoose.model( 'User',{
       type: String,
       required: true
     }, 
-    departureDate: {
+    // _id: {
+    //   type: String,
+    // },
+    departure: {
       type: Date,
-      // requered: true
-    }, 
-    departureTime: {
-      type: Date,
-      // requered: true
+      requered: true
     }
+    //YYYY-MM-DDThh:mmTZD, (eg 1997-07-16T19:20+01:00)
   }],
 // })  
 //   // Array of tasks
@@ -127,7 +127,7 @@ app.post('/login', async (req, res) => {
 app.post('/users/:userId/trip', authenticateUser, async (req, res) => {
   try {
     const {userId} = req.params
-    const { destination, departureDate, departureTime } = req.body
+    const { destination, departure } = req.body
     let user;
     try {
       user = await User.findOne({_id: userId})
@@ -136,8 +136,8 @@ app.post('/users/:userId/trip', authenticateUser, async (req, res) => {
     }
       user.trip.push({ 
         destination: destination, 
-        departureDate: departureDate, 
-        departureTime: departureTime})
+        departure: departure,
+        })
       user.save()
       res.status(200).json({ success: true })
     } catch(error) {
@@ -180,7 +180,7 @@ app.post('/users/:userId/checklist', authenticateUser, async (req, res) => {
 })
 
 // GET Items
-app.get("/users/:userId/checklist", authenticateUser, async (req, res) => {
+app.get('/users/:userId/checklist', authenticateUser, async (req, res) => {
   try {
     const { userId } = req.params
     const user = await User.findOne({ _id: userId })

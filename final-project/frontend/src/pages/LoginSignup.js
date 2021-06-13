@@ -191,14 +191,14 @@ border-radius: 15px;
 padding: 5px;
 margin: 10px 15px;
 border: none;
-box-shadow: 0px 3px 4px 4px #FFB1A6;
+box-shadow: 0px 3px 6px 3px #FFB1A6;
 &:hover{
   background: pink;
   color: white;
 &:active {
   box-shadow: none;
-  transform: translateY(4px);
-  transform: translateX(4px);
+  transform: translateY(2px);
+  transform: translateX(2px);
 }
 }
 `
