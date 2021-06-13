@@ -13,7 +13,7 @@ const LogOutButton = () => {
   }
   return(
     <>
-    <Button onClick={handleClick}>Log out</Button>
+    <Button onClick={handleClick}>LOGGA UT</Button>
     </>
   )
 }
@@ -21,8 +21,9 @@ const LogOutButton = () => {
 export default LogOutButton
 
 const Button = styled.button`
- background: white;
+ background: none;
+ color: #ffffff;
+ font-size: 15px;
  border: none;
-//  box-shadow: 2px 2px 1px 2px grey;
- border-radius: 1px;
+
  `

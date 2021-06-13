@@ -23,19 +23,19 @@ const AddTodo =() => {
   }
   return(
     <>
-      <AddTodoText></AddTodoText>
       <TodoForm onSubmit={onFormSubmit}>
+      <AddButton type='submit' disabled={
+          value.length < 3 || value.length > 140 }>
+          {" "}+{" "}
+        </AddButton>
         <TodoInput
           type='text'
           required
           value={value}
-          placeholder="Packa ner. . .✏️"
+          placeholder="Lägg till..."
           onChange={e => setValue (e.target.value)}
         />
-        <AddButton type='submit' disabled={
-          value.length < 3 || value.length > 140 }>
-          {" "}+{" "}
-        </AddButton>
+        
       </TodoForm>
     </>
   )
@@ -43,25 +43,27 @@ const AddTodo =() => {
 
 export default AddTodo
 
-const AddTodoText = styled.p`
-color: #ffffff;
-padding-top: 10px;
-`
+
 const TodoForm = styled.form`
-padding: 5px 10px 20px 10px;
+// padding: 5px 10px 20px 10px;
+width: 80%;
 display: flex;
-justify-content: center;
-align-items: center;
+flex-direction: row;
+
+@media (min-width: 768px) {
+  margin-top: 20px;
+  max-width: 800px;
+}
 `
 const TodoInput = styled.input`
-background-color: #fff;
-border-radius: 5px;
-border: solid 2px #88bdbc;
+background-color: rgba(0, 0, 0, 0.56);
+color: #ffffff;
+border: none;
+border-radius: 2px;
 overflow-wrap: break-word;
 resize: none;
-min-height: 45px;
-min-width: 210px;
-margin 3px;
+height: 55px;
+// min-width: 210px;
 outline: none;
 @media (min-width: 768px) {
   min-height: 60px;
@@ -70,32 +72,32 @@ outline: none;
 } 
 `
 const AddButton = styled.button`
-height: 50px;
-width: 50px;
-border-radius: 5px;
-font-size: 43px;
+height: 57px;
+width: 57px;
+font-size: 20px;
 display: flex;
 justify-content: center;
 align-items: center;
 cursor: pointer;
 border: none;
-background-color: #88bdbc;
+border-radius: 2px;
+background-color: rgba(0, 0, 0, 0.56);
 color: #ffffff;
 outline: none;
-&:hover {
-  background-color: #e58819;
-  color: #112d32;
-  border: none;
-}
+// &:hover {
+//   background-color: #e58819;
+//   color: #112d32;
+//   border: none;
+// }
 &:disabled {
-  background-color: #ffffff;
-  color: #112d32;
+  background-color: rgba(0, 0, 0, 0.56);
+  color: #ffffff;
   border: none;
   cursor: arrow;
 }
 @media (min-width: 768px) {
   height: 65px;
   width: 65px;
-  font-size: 40px
+  font-size: 40px;
 } 
 `

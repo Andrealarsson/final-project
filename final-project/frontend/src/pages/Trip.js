@@ -6,6 +6,9 @@ import moment from 'moment';
 import trip from '../reducers/trip'
 import user from '../reducers/user'
 import { API_URL } from '../reusable/urls' 
+import Navbar from '../components/Navbar'
+import paris from '../assets/paris.jpg'
+import airplane from '../assets/airplane.png'
 
 const Trip = () => {
     const accessToken = useSelector(store => store.user.accessToken)
@@ -48,44 +51,71 @@ const Trip = () => {
 
   console.log(trips)
  return (
- <> 
-    <TripTitle>Kommande avresor</TripTitle>
+   <>
+ <TripSection>
+  <Navbar/>
+    <TitleContainer>
+      <TripIcon src= {airplane} width='20' height='20' alt='airplain icon'/>
+      <TripTitle>Kommande avresor</TripTitle>
+    </TitleContainer>
     <TripContainer>{trips.map((trip) => (
         <TripList key={trip._id}>
           <Destination>{trip.destination}</Destination>
-          <Departure>{moment(trip.departure).format('D MMM YYYY, HH:mm')}</Departure>
+          <Departure>{moment(trip.departure).format(' D MMM YYYY, HH:mm')}</Departure>
         </TripList>
     ))}</TripContainer>   
+ </TripSection> 
  </>
  )
 }
 
 export default Trip
 
-const TripTitle = styled.h1`
-color: #ffffff;`
-const TripContainer = styled.div`
-background-color: #ffffff;
-min-height: 500px;
-widht: 80vw;
-margin: 30px, 20px;
-font-size: 18px;
-border-radius: 30px;;
-text-align: center;
+const TripSection = styled.section`
+background-image: url('${paris}');
+height: 100vh;
+display: flex; 
 justify-content: center;
-box-shadow: 3px 40px 30px 2px #ccc;`
+align-items: center;
+flex-direction: column;
+`
+const TitleContainer = styled.div`
+display: flex;
+flex-direction: row;`
+
+const TripTitle = styled.h1`
+color: #ffffff;
+margin: 0px;
+font-size: 20px;
+` 
+
+const TripIcon = styled.img`
+
+`
+
+const TripContainer = styled.div`
+min-height: 300px;
+width: 80%;
+
+@media (min-width: 768px) {
+  margin-top: 20px;
+  max-width: 800px;
+}
+`
 
 const TripList = styled.div`
+background-color: #ffffff;
 display: flex;
 flex-direction: row;
-
-text-align: start;`
+text-align: start;
+justify-content: space-between;
+margin: 3px;
+padding: 10px;`
 
 const Destination = styled.h2`
-font-size: 18px;
-margin: 0px, 20px;
+font-size: 15px;
 `
 
 const Departure = styled.h2`
-font-size: 18px;
+font-size: 15px;
 `

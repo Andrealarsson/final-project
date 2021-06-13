@@ -95,29 +95,31 @@ const LoginSignup = () => {
 export default LoginSignup
 
 const Wrapper = styled.div`
+background-image: url('${mobile}');
 display: flex;
+height: 100vh;
 align-items: center;
 justify-content: center;
 flex-direction: column;
-margin: 20px;
 
 @media (min-width: 768px) {
   flex-direction: row;
 }
 `
 const InformationContainer = styled.div`
-background-image: url('${mobile}');
-background-color: #EC3B37;
-background-blend-mode: soft-light;
+
+background-color: rgba(0, 0, 0, 0.56);
 width: 75%;
 height: 300px;
-border-radius: 30px 30px 0px 0px;
+margin-top: 20px;
+border-radius: 2px 2px 0px 0px;
 text-align: center;
-box-shadow: 3px 40px 30px 2px #ccc;
+// box-shadow: 3px 40px 30px 2px #ccc;
 
 @media (min-width: 768px) {
-  border-radius: 30px 0px 0px 30px;
+  border-radius: 2px 0px 0px 2px;
   height: 400px;
+  margin-bottom: 20px;
   max-width: 400px;
 
 }
@@ -131,27 +133,28 @@ const LogoWhite = styled.img`
 `
 const InformationText = styled.p`
 color: #ffffff;
-font-size: 12px;
+font-size: 13px;
 margin: 20px;`
 
 const Form = styled.form`
 width: 75%;
 height: 330px;
 background: white;
-border-radius: 0px 0px 30px 30px;
-box-shadow: 3px 40px 30px 2px #ccc;
+margin-bottom: 20px;
+border-radius: 0px 0px 2px 2px;
+// box-shadow: 3px 40px 30px 2px #ccc;
 text-align: center;
 
 @media (min-width: 768px) {
-  border-radius: 0px 30px  30px 0px;
   height: 400px;
+  margin-top: 20px;
   max-width: 400px;
 }
 `
 const InputTitle = styled.h3`
 display: flex;
 justify-content: center;
-color: #EC3B37;
+color: #000000;
 font-size: 15px;
 margin: 15px 10px 0px;
 `
@@ -166,7 +169,7 @@ justify-content: center;
 margin: 10px;
 `
 const InputRow = styled.input`
-border-radius: 15px;
+border-radius: 2px;
 border: solid 3px #F3F3F3;
 color: #000000;
 outline: none;
@@ -185,13 +188,13 @@ background: #ffffff;
 const ButtonContainer = styled(InputContainer)`
 `
 const SubmitButton = styled.button`
-background: linear-gradient(to right, #EC3B37 30%, #CB1A16 90%);
+background-color: rgba(0, 0, 0, 0.56);
 color: #ffffff;
-border-radius: 15px;
+border-radius: 2px;
 padding: 5px;
 margin: 10px 15px;
 border: none;
-box-shadow: 0px 3px 6px 3px #FFB1A6;
+// box-shadow: 0px 3px 6px 3px #FFB1A6;
 &:hover{
   background: pink;
   color: white;

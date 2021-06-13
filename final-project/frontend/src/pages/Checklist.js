@@ -7,8 +7,10 @@ import todos from '../reducers/todos'
 import AddTodo from '../components/AddTodo'
 // import TodoList from '../components/TodoList'
 // import RemoveAllTodos from '../components/RemoveAllTodos'
+import Navbar from '../components/Navbar'
 import styled from 'styled-components/macro'
 import { API_URL } from '../reusable/urls' 
+import paris from '../assets/paris.jpg'
 
 
 const Checklist = () => {
@@ -50,7 +52,9 @@ const Checklist = () => {
 
 return (
   <>
-    <AddTodo/>
+    <TodoSection>
+    <Navbar/>
+    <TodoTitle>Checklista</TodoTitle>
     <TodoListContainer>
       {todosItems.map((todo) => (
         <TodoItem key={todo._id}>
@@ -59,18 +63,20 @@ return (
             checked={todo.isComplete}
             onChange={() => dispatch(todos.actions.toggleComplete(todo._id))}
           />
+           {/* <TimeAdded>
+            {moment(todo.createdAt).format('ddd HH:mm')}
+          </TimeAdded> */}
           <p style={{ textDecoration: todo.isComplete ? "line-through" : "" }}>
             {todo.description}
           </p>
           <RemoveButton onClick={() => dispatch(todos.actions.removeTodo(todo._id))}>
             Ta bort
           </RemoveButton>    
-           <TimeAdded>
-            {moment(todo.createdAt).format('ddd HH:mm')}
-          </TimeAdded>
           </TodoItem>
       ))}  
     </TodoListContainer>
+    <AddTodo/>
+    </TodoSection>
   </>
 )
 }
@@ -78,14 +84,32 @@ return (
 
 export default Checklist
 
+const TodoSection = styled.section`
+background-image: url('${paris}');
+height: 100vh;
+display: flex; 
+align-items: center;
+justify-content: center;
+flex-direction: column;
+`
+const TodoTitle = styled.h1`
+color: #ffffff;
+padding-top: 18px;
+font-size: 20px;
+`
 const TodoListContainer = styled.div`
-border-radius: 5px;
-min-height: 280px;
-background: #ffffff;
+min-height: 300px;
+width: 80%;
+
+@media (min-width: 768px) {
+  margin-top: 20px;
+  max-width: 800px;
+}
+
 `
 const TodoItem = styled.div`
 position: relative;
-border-radius: 5px;
+border-radius: 2px;
 display: flex;
 flex-direction: row;
 align-items: center;
@@ -98,12 +122,11 @@ padding: 5px;
 const TimeAdded = styled.p`
 font-size: 10px;
 position: absolute;
-left: 252px;
-top: 1px;
+left: 50px;
 margin: 2px;
 @media (min-width: 768px) {
 font-size: 11px;
-left: 340px;
+
 }`
 
 const Checkbox = styled.input`
@@ -118,7 +141,7 @@ transform: scale(1.9);
 const RemoveButton = styled.button`
 font-size: 13px;
 background-color: #ffffff;
-color: red;
+color: #000000;
 cursor: pointer;
 border-radius: 15px;
 border: solid 1px #F3F3F3;
@@ -126,7 +149,7 @@ margin-right: 8px;
 outline: none;
 &:hover {
 color: #ffffff;
-background-color: #F3F3F3;
+background-color: ;
 }
 @media (min-width: 768px) {
 }`

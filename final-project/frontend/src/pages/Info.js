@@ -1,10 +1,14 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import Navbar from '../components/Navbar'
+import paris from '../assets/paris.jpg'
 
 const Info = () => {
 
   return(
     <>
+    <InfoSection>
+    <Navbar/>
     <InfoContainer>
       <InfoTitle>Förberedelser inför resan </InfoTitle>
       <Title>Se till att vara försäkrad</Title>
@@ -77,28 +81,44 @@ const Info = () => {
           Tips: Ta en kopia på ditt pass och bär med dig {'>>'}
         </Text>
         </Link>
-          
     </InfoContainer>
+    </InfoSection>
     </>
   )
 }
 export default Info
 
+const InfoSection = styled.section`
+background-image: url('${paris}');
+height: 100vh;
+display: flex; 
+align-items: center;
+justify-content: center;
+flex-direction: column;
+`
 const InfoContainer = styled.div`
 text-decoration: none;
-margin: 0px 20px;
+width: 80%;
+margin: 70px, 0px;
+padding: 20px;
+flex-direction: row;
+align-items: center;
+background-color: #ffffff;
 
+@media (min-width: 768px) {
+  max-width: 800px;
+}
 `
 const Link = styled.a`
 text-decoration: none;
 `
 
 const InfoTitle = styled.h1`
-font-size: 24px;
+font-size: 20px;
 `
 
 const Title= styled.h2`
-font-size: 20px;
+font-size: 18px;
 margin-top: 20px;`
 
 const Text = styled.p`

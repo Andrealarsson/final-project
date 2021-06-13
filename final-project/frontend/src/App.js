@@ -7,7 +7,6 @@ import trip from './reducers/trip'
 import user from './reducers/user'
 import todos from './reducers/todos'
 
-import Header from './components/Header'
 import Footer from './components/Footer'
 import LoginSignup from './pages/LoginSignup'
 import Trip from './pages/Trip'
@@ -27,7 +26,6 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <Header/>
         <Switch>
           <Route exact path='/' component={LoginSignup}/>
           <Route path='/users/:userId/trip' component={Trip}/>
