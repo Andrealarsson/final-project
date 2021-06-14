@@ -11,6 +11,7 @@ import Navbar from '../components/Navbar'
 import styled from 'styled-components/macro'
 import { API_URL } from '../reusable/urls' 
 import paris from '../assets/paris.jpg'
+import checklist from '../assets/checklist.png'
 
 
 const Checklist = () => {
@@ -54,7 +55,10 @@ return (
   <>
     <TodoSection>
     <Navbar/>
+    <TitleContainer>
+    <TodoIcon src= {checklist} width='23' height='23' alt='checklist icon'/>
     <TodoTitle>Checklista</TodoTitle>
+    </TitleContainer>
     <TodoListContainer>
       {todosItems.map((todo) => (
         <TodoItem key={todo._id}>
@@ -86,16 +90,25 @@ export default Checklist
 
 const TodoSection = styled.section`
 background-image: url('${paris}');
+background-size: cover;
 height: 100vh;
 display: flex; 
 align-items: center;
 justify-content: center;
 flex-direction: column;
 `
-const TodoTitle = styled.h1`
+const TitleContainer = styled.div`
+display: flex;
+flex-direction: row;
+margin: 10px;`
+
+const TodoIcon = styled.img`
+margin-right: 5px;
+`
+const TodoTitle = styled.h2`
 color: #ffffff;
-padding-top: 18px;
 font-size: 20px;
+margin: 0px;
 `
 const TodoListContainer = styled.div`
 min-height: 300px;

@@ -96,6 +96,7 @@ export default LoginSignup
 
 const Wrapper = styled.div`
 background-image: url('${mobile}');
+background-size: cover;
 display: flex;
 height: 100vh;
 align-items: center;

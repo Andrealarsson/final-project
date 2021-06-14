@@ -90,6 +90,7 @@ export default Info
 
 const InfoSection = styled.section`
 background-image: url('${paris}');
+background-size: cover;
 height: 100vh;
 display: flex; 
 align-items: center;

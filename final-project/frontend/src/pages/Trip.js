@@ -2,13 +2,14 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import moment from 'moment';
+import moment from 'moment'
 import trip from '../reducers/trip'
 import user from '../reducers/user'
 import { API_URL } from '../reusable/urls' 
 import Navbar from '../components/Navbar'
 import paris from '../assets/paris.jpg'
 import airplane from '../assets/airplane.png'
+import CountdownTime from '../components/CountdownTime'
 
 const Trip = () => {
     const accessToken = useSelector(store => store.user.accessToken)
@@ -54,6 +55,7 @@ const Trip = () => {
    <>
  <TripSection>
   <Navbar/>
+    <CountdownTime trip={trip}/>
     <TitleContainer>
       <TripIcon src= {airplane} width='20' height='20' alt='airplain icon'/>
       <TripTitle>Kommande avresor</TripTitle>
@@ -73,6 +75,7 @@ export default Trip
 
 const TripSection = styled.section`
 background-image: url('${paris}');
+background-size: cover;
 height: 100vh;
 display: flex; 
 justify-content: center;
@@ -81,17 +84,18 @@ flex-direction: column;
 `
 const TitleContainer = styled.div`
 display: flex;
-flex-direction: row;`
-
-const TripTitle = styled.h1`
-color: #ffffff;
-margin: 0px;
-font-size: 20px;
-` 
+flex-direction: row;
+margin: 10px;`
 
 const TripIcon = styled.img`
 
 `
+
+const TripTitle = styled.h2`
+color: #ffffff;
+margin: 0px;
+font-size: 20px;
+` 
 
 const TripContainer = styled.div`
 min-height: 300px;
