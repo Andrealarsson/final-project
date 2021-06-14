@@ -9,7 +9,7 @@ import { API_URL } from '../reusable/urls'
 import Navbar from '../components/Navbar'
 import paris from '../assets/paris.jpg'
 import airplane from '../assets/airplane.png'
-import CountdownTime from '../components/CountdownTime'
+import CountdownTimer from '../components/CountdownTimer'
 
 const Trip = () => {
     const accessToken = useSelector(store => store.user.accessToken)
@@ -36,12 +36,6 @@ const Trip = () => {
       .then(data => {
           if(data.success) { 
             dispatch(trip.actions.setTrip(data.trip))
-              // ({
-              // _id: data._id,
-              // destination: data.destination, 
-              // detartureDate: data.departureDate, 
-              // departureTime: data.departureTime}))
-              
             dispatch(trip.actions.setErrors(null))
           } else {
             dispatch(trip.actions.setErrors(data))
@@ -55,12 +49,12 @@ const Trip = () => {
    <>
  <TripSection>
   <Navbar/>
-    <CountdownTime trip={trip}/>
+    <CountdownTimer departureDate={trip.departure}/>
     <TitleContainer>
       <TripIcon src= {airplane} width='20' height='20' alt='airplain icon'/>
       <TripTitle>Kommande avresor</TripTitle>
     </TitleContainer>
-    <TripContainer>{trips.map((trip) => (
+    <TripContainer>{trips.sort( (a, b) => new Date(b.time) - new Date(a.time) ).map((trip) => (
         <TripList key={trip._id}>
           <Destination>{trip.destination}</Destination>
           <Departure>{moment(trip.departure).format(' D MMM YYYY, HH:mm')}</Departure>
