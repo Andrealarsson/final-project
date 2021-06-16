@@ -1,10 +1,10 @@
 import React , { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-
 import styled from 'styled-components/macro'
-import user from '../reducers/user'
+
 import { API_URL } from '../reusable/urls'
+import user from '../reducers/user'
 import mobile from '../assets/mobile.jpg'
 import logowhite from '../assets/logowhite.png'
 
@@ -20,9 +20,9 @@ const LoginSignup = () => {
   
   useEffect(() => {
     if(accessToken) {
-    history.push(`/users/${userId}/trip`);
+    history.push(`/users/${userId}/trip`)
   }
-}, [ accessToken, history, userId]);
+}, [ accessToken, history, userId])
 
     const onFormSubmit = (e) => {
       e.preventDefault()
@@ -42,6 +42,7 @@ const LoginSignup = () => {
         if (data.success) {
           dispatch(user.actions.setUser({userId: data.userId, username: data.username, accessToken: data.accessToken}))
           dispatch(user.actions.setErrors(null))
+          localStorage.setItem('accessToken', data.accessToken)
         } else {
           dispatch(user.actions.setErrors(data))
         }})
@@ -108,7 +109,6 @@ flex-direction: column;
 }
 `
 const InformationContainer = styled.div`
-
 background-color: rgba(0, 0, 0, 0.56);
 width: 75%;
 height: 300px;
@@ -122,7 +122,6 @@ text-align: center;
   height: 400px;
   margin-bottom: 20px;
   max-width: 400px;
-
 }
 `
 const InformationTitle = styled.h2`

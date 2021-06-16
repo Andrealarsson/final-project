@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { API_URL } from '../reusable/urls'
 
-const trip= createSlice({
+export const trip= createSlice({
     name: 'trip',
     initialState: {
         trip: [],
@@ -9,7 +10,7 @@ const trip= createSlice({
     
     reducers: {
         setTrip: (store, action) => {
-            store.trip = [ store.trip, ...action.payload ]
+            store.trip = [ ...store.trip, ...action.payload ]
 
         },
         setErrors: (store, action) => {
@@ -18,4 +19,51 @@ const trip= createSlice({
     }
 })
 
-export default trip
+// export default trip 
+// Thunk for adding a note
+// `http://localhost:8080/users/${userId}/note`
+/*
+export const addTrip = (userId) => {
+    return(dispatch) => {
+        fetch(API_URL(`users/${userId}/trip`), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+        })
+        .then((res) => res.json())
+        .then(data => {
+          if(data.success) { 
+            dispatch(trip.actions.setTrip(data.trip))
+            dispatch(trip.actions.setErrors(null))
+          } else {
+            dispatch(trip.actions.setErrors(data))
+          }
+      })
+     .catch()
+     .finally(() => {
+        dispatch(getTrip(userId));
+    })
+}}*/
+/*
+// `http://localhost:8080/users/${userId}/note`
+export const getTrip = (userId) => {
+    return(dispatch) => {
+        fetch(API_URL(`users/${userId}/trip`), {
+            method: "GET",
+            // headers: { "Content-Type": "application/json" },
+            headers: {
+                Authorization: accessToken
+              },
+        })
+        .then((res) => res.json())
+        .then(data => {
+          if(data.success) { 
+            dispatch(trip.actions.setTrip(data.trip))
+            dispatch(trip.actions.setErrors(null))
+          } else {
+            dispatch(trip.actions.setErrors(data))
+          }
+      })
+     .catch()
+}}*/
+
+

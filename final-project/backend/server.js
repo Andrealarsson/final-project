@@ -70,14 +70,14 @@ app.use(express.json())
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
   try {
-    const user = await User.findOne({ accessToken });
+    const user = await User.findOne({ accessToken })
     if (user) {
-      next();
+      next()
     } else {
-      res.status(401).json({ success: false, message: 'Not authorized' });
+      res.status(401).json({ success: false, message: 'Not authorized' })
     }
   } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', errors:err });
+    res.status(400).json({ success: false, message: 'Invalid request', errors:err })
   }
 }
 

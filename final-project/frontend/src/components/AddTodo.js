@@ -1,47 +1,47 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid';
-
-import todos from '../reducers/todos'
+import { v4 as uuidv4 } from 'uuid'
 import styled from 'styled-components'
+import { API_URL } from '../reusable/urls'
+import todos from '../reducers/todos'
 
-const AddTodo =() => {
-  const [value, setValue] = useState ('')
-  const dispatch = useDispatch()
-
-  const onFormSubmit = (e) => {
-    e.preventDefault()
-
-    const newTodo = {
-      id: uuidv4(), 
-      description: value, 
-      time: Date.now(),
-      isComplete: false,
+  const AddTodo =() => {
+    const [value, setValue] = useState ('')
+    const dispatch = useDispatch()
+  
+    const onFormSubmit = (e) => {
+      e.preventDefault()
+  
+      const newTodo = {
+        id: uuidv4(), 
+        description: value, 
+        time: Date.now(),
+        isComplete: false,
+      }
+      dispatch(todos.actions.addTodo(newTodo))
+      setValue('')
     }
-    dispatch(todos.actions.addTodo(newTodo))
-    setValue('')
+    return(
+      <>
+        <TodoForm onSubmit={onFormSubmit}>
+        <AddButton type='submit' disabled={
+            value.length < 3 || value.length > 140 }>
+            {" "}+{" "}
+          </AddButton>
+          <TodoInput
+            type='text'
+            required
+            value={value}
+            placeholder="Lägg till..."
+            onChange={e => setValue (e.target.value)}
+          />
+          
+        </TodoForm>
+      </>
+    )
   }
-  return(
-    <>
-      <TodoForm onSubmit={onFormSubmit}>
-      <AddButton type='submit' disabled={
-          value.length < 3 || value.length > 140 }>
-          {" "}+{" "}
-        </AddButton>
-        <TodoInput
-          type='text'
-          required
-          value={value}
-          placeholder="Lägg till..."
-          onChange={e => setValue (e.target.value)}
-        />
-        
-      </TodoForm>
-    </>
-  )
-}
-
-export default AddTodo
+  
+  export default AddTodo
 
 
 const TodoForm = styled.form`

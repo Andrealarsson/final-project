@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
-import styled from 'styled-components/macro'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import styled from 'styled-components/macro'
 import moment from 'moment'
-import trip from '../reducers/trip'
-import user from '../reducers/user'
-import { API_URL } from '../reusable/urls' 
+
+import { API_URL } from '../reusable/urls'
+import {trip} from '../reducers/trip'
+import user from '../reducers/user' 
 import Navbar from '../components/Navbar'
+import CountdownTimer from '../components/CountdownTimer'
 import paris from '../assets/paris.jpg'
 import airplane from '../assets/airplane.png'
-import CountdownTimer from '../components/CountdownTimer'
+
 
 const Trip = () => {
     const accessToken = useSelector(store => store.user.accessToken)
@@ -18,33 +20,35 @@ const Trip = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-      if (!accessToken) {
-        history.push('/');
-      }
-    }, [accessToken, history]);
+      useEffect(() => {
+        const accessTokenLocalStorage = localStorage.getItem('accessToken')
+        if (!accessTokenLocalStorage) {
+          history.push('/');
+        }
+      }, [accessToken, history]);
+  
+      useEffect(() => {
+        const options = {
+            method: 'GET',
+            headers: {
+              Authorization: accessToken
+            }  
+        }
+        fetch(API_URL(`users/${userId}/trip`), options)
+        .then((res) => res.json())
+        .then(data => {
+            if(data.success) { 
+              dispatch(trip.actions.setTrip(data.trip))
+              dispatch(trip.actions.setErrors(null))
+            } else {
+              dispatch(trip.actions.setErrors(data))
+            }
+        })
+       .catch()
+    },[accessToken, userId, dispatch])
+  
+    console.log(trips)
 
-    useEffect(() => {
-      const options = {
-          method: 'GET',
-          headers: {
-            Authorization: accessToken
-          }  
-      }
-      fetch(API_URL(`users/${userId}/trip`), options)
-      .then((res) => res.json())
-      .then(data => {
-          if(data.success) { 
-            dispatch(trip.actions.setTrip(data.trip))
-            dispatch(trip.actions.setErrors(null))
-          } else {
-            dispatch(trip.actions.setErrors(data))
-          }
-      })
-     .catch()
-  },[accessToken, userId, dispatch])
-
-  console.log(trips)
  return (
    <>
  <TripSection>
@@ -54,7 +58,7 @@ const Trip = () => {
       <TripIcon src= {airplane} width='20' height='20' alt='airplain icon'/>
       <TripTitle>Kommande avresor</TripTitle>
     </TitleContainer>
-    <TripContainer>{trips.sort( (a, b) => new Date(b.time) - new Date(a.time) ).map((trip) => (
+    <TripContainer>{trips.slice().sort( (a, b) => new Date(b.departure) - new Date(a.departure) ).map((trip) => (
         <TripList key={trip._id}>
           <Destination>{trip.destination}</Destination>
           <Departure>{moment(trip.departure).format(' D MMM YYYY, HH:mm')}</Departure>

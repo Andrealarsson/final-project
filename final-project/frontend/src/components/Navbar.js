@@ -1,7 +1,8 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import { useSelector } from 'react-redux'
 import {Link } from 'react-router-dom'
+import styled from 'styled-components/macro'
+
 import LogOutButton from '../components/LogOutButton'
 
 const Navbar = () =>  {
@@ -35,24 +36,20 @@ justify-content: space-around;
 list-style-type:  none;
 `
 const Title = styled.h1`
- color: #ffffff;
+color: #ffffff;
  `
 const PageLink = styled(Link)`
-    text-decoration: none;
-    color: #ffffff;
+text-decoration: none;
+color: #ffffff;
 
-    &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;
-        `
-
+&:focus, &:hover, &:visited, &:link, &:active {
+text-decoration: none;
+`
 const TripPage = styled.li`
 text-decoration: none;
-
 `
-
 const InfoPage = styled.li`
 `
-
 const ChecklistPage = styled.li`
 `
 

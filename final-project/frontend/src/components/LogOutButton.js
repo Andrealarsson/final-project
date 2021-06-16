@@ -1,16 +1,16 @@
 import React from 'react'
-
 import styled from 'styled-components/macro'
 import { useDispatch } from 'react-redux'
 import user from '../reducers/user'
 
 const LogOutButton = () => {
-
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleClick = () => {
-  dispatch(user.actions.setUser({userId: null, accessToken: null, errors: null})) 
+    localStorage.removeItem('accessToken')
+    dispatch(user.actions.setUser({userId: null, accessToken: null, errors: null})) 
   }
+
   return(
     <>
     <Button onClick={handleClick}>LOGGA UT</Button>

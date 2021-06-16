@@ -2,14 +2,13 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment';
+import styled from 'styled-components/macro'
+
+import { API_URL } from '../reusable/urls'
 import todos from '../reducers/todos'
 // import user from '../reducers/user'
 import AddTodo from '../components/AddTodo'
-// import TodoList from '../components/TodoList'
-// import RemoveAllTodos from '../components/RemoveAllTodos'
 import Navbar from '../components/Navbar'
-import styled from 'styled-components/macro'
-import { API_URL } from '../reusable/urls' 
 import paris from '../assets/paris.jpg'
 import checklist from '../assets/checklist.png'
 
@@ -18,16 +17,16 @@ const Checklist = () => {
   const accessToken = useSelector(store => store.user.accessToken)
   const userId = useSelector(store => store.user.userId)
   const todosItems = useSelector(store => store.todos.items)  
-  const history = useHistory();
-  const dispatch = useDispatch();
+  const history = useHistory()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!accessToken) {
-    history.push('/');
+    history.push('/')
     }
-  }, [accessToken, history]);
+ /* }, [accessToken, history])
 
-  useEffect(() => {
+  useEffect(() => {*/
     const options = {
         method: 'GET',
         headers: {
@@ -39,28 +38,26 @@ const Checklist = () => {
     .then(data => {
         if(data.success) { 
           dispatch(todos.actions.setItems(data.items))
-            // {_id: data._id, description: data.description, createdAt: data.createdAt, isComplete: data.isComplete})) 
           dispatch(todos.actions.setErrors(null))
-        
+          localStorage.setItem('accessToken', data.accessToken)
         } else {
           dispatch(todos.actions.setErrors(data))
         }
     })
     .catch()
- },[accessToken, userId, dispatch])
+ },[accessToken, userId, dispatch, history])
 
- console.log(todosItems)
 
 return (
   <>
     <TodoSection>
-    <Navbar/>
-    <TitleContainer>
-    <TodoIcon src= {checklist} width='23' height='23' alt='checklist icon'/>
-    <TodoTitle>Checklista</TodoTitle>
-    </TitleContainer>
-    <TodoListContainer>
-      {todosItems.map((todo) => (
+      <Navbar/>
+      <TitleContainer>
+        <TodoIcon src= {checklist} width='23' height='23' alt='checklist icon'/>
+        <TodoTitle>Checklista</TodoTitle>
+      </TitleContainer>
+      <TodoListContainer>
+        {todosItems.map((todo) => (
         <TodoItem key={todo._id}>
           <Checkbox
             type='checkbox'
@@ -76,15 +73,14 @@ return (
           <RemoveButton onClick={() => dispatch(todos.actions.removeTodo(todo._id))}>
             Ta bort
           </RemoveButton>    
-          </TodoItem>
-      ))}  
-    </TodoListContainer>
-    <AddTodo/>
+        </TodoItem>
+        ))}  
+      </TodoListContainer>
+      <AddTodo/>
     </TodoSection>
   </>
 )
 }
-
 
 export default Checklist
 
@@ -137,9 +133,9 @@ font-size: 10px;
 position: absolute;
 left: 50px;
 margin: 2px;
+
 @media (min-width: 768px) {
 font-size: 11px;
-
 }`
 
 const Checkbox = styled.input`
