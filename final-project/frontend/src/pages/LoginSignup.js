@@ -5,7 +5,8 @@ import styled from 'styled-components/macro'
 
 import { API_URL } from '../reusable/urls'
 import user from '../reducers/user'
-import mobile from '../assets/mobile.jpg'
+import bali from '../assets/bali.jpg'
+import beach from '../assets/beach.jpg'
 import logowhite from '../assets/logowhite.png'
 
 const LoginSignup = () => {
@@ -96,7 +97,7 @@ const LoginSignup = () => {
 export default LoginSignup
 
 const Wrapper = styled.div`
-background-image: url('${mobile}');
+background-image: url('${bali}');
 background-size: cover;
 display: flex;
 height: 100vh;
@@ -106,6 +107,10 @@ flex-direction: column;
 
 @media (min-width: 768px) {
   flex-direction: row;
+}
+
+@media (min-width: 1024px) {
+  background-image: url('${beach}');
 }
 `
 const InformationContainer = styled.div`
@@ -154,7 +159,7 @@ text-align: center;
 const InputTitle = styled.h3`
 display: flex;
 justify-content: center;
-color: #000000;
+color: #303436;
 font-size: 15px;
 margin: 15px 10px 0px;
 `

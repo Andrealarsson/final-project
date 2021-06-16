@@ -10,7 +10,7 @@ const todos = createSlice({
   reducers: {
     setItems: (store, action) => {
       /*localStorage.setItem('[]', [])*/
-      store.items = [ ...store.items, ... action.payload]
+      store.items = [ ...action.payload ]
     },
     setErrors: (store, action) => {
       store.errors = action.payload
@@ -23,7 +23,7 @@ const todos = createSlice({
             isComplete: !todo.isComplete
           }
         } else {
-            return todo
+          return todo
         }
       })
       store.items=updatedItems

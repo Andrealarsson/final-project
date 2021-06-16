@@ -27,13 +27,13 @@ const HeaderNavbar = styled.header`
 position: fixed;
 top: 0px;
 background-color: rgba(0, 0, 0, 0.56);
-width: 100vw;
+width: 100%;
 display: flex;
 align-items: center;
 justify-content: center;
 flex-direction: row;
 justify-content: space-around;
-list-style-type:  none;
+list-style-type:  none; 
 `
 const Title = styled.h1`
 color: #ffffff;
@@ -44,9 +44,17 @@ color: #ffffff;
 
 &:focus, &:hover, &:visited, &:link, &:active {
 text-decoration: none;
+&:hover{
+  color: pink;
+
+}
+&:fokus {
+  color: pink;
+}
 `
 const TripPage = styled.li`
-text-decoration: none;
+
+
 `
 const InfoPage = styled.li`
 `

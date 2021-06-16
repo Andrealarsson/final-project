@@ -3,13 +3,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment';
 import styled from 'styled-components/macro'
+import Checkbox from "@material-ui/core/Checkbox";
 
 import { API_URL } from '../reusable/urls'
 import todos from '../reducers/todos'
 // import user from '../reducers/user'
 import AddTodo from '../components/AddTodo'
 import Navbar from '../components/Navbar'
-import paris from '../assets/paris.jpg'
+import italycoast from '../assets/italycoast.jpg'
+import italy from '../assets/italy.jpg'
 import checklist from '../assets/checklist.png'
 
 
@@ -60,6 +62,7 @@ return (
         {todosItems.map((todo) => (
         <TodoItem key={todo._id}>
           <Checkbox
+            color='default'
             type='checkbox'
             checked={todo.isComplete}
             onChange={() => dispatch(todos.actions.toggleComplete(todo._id))}
@@ -71,7 +74,7 @@ return (
             {todo.description}
           </p>
           <RemoveButton onClick={() => dispatch(todos.actions.removeTodo(todo._id))}>
-            Ta bort
+            Radera
           </RemoveButton>    
         </TodoItem>
         ))}  
@@ -85,13 +88,17 @@ return (
 export default Checklist
 
 const TodoSection = styled.section`
-background-image: url('${paris}');
+background-image: url('${italycoast}');
 background-size: cover;
 height: 100vh;
 display: flex; 
 align-items: center;
 justify-content: center;
 flex-direction: column;
+
+@media (min-width: 1024px) {
+  background-image: url('${italy}');
+}
 `
 const TitleContainer = styled.div`
 display: flex;
@@ -138,7 +145,7 @@ margin: 2px;
 font-size: 11px;
 }`
 
-const Checkbox = styled.input`
+/*const Checkbox = styled.input`
 transform: scale(1.7);
 margin: 10px;
 cursor: pointer;
@@ -146,7 +153,7 @@ filter: invert(90%);
 @media (min-width: 768px) {
 transform: scale(1.9);
 }
-`
+`*/
 const RemoveButton = styled.button`
 font-size: 13px;
 background-color: #ffffff;
@@ -158,7 +165,7 @@ margin-right: 8px;
 outline: none;
 &:hover {
 color: #ffffff;
-background-color: ;
+background-color: pink;
 }
 @media (min-width: 768px) {
 }`

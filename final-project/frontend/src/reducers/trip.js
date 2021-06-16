@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { API_URL } from '../reusable/urls'
 
-export const trip= createSlice({
+const trip= createSlice({
     name: 'trip',
     initialState: {
         trip: [],
@@ -10,7 +9,8 @@ export const trip= createSlice({
     
     reducers: {
         setTrip: (store, action) => {
-            store.trip = [ ...store.trip, ...action.payload ]
+            store.trip = [ ...action.payload ]
+            // store.trip = [ ...store.trip, ...action.payload ]
 
         },
         setErrors: (store, action) => {
@@ -19,7 +19,7 @@ export const trip= createSlice({
     }
 })
 
-// export default trip 
+export default trip 
 // Thunk for adding a note
 // `http://localhost:8080/users/${userId}/note`
 /*

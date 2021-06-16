@@ -5,11 +5,12 @@ import styled from 'styled-components/macro'
 import moment from 'moment'
 
 import { API_URL } from '../reusable/urls'
-import {trip} from '../reducers/trip'
+import trip from '../reducers/trip'
 import user from '../reducers/user' 
 import Navbar from '../components/Navbar'
-import CountdownTimer from '../components/CountdownTimer'
-import paris from '../assets/paris.jpg'
+import Timer from '../components/Timer'
+import sfomobile from '../assets/sfomobile.jpg'
+import sfo from '../assets/sfo.jpg'
 import airplane from '../assets/airplane.png'
 
 
@@ -53,7 +54,7 @@ const Trip = () => {
    <>
  <TripSection>
   <Navbar/>
-    <CountdownTimer departureDate={trip.departure}/>
+    <Timer destination={trip.destination} departureDate={trip.departure}/>
     <TitleContainer>
       <TripIcon src= {airplane} width='20' height='20' alt='airplain icon'/>
       <TripTitle>Kommande avresor</TripTitle>
@@ -72,13 +73,17 @@ const Trip = () => {
 export default Trip
 
 const TripSection = styled.section`
-background-image: url('${paris}');
+background-image: url('${sfomobile}');
 background-size: cover;
 height: 100vh;
 display: flex; 
 justify-content: center;
 align-items: center;
 flex-direction: column;
+
+@media (min-width: 1024px) {
+  background-image: url('${sfo}');
+}
 `
 const TitleContainer = styled.div`
 display: flex;

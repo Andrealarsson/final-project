@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react'
+import styled from 'styled-components/macro'
+import Trip from '../pages/Trip'
 
-const CountdownTimer = ({departureDate}) => {
+const Timer = ({departureDate, destination}) => {
   const [timerDays, setTimerDays] = useState("00");
   const [timerHours, setTimerHours] = useState("00");
   const [timerMinutes, setTimerMinutes] = useState("00");
@@ -54,52 +56,44 @@ const CountdownTimer = ({departureDate}) => {
   }, []);
 
   return (
-    <div>
-      timerDays: {timerDays} &nbsp; timerHours: {timerHours} &nbsp;
-      timerMinutes: {timerMinutes} &nbsp; timerSeconds: {timerSeconds} &nbsp;
-    </div>
+    <>
+    <TimerContainer>
+      <TimerDays>{timerDays} &nbsp;</TimerDays>  
+      <TimerHours>{timerHours} &nbsp;</TimerHours> 
+      <TimerMinutes>{timerMinutes} &nbsp; 
+      </TimerMinutes> <TimerSeconds>{timerSeconds} &nbsp;</TimerSeconds>
+    </TimerContainer>
+    <TimerTitle>{destination}jj</TimerTitle>
+    </>
   );
 };
 
-export default CountdownTimer;
-/*const CountdownTime = ({departure}) => {
+export default Timer;
 
-  const getCountdown = () => {
-  const now = new Date().getTime()
-  const distance = departure - now
-  let countdown = {}
-  if(distance > 0) {
-    countdown = {
-      Days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-      Hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
-      Minutes: Math.floor((distance / 1000 / 60) % 60),
-      Seconds: Math.floor((distance / 1000) % 60),
-    }
-  }
-  return countdown
-  }
-  const [countdown, setCountdown] = useState(getCountdown())
+const TimerTitle = styled.h2`
+margin-bottom: 30px;
+color: #ffffff;`
 
-  useEffect(() => {
-    setTimeout(() => {
-      setCountdown(getCountdown());
-    }, 1000);
-  });
+const TimerContainer = styled.div`
 
-  const data = [];
-Object.entries(countdown).forEach(([unit, value]) => {
-  data.push(
-    <li key={Math.random().toString(16)}>
-      <strong>{value}</strong> {unit}
-    </li>
-  );
-});
-console.log(data)
-return (
-  <>
-    <h1>New Year Countdown</h1>
-    <ul>{data}</ul>
-  </>
-);
-}
-  export default CountdownTime;*/
+display: flex; 
+justify-content: space-between;
+`
+
+const TimerDays = styled.p`
+background-color: #ffffff;
+padding:20px 10px;
+margin: 5px;
+border-radius: 3px;
+
+`
+const TimerHours = styled(TimerDays)`
+background-color: #ffffff;
+
+`
+const TimerMinutes = styled(TimerDays)`
+background-color: #ffffff;
+`
+const TimerSeconds = styled(TimerDays)`
+background-color: #ffffff;
+`

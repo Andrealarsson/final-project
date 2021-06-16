@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import {trip} from './reducers/trip'
+import trip from './reducers/trip'
 import user from './reducers/user'
 import todos from './reducers/todos'
 

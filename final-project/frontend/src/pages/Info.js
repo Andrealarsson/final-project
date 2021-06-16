@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 import Navbar from '../components/Navbar'
-import paris from '../assets/paris.jpg'
+import rome from '../assets/rome.jpg'
+import beach from '../assets/beach.jpg'
 
 const Info = () => {
 
@@ -90,13 +91,17 @@ const Info = () => {
 export default Info
 
 const InfoSection = styled.section`
-background-image: url('${paris}');
+background-image: url('${rome}');
 background-size: cover;
 height: 100vh;
 display: flex; 
 align-items: center;
 justify-content: center;
 flex-direction: column;
+
+@media (min-width: 1024px) {
+  background-image: url('${beach}');
+}
 `
 const InfoContainer = styled.div`
 text-decoration: none;
@@ -120,10 +125,11 @@ font-size: 20px;
 `
 
 const Title= styled.h2`
+color: #303436;
 font-size: 18px;
 margin-top: 20px;`
 
 const Text = styled.p`
 font-size: 13px;
-color: #000000;
+color: #303436;
 `
