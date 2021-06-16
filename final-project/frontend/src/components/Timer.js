@@ -82,6 +82,7 @@ justify-content: space-between;
 
 const TimerDays = styled.p`
 background-color: #ffffff;
+color: #414344;
 padding:20px 10px;
 margin: 5px;
 border-radius: 3px;

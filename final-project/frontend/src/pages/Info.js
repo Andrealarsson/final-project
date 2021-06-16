@@ -125,11 +125,11 @@ font-size: 20px;
 `
 
 const Title= styled.h2`
-color: #303436;
+color: #414344;
 font-size: 18px;
 margin-top: 20px;`
 
 const Text = styled.p`
 font-size: 13px;
-color: #303436;
+color: #414344;
 `

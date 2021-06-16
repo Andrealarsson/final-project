@@ -46,15 +46,9 @@ color: #ffffff;
 text-decoration: none;
 &:hover{
   color: pink;
-
-}
-&:fokus {
-  color: pink;
 }
 `
 const TripPage = styled.li`
-
-
 `
 const InfoPage = styled.li`
 `

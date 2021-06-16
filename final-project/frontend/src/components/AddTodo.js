@@ -1,39 +1,67 @@
 import React, {useState} from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { API_URL } from '../reusable/urls'
 import todos from '../reducers/todos'
+import user from '../reducers/user'
 
-  const AddTodo =() => {
-    const [value, setValue] = useState ('')
+  const AddTodo = () => {
+    const [newTodo, setNewTodo] = useState('')
+    const userId = useSelector(store => store.user.userId)
+    const accessToken = useSelector((store) => store.user.accessToken)
+    const errors = useSelector((store) => store.todos.errors)
+
     const dispatch = useDispatch()
-  
+
     const onFormSubmit = (e) => {
       e.preventDefault()
-  
-      const newTodo = {
+
+     /* const newTodo = {
         id: uuidv4(), 
-        description: value, 
-        time: Date.now(),
+        description: '', 
+        createdAt: Date.now(),
         isComplete: false,
+      }*/
+
+      const options = {
+        method: 'post',
+        headers: {
+          Authorization: accessToken,
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({
+          todos: [newTodo]
+        })
       }
-      dispatch(todos.actions.addTodo(newTodo))
-      setValue('')
-    }
-    return(
+        fetch(API_URL(`users/${userId}/checklist`), options)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            console.log('data succes', data.success)
+              console.log('data.todos', data.items)
+              dispatch(todos.actions.addNewTodo(data.items)) // something here
+              dispatch(todos.actions.setErrors(null))
+          } else {
+            dispatch(todos.actions.setErrors(data))
+          }
+    })
+    setNewTodo('')
+  }
+ 
+    return (
       <>
         <TodoForm onSubmit={onFormSubmit}>
         <AddButton type='submit' disabled={
-            value.length < 3 || value.length > 140 }>
+            newTodo.length < 3 || newTodo.length > 140 }>
             {" "}+{" "}
           </AddButton>
           <TodoInput
             type='text'
             required
-            value={value}
+            value={newTodo}
             placeholder="Lägg till..."
-            onChange={e => setValue (e.target.value)}
+            onChange={e => setNewTodo (e.target.value)}
           />
           
         </TodoForm>
@@ -43,12 +71,12 @@ import todos from '../reducers/todos'
   
   export default AddTodo
 
-
 const TodoForm = styled.form`
 // padding: 5px 10px 20px 10px;
 width: 80%;
 display: flex;
 flex-direction: row;
+align-items: center;
 
 @media (min-width: 768px) {
   margin-top: 20px;
@@ -58,12 +86,13 @@ flex-direction: row;
 const TodoInput = styled.input`
 background-color: rgba(0, 0, 0, 0.56);
 color: #ffffff;
-border: none;
-border-radius: 2px;
-overflow-wrap: break-word;
 resize: none;
 height: 55px;
-// min-width: 210px;
+width: 100vw;
+border-radius: 2px;
+border: none;
+padding: 0px;
+overflow-wrap: break-word;
 outline: none;
 @media (min-width: 768px) {
   min-height: 60px;
@@ -72,29 +101,23 @@ outline: none;
 } 
 `
 const AddButton = styled.button`
-height: 57px;
-width: 57px;
+background-color: rgba(0, 0, 0, 0.56);
+color: #ffffff;
+height: 55px;
+width: 65px;
 font-size: 20px;
+border-radius: 2px;
+border: none;
+padding: 0px;
 display: flex;
 justify-content: center;
 align-items: center;
 cursor: pointer;
-border: none;
-border-radius: 2px;
-background-color: rgba(0, 0, 0, 0.56);
-color: #ffffff;
 outline: none;
-// &:hover {
-//   background-color: #e58819;
-//   color: #112d32;
-//   border: none;
-// }
-&:disabled {
-  background-color: rgba(0, 0, 0, 0.56);
-  color: #ffffff;
-  border: none;
-  cursor: arrow;
-}
+&:hover {
+  color: pink;
+  font-size: 20px;
+
 @media (min-width: 768px) {
   height: 65px;
   width: 65px;

@@ -7,7 +7,7 @@ const LogOutButton = () => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
-    // localStorage.removeItem('accessToken')
+    localStorage.removeItem('accessToken')
     dispatch(user.actions.setUser({userId: null, accessToken: null, errors: null})) 
   }
 
@@ -23,8 +23,10 @@ export default LogOutButton
 const Button = styled.button`
  background: none;
  color: #ffffff;
- font-size: 15px;
+ font-size: 16px;
  border: none;
+ font-family: 'Open Sans', sans-serif;
+ padding: 0px;
 
  &:hover{
   color: pink;

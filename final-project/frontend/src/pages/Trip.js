@@ -88,16 +88,23 @@ flex-direction: column;
 const TitleContainer = styled.div`
 display: flex;
 flex-direction: row;
-margin: 10px;`
+width: 80%;
+align-items: center;
+
+@media (min-width: 768px) {
+  max-width: 800px;
+}
+`
 
 const TripIcon = styled.img`
-
+margin-right: 2px;
 `
 
 const TripTitle = styled.h2`
 color: #ffffff;
 margin: 0px;
-font-size: 20px;
+font-size: 18px;
+
 ` 
 
 const TripContainer = styled.div`
@@ -120,9 +127,11 @@ margin: 3px;
 padding: 10px;`
 
 const Destination = styled.h2`
-font-size: 15px;
+font-size: 16px;
+margin: 5px;
+color: #414344;
 `
 
-const Departure = styled.h2`
-font-size: 15px;
+const Departure = styled(Destination)`
+
 `

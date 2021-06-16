@@ -19,6 +19,7 @@ const Checklist = () => {
   const accessToken = useSelector(store => store.user.accessToken)
   const userId = useSelector(store => store.user.userId)
   const todosItems = useSelector(store => store.todos.items)  
+  const errors = useSelector((store) => store.todos.errors)
   const history = useHistory()
   const dispatch = useDispatch()
 
@@ -46,7 +47,7 @@ const Checklist = () => {
           dispatch(todos.actions.setErrors(data))
         }
     })
-    .catch()
+    .catch(errors)
  },[accessToken, userId, dispatch, history])
 
 
@@ -70,9 +71,9 @@ return (
            {/* <TimeAdded>
             {moment(todo.createdAt).format('ddd HH:mm')}
           </TimeAdded> */}
-          <p style={{ textDecoration: todo.isComplete ? "line-through" : "" }}>
+          <TodoDescription style={{ textDecoration: todo.isComplete ? "line-through" : "" }}>
             {todo.description}
-          </p>
+          </TodoDescription>
           <RemoveButton onClick={() => dispatch(todos.actions.removeTodo(todo._id))}>
             Radera
           </RemoveButton>    
@@ -103,14 +104,20 @@ flex-direction: column;
 const TitleContainer = styled.div`
 display: flex;
 flex-direction: row;
-margin: 10px;`
+width: 80%;
+align-items: center;
+
+@media (min-width: 768px) {
+  max-width: 800px;
+}
+`
 
 const TodoIcon = styled.img`
-margin-right: 5px;
+margin-right: 2px;
 `
 const TodoTitle = styled.h2`
 color: #ffffff;
-font-size: 20px;
+font-size: 18px;
 margin: 0px;
 `
 const TodoListContainer = styled.div`
@@ -135,6 +142,10 @@ color: black;
 margin: 3px;
 padding: 5px;
 `
+const TodoDescription = styled.p`
+margin: 5px;
+color: #414344;`
+
 const TimeAdded = styled.p`
 font-size: 10px;
 position: absolute;
@@ -145,19 +156,10 @@ margin: 2px;
 font-size: 11px;
 }`
 
-/*const Checkbox = styled.input`
-transform: scale(1.7);
-margin: 10px;
-cursor: pointer;
-filter: invert(90%);
-@media (min-width: 768px) {
-transform: scale(1.9);
-}
-`*/
 const RemoveButton = styled.button`
 font-size: 13px;
 background-color: #ffffff;
-color: #000000;
+color: #414344;
 cursor: pointer;
 border-radius: 15px;
 border: solid 1px #F3F3F3;

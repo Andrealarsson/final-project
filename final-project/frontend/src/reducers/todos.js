@@ -12,6 +12,9 @@ const todos = createSlice({
       /*localStorage.setItem('[]', [])*/
       store.items = [ ...action.payload ]
     },
+    addNewTodo: (store,action) => {
+      store.items= [...store.items, action.payload]
+    },
     setErrors: (store, action) => {
       store.errors = action.payload
     },
@@ -29,12 +32,10 @@ const todos = createSlice({
       store.items=updatedItems
     },
     removeTodo: (store, action) => {
-      const decreasedItems= store.items.filter(todo => todo._id !== action.payload)
-      store.items = decreasedItems
+      const removeItems= store.items.filter(todo => todo._id !== action.payload)
+      store.items = removeItems
     },
-    AddTodo: (store,action) => {
-      store.items= [...store.items, action.payload]
-    },
+    
     // removeAll: (store) => {
     //   let emptyArray = store.items
     //   emptyArray.length = 0

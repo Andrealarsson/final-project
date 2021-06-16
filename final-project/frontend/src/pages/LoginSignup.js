@@ -126,6 +126,7 @@ text-align: center;
   border-radius: 2px 0px 0px 2px;
   height: 400px;
   margin-bottom: 20px;
+  margin-left:40px;
   max-width: 400px;
 }
 `
@@ -153,13 +154,14 @@ text-align: center;
 @media (min-width: 768px) {
   height: 400px;
   margin-top: 20px;
+  margin-right:40px;
   max-width: 400px;
 }
 `
 const InputTitle = styled.h3`
 display: flex;
 justify-content: center;
-color: #303436;
+color: #414344;
 font-size: 15px;
 margin: 15px 10px 0px;
 `
@@ -193,7 +195,8 @@ background: #ffffff;
 const ButtonContainer = styled(InputContainer)`
 `
 const SubmitButton = styled.button`
-background-color: rgba(0, 0, 0, 0.56);
+background-color: #414344;
+font-family: 'Open Sans', sans-serif;
 color: #ffffff;
 border-radius: 2px;
 padding: 5px;
