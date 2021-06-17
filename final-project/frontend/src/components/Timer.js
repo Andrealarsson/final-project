@@ -2,17 +2,18 @@ import React, { useRef, useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import Trip from '../pages/Trip'
 
-const Timer = ({departureDate, destination}) => {
+const Timer = ({countdownDate, destination}) => {
   const [timerDays, setTimerDays] = useState("00");
   const [timerHours, setTimerHours] = useState("00");
   const [timerMinutes, setTimerMinutes] = useState("00");
   const [timerSeconds, setTimerSeconds] = useState("00");
 
+  console.log(destination)
   let interval = useRef();
 
   const startTimer = () => {
     const now = new Date().getTime();
-    const distance = departureDate - now;
+    const distance = countdownDate - now;
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
@@ -75,22 +76,18 @@ margin-bottom: 30px;
 color: #ffffff;`
 
 const TimerContainer = styled.div`
-
 display: flex; 
 justify-content: space-between;
 `
-
 const TimerDays = styled.p`
 background-color: #ffffff;
 color: #414344;
 padding:20px 10px;
 margin: 5px;
 border-radius: 3px;
-
 `
 const TimerHours = styled(TimerDays)`
 background-color: #ffffff;
-
 `
 const TimerMinutes = styled(TimerDays)`
 background-color: #ffffff;

@@ -131,7 +131,7 @@ width: 80%;
 
 `
 const TodoItem = styled.div`
-position: relative;
+// position: relative;
 border-radius: 2px;
 display: flex;
 flex-direction: row;
@@ -148,7 +148,7 @@ color: #414344;`
 
 const TimeAdded = styled.p`
 font-size: 10px;
-position: absolute;
+// position: absolute;
 left: 50px;
 margin: 2px;
 

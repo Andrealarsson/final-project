@@ -54,17 +54,17 @@ const Trip = () => {
    <>
  <TripSection>
   <Navbar/>
-    <Timer destination={trip.destination} departureDate={trip.departure}/>
+  {/* <Timer destination={trip[0].destination} countdownDate={trip[0].departure}/>   */}
     <TitleContainer>
       <TripIcon src= {airplane} width='20' height='20' alt='airplain icon'/>
       <TripTitle>Kommande avresor</TripTitle>
     </TitleContainer>
-    <TripContainer>{trips.slice().sort( (a, b) => new Date(b.departure) - new Date(a.departure) ).map((trip) => (
+    <TripContainer>{trips.slice().sort( (b, a) => new Date(b.departure) - new Date(a.departure) ).map((trip) => (
         <TripList key={trip._id}>
           <Destination>{trip.destination}</Destination>
           <Departure>{moment(trip.departure).format(' D MMM YYYY, HH:mm')}</Departure>
         </TripList>
-    ))}</TripContainer>   
+    ))}</TripContainer> 
  </TripSection> 
  </>
  )
