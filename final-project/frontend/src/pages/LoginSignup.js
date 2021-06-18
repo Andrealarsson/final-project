@@ -53,7 +53,7 @@ const LoginSignup = () => {
   return (
     <Wrapper>
       <InformationContainer>
-        <InformationTitle>TRAVEL POCKET</InformationTitle>
+        <InformationTitle>TRAVEL<span>POCKET</span></InformationTitle>
         <LogoWhite src= {logowhite} width='100' height='75' alt='logo'/> 
         <InformationText>Har du bokat en resa och tycker det är jobbigt att planera allt inför avresa? 
           Här kan du registrera dina kommande resor, få hjälp med din packlista och få viktig info om pass, 
@@ -132,15 +132,18 @@ text-align: center;
 `
 const InformationTitle = styled.h2`
 color: #ffffff; 
-font-size: 20px;
-margin: 30px 0px 10px 0px;`
+font-size: 25px;
+margin: 25px 0px 10px 0px;
+span {
+  color: #7497AD;
+}`
 
 const LogoWhite = styled.img`
 `
 const InformationText = styled.p`
 color: #ffffff;
 font-size: 13px;
-margin: 20px;`
+margin: 15px 25px;`
 
 const Form = styled.form`
 width: 75%;
@@ -204,7 +207,7 @@ margin: 10px 15px;
 border: none;
 // box-shadow: 0px 3px 6px 3px #FFB1A6;
 &:hover{
-  background: pink;
+  background: #7497AD;
   color: white;
 &:active {
   box-shadow: none;

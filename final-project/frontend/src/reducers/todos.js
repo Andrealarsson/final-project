@@ -13,7 +13,7 @@ const todos = createSlice({
       store.items = [ ...action.payload ]
     },
     addNewTodo: (store,action) => {
-      store.items= [...store.items, action.payload]
+      store.items = [...store.items, action.payload]
     },
     setErrors: (store, action) => {
       store.errors = action.payload

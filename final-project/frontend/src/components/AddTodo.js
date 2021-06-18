@@ -17,21 +17,14 @@ import user from '../reducers/user'
     const onFormSubmit = (e) => {
       e.preventDefault()
 
-     /* const newTodo = {
-        id: uuidv4(), 
-        description: '', 
-        createdAt: Date.now(),
-        isComplete: false,
-      }*/
-
       const options = {
-        method: 'post',
+        method: 'POST',
         headers: {
           Authorization: accessToken,
           'Content-Type': 'application/json' 
         },
         body: JSON.stringify({
-          todos: [newTodo]
+          todos: newTodo
         })
       }
         fetch(API_URL(`users/${userId}/checklist`), options)
@@ -40,7 +33,7 @@ import user from '../reducers/user'
           if (data.success) {
             console.log('data succes', data.success)
               console.log('data.todos', data.items)
-              dispatch(todos.actions.addNewTodo(data.items)) // something here
+              dispatch(todos.actions.addNewTodo(data.items)) 
               dispatch(todos.actions.setErrors(null))
           } else {
             dispatch(todos.actions.setErrors(data))
@@ -61,7 +54,7 @@ import user from '../reducers/user'
             required
             value={newTodo}
             placeholder="Lägg till..."
-            onChange={e => setNewTodo (e.target.value)}
+            onChange={(e) => setNewTodo (e.target.value)}
           />
           
         </TodoForm>
@@ -115,7 +108,7 @@ align-items: center;
 cursor: pointer;
 outline: none;
 &:hover {
-  color: pink;
+  color: #7497AD;
   font-size: 20px;
 
 @media (min-width: 768px) {

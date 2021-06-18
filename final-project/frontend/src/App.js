@@ -8,6 +8,7 @@ import user from './reducers/user'
 import todos from './reducers/todos'
 
 import Footer from './components/Footer'
+import Navbar from './components/Navbar'
 import LoginSignup from './pages/LoginSignup'
 import Trip from './pages/Trip'
 import Departure from './pages/Departure'

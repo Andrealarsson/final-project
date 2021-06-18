@@ -6,7 +6,6 @@ import moment from 'moment'
 
 import { API_URL } from '../reusable/urls'
 import trip from '../reducers/trip'
-import user from '../reducers/user' 
 import Navbar from '../components/Navbar'
 import Timer from '../components/Timer'
 import sfomobile from '../assets/sfomobile.jpg'
@@ -51,20 +50,22 @@ const Trip = () => {
     console.log(trips)
 
  return (
-   <>
- <TripSection>
-  <Navbar/>
-  {/* <Timer destination={trip[0].destination} countdownDate={trip[0].departure}/>   */}
-    <TitleContainer>
-      <TripIcon src= {airplane} width='20' height='20' alt='airplain icon'/>
+  <>
+  <TripSection>
+    <Navbar/>
+    <TripContainer>{trips.slice().sort( (b, a) => new Date(b.departure) - new Date(a.departure) ).map((trip, index) => (
+      <TripInfo key={trip._id}>
+        <Timer countdownDate ={trips[0].departure} destination= {trips[0].destination}/> 
+        <TitleContainer>
+      <TripIcon src= {airplane} width='20' height='20' alt='airplane icon'/>
       <TripTitle>Kommande avresor</TripTitle>
     </TitleContainer>
-    <TripContainer>{trips.slice().sort( (b, a) => new Date(b.departure) - new Date(a.departure) ).map((trip) => (
-        <TripList key={trip._id}>
-          <Destination>{trip.destination}</Destination>
-          <Departure>{moment(trip.departure).format(' D MMM YYYY, HH:mm')}</Departure>
+        <TripList>
+        <Destination>{trip.destination}</Destination>
+        <Departure>{moment(trip.departure).format('D MMM YYYY, HH:mm')}</Departure>
         </TripList>
-    ))}</TripContainer> 
+      </TripInfo>
+  ))}</TripContainer> 
  </TripSection> 
  </>
  )
@@ -115,6 +116,8 @@ width: 80%;
   margin-top: 20px;
   max-width: 800px;
 }
+`
+const TripInfo = styled.div`
 `
 
 const TripList = styled.div`

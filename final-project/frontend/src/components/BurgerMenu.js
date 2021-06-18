@@ -48,7 +48,7 @@ const StyledBurgerMenu = styled.div`
   }
 
   .bm-burger-bars-hover {
-    color: pink;
+    color: #7497AD;
   }
 
   /* Position and sizing of clickable cross button */
@@ -59,7 +59,7 @@ const StyledBurgerMenu = styled.div`
 
   /* Color/shape of close button cross */
   .bm-cross {
-    background: #bdc3c7;
+    background: #7497AD;
   }
 
   /*
@@ -118,7 +118,7 @@ font-size: 16px;
 &:focus, &:hover, &:visited, &:link, &:active {
 text-decoration: none;
 &:hover{
-  color: pink;
+  color: #7497AD;
 }
 `
 const TripPage = styled.li`

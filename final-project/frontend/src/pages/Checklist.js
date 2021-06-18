@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import moment from 'moment';
+import moment from 'moment'
 import styled from 'styled-components/macro'
-import Checkbox from "@material-ui/core/Checkbox";
+import Checkbox from "@material-ui/core/Checkbox"
 
 import { API_URL } from '../reusable/urls'
 import todos from '../reducers/todos'
@@ -167,7 +167,7 @@ margin-right: 8px;
 outline: none;
 &:hover {
 color: #ffffff;
-background-color: pink;
+background-color: #7497AD;
 }
 @media (min-width: 768px) {
 }`

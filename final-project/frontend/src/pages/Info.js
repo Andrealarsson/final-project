@@ -20,8 +20,9 @@ const Info = () => {
           Ring ditt försäkringsbolag och fråga exakt vad som gäller. Ingår till exempel kostnad för 
           sjukhusvård och hemtransport vid dödsfall? Har du ingen hemförsäkring bör du köpa en separat 
           reseförsäkring. Visst försäkringsskydd kan ingå när du betalat din resa med ett bankkort. 
-          Kontakta din bank för närmare besked om de villkor som gäller. Allmän information om försäkringar 
-          finns på Konsumenternas försäkringsbyrås sida {'>>'}
+          Kontakta din bank för närmare besked om de villkor som gäller. 
+          Allmän information om försäkringar 
+          finns på Konsumenternas försäkringsbyrås sida <span>{'>>'}</span>
           </Text>
         </Link> 
 
@@ -29,14 +30,14 @@ const Info = () => {
         < Link href='https://www.forsakringskassan.se/privatpers/resa_arbeta_studera_eller_fa_vard_utomlands/resa_utomlands'>
           <Text>Ta med det europeiska sjukförsäkringskortet om 
           du ska resa inom EU/EES-land eller Schweiz. Kortet beställer man hos Försäkringskassan. 
-          Läs mer om kortet på Försäkringskassans webbplats {'>>'}
+          Läs mer om kortet på Försäkringskassans webbplats <span>{'>>'}</span>
           </Text>
         </Link>
             
         <Title>Visum till andra länder</Title>
         <Link href='https://www.swedenabroad.se/sv/'>
             <Text>En svensk medborgare behöver visum för att besöka vissa länder. UD ansvarar inte för detta, utan vänd dig 
-            till landets ambassad, konsulat eller till din resebyrå i god tid innan avresa {'>>'}
+            till landets ambassad, konsulat eller till din resebyrå i god tid innan avresa <span>{'>>'}</span>
           </Text>
         </Link>
           
@@ -45,7 +46,7 @@ const Info = () => {
             <Text>Innan du reser till något land utanför Europa är det viktigt att du ser över vilka vaccinationer du behöver. 
             Många länder kräver att man har ett intyg om vaccination mot vissa sjukdomar för att få resa in.
             Gå in på reseinformation från Sveriges ambassader och läs mer om hälsa och vaccinationer från 1177 Vårdguiden 
-            för information om ditt resmål {'>>'}
+            för information om ditt resmål <span>{'>>'}</span>
           </Text>
         </Link>
           
@@ -80,7 +81,7 @@ const Info = () => {
             •	Vanligt pass: 1600:-
             •	Provisoriskt pass: 1800:-
             •	Nationellt id-kort: 1600:-
-            Tips: Ta en kopia på ditt pass och bär med dig {'>>'}
+            Tips: Ta en kopia på ditt pass och bär med dig <span>{'>>'}</span>
           </Text>
         </Link>    
       </InfoContainer>
@@ -93,7 +94,7 @@ export default Info
 const InfoSection = styled.section`
 background-image: url('${rome}');
 background-size: cover;
-height: 100vh;
+height: 100%;
 display: flex; 
 align-items: center;
 justify-content: center;
@@ -106,7 +107,7 @@ flex-direction: column;
 const InfoContainer = styled.div`
 text-decoration: none;
 width: 80%;
-margin: 70px, 0px;
+margin: 100px 0px;
 padding: 20px;
 flex-direction: row;
 align-items: center;
@@ -122,6 +123,8 @@ text-decoration: none;
 
 const InfoTitle = styled.h1`
 font-size: 20px;
+margin-top: 0px;
+color: #414344;
 `
 
 const Title= styled.h2`
@@ -132,4 +135,9 @@ margin-top: 20px;`
 const Text = styled.p`
 font-size: 13px;
 color: #414344;
+ span {
+   color: #7497AD;
+   font-weight: bold;
+   font-size: 14px; 
+ }
 `

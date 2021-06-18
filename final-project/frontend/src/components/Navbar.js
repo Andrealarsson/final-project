@@ -19,7 +19,7 @@ const Navbar = () =>  {
   return(
     <>
       <HeaderNavbar>
-        <Title>Travel Pocket</Title>
+        <Title>TRAVEL<span>POCKET</span></Title>
         <BurgerMenu />
         <NavbarMenu>
           <TripPage><PageLink to={`/users/${userId}/trip`}>MINA RESOR</PageLink></TripPage>
@@ -49,6 +49,9 @@ list-style-type:  none;
 `
 const Title = styled.h1`
 color: #ffffff;
+  span {
+    color: #7497AD;
+  }
  `
  
 const NavbarMenu = styled.div`
@@ -67,13 +70,14 @@ font-size: 16px;
 &:focus, &:hover, &:visited, &:link, &:active {
 text-decoration: none;
 &:hover{
-  color: pink;
+  color: #7497AD;
 }
 `
 const TripPage = styled.li`
+margin-right: 30px;
 `
-const InfoPage = styled.li`
+const InfoPage = styled(TripPage)`
 `
-const ChecklistPage = styled.li`
+const ChecklistPage = styled(TripPage)`
 `
 
