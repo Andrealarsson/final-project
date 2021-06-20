@@ -1,13 +1,12 @@
 import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
 import styled from 'styled-components/macro'
+
 import { API_URL } from '../reusable/urls'
 import todos from '../reducers/todos'
-import user from '../reducers/user'
 
   const AddTodo = () => {
-    const [newTodo, setNewTodo] = useState('')
+    const [items, setItems] = useState('')
     const userId = useSelector(store => store.user.userId)
     const accessToken = useSelector((store) => store.user.accessToken)
     const errors = useSelector((store) => store.todos.errors)
@@ -23,40 +22,38 @@ import user from '../reducers/user'
           Authorization: accessToken,
           'Content-Type': 'application/json' 
         },
-        body: JSON.stringify({
-          todos: newTodo
+        body: JSON.stringify({ items
         })
       }
         fetch(API_URL(`users/${userId}/checklist`), options)
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log('data succes', data.success)
+            console.log('data success', data.success)
               console.log('data.todos', data.items)
-              dispatch(todos.actions.addNewTodo(data.items)) 
+              dispatch(todos.actions.addNewTodo({items: data.items})) 
               dispatch(todos.actions.setErrors(null))
           } else {
             dispatch(todos.actions.setErrors(data))
           }
     })
-    setNewTodo('')
+    setItems('')
   }
  
     return (
       <>
         <TodoForm onSubmit={onFormSubmit}>
-        <AddButton type='submit' disabled={
-            newTodo.length < 3 || newTodo.length > 140 }>
+          <AddButton type='submit' disabled={
+            items.length < 3 || items.length > 140 }>
             {" "}+{" "}
           </AddButton>
           <TodoInput
             type='text'
             required
-            value={newTodo}
+            value={items}
             placeholder="Lägg till..."
-            onChange={(e) => setNewTodo (e.target.value)}
+            onChange={(e) => setItems (e.target.value)}
           />
-          
         </TodoForm>
       </>
     )

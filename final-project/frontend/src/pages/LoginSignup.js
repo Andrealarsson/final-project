@@ -20,6 +20,7 @@ const LoginSignup = () => {
   const userId = useSelector(store => store.user.userId)
   
   useEffect(() => {
+    localStorage.setItem('accesstoken')
     if(accessToken) {
     history.push(`/users/${userId}/trip`)
   }

@@ -3,13 +3,12 @@ import { createSlice } from '@reduxjs/toolkit'
 const todos = createSlice({
   name: 'todos',
   initialState: {
-    items: /*localStorage.taskId ||*/ [],
+    items: [],
     errors: null
   },
 
   reducers: {
     setItems: (store, action) => {
-      /*localStorage.setItem('[]', [])*/
       store.items = [ ...action.payload ]
     },
     addNewTodo: (store,action) => {
@@ -32,14 +31,9 @@ const todos = createSlice({
       store.items=updatedItems
     },
     removeTodo: (store, action) => {
-      const removeItems= store.items.filter(todo => todo._id !== action.payload)
-      store.items = removeItems
+      const removeItem= store.items.filter(todo => todo._id !== action.payload)
+      store.items = removeItem
     },
-    
-    // removeAll: (store) => {
-    //   let emptyArray = store.items
-    //   emptyArray.length = 0
-    // } 
   }
 })
  

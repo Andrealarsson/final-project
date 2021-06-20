@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import moment from 'moment'
 import styled from 'styled-components/macro'
 import Checkbox from "@material-ui/core/Checkbox"
 
@@ -24,7 +23,8 @@ const Checklist = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!accessToken) {
+    const accessTokenLocalStorage = localStorage.getItem('accessToken')
+    if (!accessTokenLocalStorage) {
     history.push('/')
     }
  /* }, [accessToken, history])
@@ -50,6 +50,48 @@ const Checklist = () => {
     .catch(errors)
  },[accessToken, userId, dispatch, history])
 
+ const onClickDelete = (todoId) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      Authorization: accessToken,
+      'Content-Type': 'application/json'
+    }
+  }
+
+  const options2 = {
+    method: 'GET',
+    headers: {
+      Authorization: accessToken
+    }
+  }
+
+  fetch(API_URL(`users/${userId}/checklist/${todoId}`), options)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        console.log(data)
+        batch(() => {
+          dispatch(todos.actions.removeTodo(data.removeItem))
+          dispatch(todos.actions.setErrors(null))
+        })
+      } else {
+        dispatch(todos.actions.setErrors(data))
+      }
+    })
+  return fetch(API_URL(`users/${userId}/checklist`), options2)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        batch(() => {
+          dispatch(todos.actions.setItems(data.items))
+          dispatch(todos.actions.setErrors(null))
+        })
+      } else {
+        dispatch(todos.actions.setErrors(data))
+      }
+    })
+}
 
 return (
   <>
@@ -74,9 +116,12 @@ return (
           <TodoDescription style={{ textDecoration: todo.isComplete ? "line-through" : "" }}>
             {todo.description}
           </TodoDescription>
-          <RemoveButton onClick={() => dispatch(todos.actions.removeTodo(todo._id))}>
+          <RemoveButton type='button'onClick={() => onClickDelete(todo._id)}>
             Radera
-          </RemoveButton>    
+          </RemoveButton>  
+          {/* <RemoveButton onClick={() => dispatch(todos.actions.removeTodo(todo._id))}>
+            Radera
+          </RemoveButton>     */}
         </TodoItem>
         ))}  
       </TodoListContainer>

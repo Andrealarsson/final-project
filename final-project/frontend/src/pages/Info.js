@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 import Navbar from '../components/Navbar'
@@ -6,6 +8,15 @@ import rome from '../assets/rome.jpg'
 import beach from '../assets/beach.jpg'
 
 const Info = () => {
+  const history = useHistory()
+  const accessToken = useSelector(store => store.user.accessToken)
+
+  useEffect(() => {
+    const accessTokenLocalStorage = localStorage.getItem('accessToken')
+    if (!accessTokenLocalStorage) {
+      history.push('/');
+    }
+  }, [accessToken, history]);
 
   return(
     <>
