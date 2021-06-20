@@ -1,63 +1,60 @@
-import React, { useRef, useState, useEffect } from 'react'
-import styled from 'styled-components/macro'
-import DateCountdown from 'react-date-countdown-timer'
-import FlipCountdown from '@rumess/react-flip-countdown';
+import React, { useRef, useState, useEffect } from "react";
+import styled from "styled-components/macro";
+import DateCountdown from "react-date-countdown-timer";
+import FlipCountdown from "@rumess/react-flip-countdown";
 
-import MediaQuery from 'react-responsive'
+import MediaQuery from "react-responsive";
 
-const Timer = ({countdownDate, destination}) => {
-  
-  return(
+const Timer = ({ countdownDate, destination }) => {
+  return (
     <TimerContainer>
       <TimerText>{destination}</TimerText>
       <MediaQuery maxWidth={767}>
         <FlipCountdown
           hideYear
           hideMonth
-          dayTitle='Dagar'
-          hourTitle='Timmar'
-          minuteTitle='Minuter'
-          secondTitle='Sekunder'
-          titlePosition='bottom' // Options (Default: top): top, bottom.
-          theme='dark'
-          size='small'
+          dayTitle="Dagar"
+          hourTitle="Timmar"
+          minuteTitle="Minuter"
+          secondTitle="Sekunder"
+          titlePosition="bottom" // Options (Default: top): top, bottom.
+          theme="dark"
+          size="small"
           endAtZero
           endAt={countdownDate} // Date/Time
-        /> 
+        />
       </MediaQuery>
       <MediaQuery minWidth={768}>
         <FlipCountdown
           hideYear
           hideMonth
-          dayTitle='Dagar'
-          hourTitle='Timmar'
-          minuteTitle='Minuter'
-          secondTitle='Sekunder'
-          titlePosition='bottom' // Options (Default: top): top, bottom.
-          theme='dark'
-          size='medium'
+          dayTitle="Dagar"
+          hourTitle="Timmar"
+          minuteTitle="Minuter"
+          secondTitle="Sekunder"
+          titlePosition="bottom" // Options (Default: top): top, bottom.
+          theme="dark"
+          size="medium"
           endAtZero
           endAt={countdownDate} // Date/Time
-        /> 
+        />
       </MediaQuery>
     </TimerContainer>
   );
-  
-}
-export default Timer
+};
+export default Timer;
 
 const TimerContainer = styled.div`
-margin-bottom: 40px;
-color: #ffffff;`
+  margin-bottom: 40px;
+  color: #ffffff;
+`;
 const TimerText = styled.h2`
-color: #414344;
-font-size: 30px;
-display: flex;
-margin: 0px 0px 25px 0px;
-justify-content: center;
-`
-
-
+  color: #414344;
+  font-size: 30px;
+  display: flex;
+  margin: 0px 0px 25px 0px;
+  justify-content: center;
+`;
 
 /*const Timer = ({countdownDate}) => {
   const [timerDays, setTimerDays] = useState("00")

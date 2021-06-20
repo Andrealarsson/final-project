@@ -1,42 +1,42 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const todos = createSlice({
-  name: 'todos',
+  name: "todos",
   initialState: {
     items: [],
-    errors: null
+    errors: null,
   },
 
   reducers: {
     setItems: (store, action) => {
-      store.items = [ ...action.payload ]
+      store.items = [...action.payload];
     },
-    addNewTodo: (store,action) => {
-      store.items = [...store.items, action.payload]
-    },
-    setErrors: (store, action) => {
-      store.errors = action.payload
+    addNewTodo: (store, action) => {
+      store.items = [...store.items, action.payload];
     },
     toggleComplete: (store, action) => {
-      const updatedItems = store.items.map(todo => {
-        if (todo._id === action.payload){
+      const updatedItems = store.items.map((todo) => {
+        if (todo._id === action.payload) {
           return {
-            ...todo, 
-            isComplete: !todo.isComplete
-          }
+            ...todo,
+            isComplete: !todo.isComplete,
+          };
         } else {
-          return todo
+          return todo;
         }
-      })
-      store.items=updatedItems
+      });
+      store.items = updatedItems;
     },
     removeTodo: (store, action) => {
-      const removeItem= store.items.filter(todo => todo._id !== action.payload)
-      store.items = removeItem
+      const removeItem = store.items.filter(
+        (todo) => todo._id !== action.payload
+      );
+      store.items = removeItem;
     },
-  }
-})
- 
-export default todos
+    setErrors: (store, action) => {
+      store.errors = action.payload;
+    },
+  },
+});
 
-
+export default todos;
