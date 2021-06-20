@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt'
 
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false  })
 mongoose.Promise = Promise
 
 
@@ -28,26 +28,17 @@ const User = mongoose.model( 'User',{
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
   },
-// })
-//   //Array of trips
-//   const Trip = mongoose.model( 'Trip',{
   trip: [{
     destination: {
       type: String,
       required: true
     }, 
-    // _id: {
-    //   type: String,
-    // },
     departure: {
       type: Date,
       requered: true
     }
     //YYYY-MM-DDThh:mmTZD, (eg 1997-07-16T19:20+01:00)
   }],
-// })  
-//   // Array of tasks
-//   const Items = mongoose.model( 'Items',{
   items: [{ 
     description: { 
       type: String 
@@ -72,6 +63,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ accessToken })
     if (user) {
+
       next()
     } else {
       res.status(401).json({ success: false, message: 'Not authorized' })
@@ -150,10 +142,21 @@ app.get('/users/:userId/trip', authenticateUser, async (req, res) => {
   try {
     const { userId } = req.params
     const user = await User.findOne({ _id: userId })
-
+   
     res.status(200).json({ success: true, trip: user.trip })
   } catch {
     res.status(400).json({ success: false, message: 'Something went wrong, could not fetch trip',error })
+  }
+})
+
+//DELETE Trip
+app.delete('/users/:userId/trip/:tripId', authenticateUser, async (req, res) => {
+  const { userId, tripId } = req.params
+  try {
+    const user = await User.findByIdAndUpdate({ _id: userId}, { $pull: { trip: { _id: tripId } } }, { new: true } ); 
+    res.status(200).json({ trip: user.trip, success: true })
+  } catch (error) {
+    res.status(400).json({ success: false, message: "Invalid request", error })
   }
 })
 
@@ -173,7 +176,7 @@ app.post('/users/:userId/checklist', authenticateUser, async (req, res) => {
         description: description, 
         createdAt: createdAt})
       user.save()
-      res.status(200).json({ success: true })
+      res.status(200).json({ success: true})
     } catch(error) {
       res.status(400).json({ success: false, message: 'Could not add item', error })
     }
@@ -190,6 +193,18 @@ app.get('/users/:userId/checklist', authenticateUser, async (req, res) => {
     res.status(400).json({ success: false, message: 'Something went wrong, could not fetch checklist', error })
   }
 })
+
+//DELETE Items
+app.delete('/users/:userId/checklist/:todoId', authenticateUser, async (req, res) => {
+  const { userId, todoId } = req.params
+  try {
+    const user = await User.findByIdAndUpdate({ _id: userId}, { $pull: { items: { _id: todoId } } }, { new: true } ); 
+    res.status(200).json({ Items: user.items, success: true })
+  } catch (error) {
+    res.status(400).json({ success: false, message: "Invalid request", error })
+  }
+})
+
   
 
 // Start the server
