@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
 import styled from "styled-components/macro";
@@ -14,7 +13,6 @@ const toggleMenu = ({ isOpen }) => {
 };
 
 const BurgerMenu = () => {
-  const userId = useSelector((store) => store.user.userId);
 
   return (
     <StyledBurgerMenu>

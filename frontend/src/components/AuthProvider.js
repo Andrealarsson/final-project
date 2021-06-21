@@ -15,7 +15,7 @@ const AuthProvider = () => {
         })
       );
     }
-  }, []);
+  }, [dispatch]);
 
   return <></>;
 };

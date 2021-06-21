@@ -45,7 +45,7 @@ const Checklist = () => {
         }
       })
       .catch(errors);
-  }, [accessToken, dispatch, history]);
+  }, [accessToken, dispatch, history, errors]);
 
   const onClickDelete = (todoId) => {
     const options = {
@@ -203,17 +203,6 @@ const TodoDescription = styled.p`
   margin: 0px;
   color: #414344;
   font-size: 14px;
-`;
-
-const TimeAdded = styled.p`
-  font-size: 10px;
-  // position: absolute;
-  left: 50px;
-  margin: 2px;
-
-  @media (min-width: 768px) {
-    font-size: 11px;
-  }
 `;
 
 const RemoveButton = styled.button`

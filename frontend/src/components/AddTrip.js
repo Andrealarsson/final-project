@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components/macro";
 
 import { API_URL } from "../reusable/urls";
-import trip from "../reducers/trip";
+// import trip from "../reducers/trip";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -17,9 +17,8 @@ const AddTrip = () => {
   const [trip, setTrip] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const userId = useSelector((store) => store.user.userId);
   const accessToken = useSelector((store) => store.user.accessToken);
-  const errors = useSelector((store) => store.todos.errors);
+  
 
   const dispatch = useDispatch();
 
