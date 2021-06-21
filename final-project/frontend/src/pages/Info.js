@@ -128,6 +128,7 @@ export default Info;
 const InfoSection = styled.section`
   background-image: url("${rome}");
   background-size: cover;
+  overflow: hidden;
   height: 100%;
   display: flex;
   align-items: center;
@@ -163,12 +164,12 @@ const InfoTitle = styled.h1`
 
 const Title = styled.h2`
   color: #414344;
-  font-size: 18px;
+  font-size: 17px;
   margin-top: 20px;
 `;
 
 const Text = styled.p`
-  font-size: 13px;
+  font-size: 14px;
   color: #414344;
   span {
     color: #7497ad;

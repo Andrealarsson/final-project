@@ -13,7 +13,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const AddTrip = () => {
-// export default function FormDialog() {
   const [open, setOpen] = useState(false);
   const [trip, setTrip] = useState("");
   const [date, setDate] = useState("");
@@ -43,7 +42,7 @@ const AddTrip = () => {
       },
       body: JSON.stringify({ trip, departure: date, time}),
     };
-    fetch(API_URL(`users/trip`), options)
+    fetch(API_URL("users/trip"), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -62,14 +61,17 @@ const AddTrip = () => {
 
   return (
     <>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        REGISTRERA DIN RESA
-      </Button>
+      <AddButton type="button" onClick={handleClickOpen}>
+        +
+      </AddButton>
+      {/* <Button variant="contained" color="default" onClick={handleClickOpen}>
+        REGISTRERA NY RESA
+      </Button> */}
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Ny resa</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Registrera din resa med destination, avresedatum och avresetid:
+            Registrera din nya resa med destination, avresedatum och avresetid:
           </DialogContentText>
           <TextField
             autoFocus
@@ -116,3 +118,23 @@ const AddTrip = () => {
 }
 
 export default AddTrip
+
+const AddButton = styled.button`
+position: absolute;
+bottom: 20px;
+background-color: rgba(0, 0, 0, 0.56);
+color: #ffffff;
+height: 65px;
+width: 65px;
+font-size: 40px;
+margin-top: 20px;
+border-radius: 50px;
+border: none;
+padding: 0px;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+outline: none;
+&:hover {
+  color: #7497AD;`

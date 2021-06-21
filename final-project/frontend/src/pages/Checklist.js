@@ -6,7 +6,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 import { API_URL } from "../reusable/urls";
 import todos from "../reducers/todos";
-// import user from '../reducers/user'
 import AddTodo from "../components/AddTodo";
 import Navbar from "../components/Navbar";
 import italycoast from "../assets/italycoast.jpg";
@@ -35,7 +34,7 @@ const Checklist = () => {
         Authorization: accessToken,
       },
     };
-    fetch(API_URL(`users/checklist`), options)
+    fetch(API_URL("users/checklist"), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -77,7 +76,7 @@ const Checklist = () => {
           dispatch(todos.actions.setErrors(data));
         }
       });
-    return fetch(API_URL(`users/checklist`), options2)
+    return fetch(API_URL("users/checklist"), options2)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -98,8 +97,8 @@ const Checklist = () => {
         <TitleContainer>
           <TodoIcon
             src={checklist}
-            width="23"
-            height="23"
+            width="20"
+            height="20"
             alt="checklist icon"
           />
           <TodoTitle>Checklista</TodoTitle>
@@ -129,7 +128,7 @@ const Checklist = () => {
                 type="button"
                 onClick={() => onClickDelete(todo._id)}
               >
-                Radera
+                ta bort
               </RemoveButton>
               {/* <RemoveButton onClick={() => dispatch(todos.actions.removeTodo(todo._id))}>
             Radera
@@ -148,10 +147,10 @@ export default Checklist;
 const TodoSection = styled.section`
   background-image: url("${italycoast}");
   background-size: cover;
+  overflow: scroll;
   height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
 
   @media (min-width: 1024px) {
@@ -163,6 +162,7 @@ const TitleContainer = styled.div`
   flex-direction: row;
   width: 80%;
   align-items: center;
+  margin-top: 120px;
 
   @media (min-width: 768px) {
     max-width: 800px;
@@ -174,12 +174,13 @@ const TodoIcon = styled.img`
 `;
 const TodoTitle = styled.h2`
   color: #ffffff;
-  font-size: 18px;
+  font-size: 17px;
   margin: 0px;
 `;
 const TodoListContainer = styled.div`
   min-height: 300px;
   width: 80%;
+  
 
   @media (min-width: 768px) {
     margin-top: 20px;
@@ -199,8 +200,9 @@ const TodoItem = styled.div`
   padding: 5px;
 `;
 const TodoDescription = styled.p`
-  margin: 5px;
+  margin: 0px;
   color: #414344;
+  font-size: 14px;
 `;
 
 const TimeAdded = styled.p`
@@ -215,7 +217,7 @@ const TimeAdded = styled.p`
 `;
 
 const RemoveButton = styled.button`
-  font-size: 13px;
+  font-size: 14px;
   background-color: #ffffff;
   color: #414344;
   cursor: pointer;

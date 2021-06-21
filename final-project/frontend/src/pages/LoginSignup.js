@@ -22,7 +22,7 @@ const LoginSignup = () => {
   useEffect(() => {
     if (accessToken) {
       localStorage.setItem("accessToken", accessToken)
-      history.push(`/users/trip`);
+      history.push("/users/trip");
     }
   }, [accessToken, history]);
 
@@ -67,7 +67,7 @@ const LoginSignup = () => {
         <LogoWhite src={logowhite} width="100" height="75" alt="logo" />
         <InformationText>
           Har du bokat en resa och tycker det är jobbigt att planera allt inför
-          avresa? Här kan du registrera din kommande resa, lista allt som
+          avresa? Här kan du registrera dina kommande resor, lista allt som
           behöver fixas innan avresa och få viktig info om pass, visum och
           försäkringar. Allt på ett och samma ställe.
         </InformationText>
@@ -118,6 +118,7 @@ export default LoginSignup;
 const Wrapper = styled.div`
   background-image: url("${bali}");
   background-size: cover;
+  overflow: scroll;
   display: flex;
   height: 100vh;
   align-items: center;
@@ -162,7 +163,7 @@ const LogoWhite = styled.img``;
 const InformationText = styled.p`
   color: #ffffff;
   font-size: 13px;
-  margin: 15px 25px;
+  margin: 8px 25px;
 `;
 
 const Form = styled.form`

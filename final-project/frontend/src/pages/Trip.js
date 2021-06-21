@@ -34,7 +34,7 @@ const Trip = () => {
         Authorization: accessToken,
       },
     };
-    fetch(API_URL(`users/trip`), options)
+    fetch(API_URL("users/trip"), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -76,7 +76,7 @@ const Trip = () => {
           dispatch(trip.actions.setErrors(data));
         }
       });
-    return fetch(API_URL(`users/trip`), options2)
+    return fetch(API_URL("users/trip"), options2)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -113,7 +113,7 @@ const Trip = () => {
                     height="20"
                     alt="airplane icon"
                   />
-                  <TripTitle>Kommande avresor</TripTitle>
+                  <TripTitle>Kommande resor</TripTitle>
                 </TitleContainer>}
                 <TripList>
                   <Destination>{trip.destination}</Destination>
@@ -124,7 +124,7 @@ const Trip = () => {
                     type="button"
                     onClick={() => onClickDelete(trip._id)}
                   >
-                    Radera
+                    x
                   </RemoveButton>
                 </TripList>
               </TripInfo>
@@ -141,9 +141,10 @@ export default Trip;
 const TripSection = styled.section`
   background-image: url("${sfomobile}");
   background-size: cover;
+  overflow: scroll;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
   flex-direction: column;
 
@@ -169,15 +170,15 @@ const TripIcon = styled.img`
 const TripTitle = styled.h2`
   color: #ffffff;
   margin: 0px;
-  font-size: 18px;
+  font-size: 17px;
 `;
 
 const TripContainer = styled.div`
   min-height: 300px;
   width: 80%;
+  margin-bottom: 80px;
 
   @media (min-width: 768px) {
-    margin-top: 20px;
     max-width: 800px;
   }
 `;
@@ -190,11 +191,11 @@ const TripList = styled.div`
   text-align: start;
   justify-content: space-between;
   margin: 3px;
-  padding: 10px;
+  padding: 11px;
 `;
 
 const Destination = styled.h2`
-  font-size: 16px;
+  font-size: 14px;
   margin: 5px;
   color: #414344;
 `;
@@ -202,17 +203,17 @@ const Destination = styled.h2`
 const Departure = styled(Destination)``;
 
 const RemoveButton = styled.button`
-  font-size: 13px;
+  font-size: 20px;
   background-color: #ffffff;
   color: #414344;
   cursor: pointer;
-  border-radius: 15px;
-  border: solid 1px #f3f3f3;
-  margin-right: 8px;
+  // border-radius: 50%;
+  // border: solid 1px #f3f3f3;
+  border: none;
+  // margin-right: 8px;
   outline: none;
   &:hover {
-    color: #ffffff;
-    background-color: #7497ad;
+    color: #7497ad;
   }
   @media (min-width: 768px) {
   }

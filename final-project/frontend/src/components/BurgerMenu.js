@@ -20,13 +20,13 @@ const BurgerMenu = () => {
     <StyledBurgerMenu>
       <Menu noOverlay onStateChange={toggleMenu}>
         <TripPage>
-          <PageLink to={`/users/trip`}>MINA RESOR</PageLink>
+          <PageLink to="/users/trip">MINA RESOR</PageLink>
         </TripPage>
         <InfoPage>
           <PageLink to="/users/info">VIKTIG INFO</PageLink>
         </InfoPage>
         <ChecklistPage>
-          <PageLink to={`/users/checklist`}>CHECKLISTA</PageLink>
+          <PageLink to="/users/checklist">CHECKLISTA</PageLink>
         </ChecklistPage>
         <LogOutButton>Log out</LogOutButton>
       </Menu>
@@ -42,7 +42,7 @@ const StyledBurgerMenu = styled.div`
     position: absolute;
     width: 30px;
     height: 25px;
-    // right: 36px;
+    right: 36px;
     top: 25px;
     float: right;
   }

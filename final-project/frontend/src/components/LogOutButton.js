@@ -34,4 +34,7 @@ const Button = styled.button`
   &:hover {
     color: #7497AD;
   }
+  @media (min-width: 768px) {
+    margin-right: 70px;
+  }
 `;

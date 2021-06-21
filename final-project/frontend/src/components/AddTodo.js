@@ -7,9 +7,7 @@ import todos from "../reducers/todos";
 
 const AddTodo = () => {
   const [items, setItems] = useState("");
-  const userId = useSelector((store) => store.user.userId);
   const accessToken = useSelector((store) => store.user.accessToken);
-  const errors = useSelector((store) => store.todos.errors);
 
   const dispatch = useDispatch();
 
@@ -24,7 +22,7 @@ const AddTodo = () => {
       },
       body: JSON.stringify({ items }),
     };
-    fetch(API_URL(`users/checklist`), options)
+    fetch(API_URL("users/checklist"), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -44,7 +42,7 @@ const AddTodo = () => {
       <TodoForm onSubmit={onFormSubmit}>
         <AddButton
           type="submit"
-          disabled={items.length < 3 || items.length > 140}
+          disabled={items.length < 3 || items.length > 40}
         >
           {" "}
           +{" "}
@@ -69,6 +67,7 @@ const TodoForm = styled.form`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin: 20px 0px;
 
   @media (min-width: 768px) {
     margin-top: 20px;
@@ -77,6 +76,7 @@ const TodoForm = styled.form`
 `;
 const TodoInput = styled.input`
   background-color: rgba(0, 0, 0, 0.56);
+  font-size: 14px;
   color: #ffffff;
   resize: none;
   height: 55px;
@@ -97,7 +97,7 @@ background-color: rgba(0, 0, 0, 0.56);
 color: #ffffff;
 height: 55px;
 width: 65px;
-font-size: 20px;
+font-size: 40px;
 border-radius: 2px;
 border: none;
 padding: 0px;
@@ -113,6 +113,6 @@ outline: none;
 @media (min-width: 768px) {
   height: 65px;
   width: 65px;
-  font-size: 40px;
+  
 } 
 `;

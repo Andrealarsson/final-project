@@ -36,11 +36,9 @@ const User = mongoose.model("User", {
     {
       destination: {
         type: String,
-        // required: true,
       },
       departure: {
         type: Date,
-        // required: true,
       },
       //YYYY-MM-DDThh:mmTZD, (eg 1997-07-16T19:20+01:00)
     },
@@ -49,7 +47,6 @@ const User = mongoose.model("User", {
     {
       description: {
         type: String,
-        // required: true,
       },
       createdAt: {
         type: Date,

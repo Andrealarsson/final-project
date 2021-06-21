@@ -7,7 +7,6 @@ import BurgerMenu from "../components/BurgerMenu";
 import LogOutButton from "../components/LogOutButton";
 
 const Navbar = () => {
-  const userId = useSelector((store) => store.user.userId);
 
   useEffect(() => {
     const menuWrap = document.querySelector(".bm-menu-wrap");
@@ -25,13 +24,13 @@ const Navbar = () => {
         <BurgerMenu />
         <NavbarMenu>
           <TripPage>
-            <PageLink to={`/users/trip`}>MINA RESOR</PageLink>
+            <PageLink to="/users/trip">MINA RESOR</PageLink>
           </TripPage>
           <InfoPage>
             <PageLink to="/users/info">VIKTIG INFO</PageLink>
           </InfoPage>
           <ChecklistPage>
-            <PageLink to={`/users/checklist`}>CHECKLISTA</PageLink>
+            <PageLink to="/users/checklist">CHECKLISTA</PageLink>
           </ChecklistPage>
           <LogOutButton>Log out</LogOutButton>
         </NavbarMenu>
@@ -45,19 +44,25 @@ export default Navbar;
 const HeaderNavbar = styled.header`
   position: fixed;
   top: 0px;
+  // background-color: rgba(33, 33, 33, 0.86);
+  // background-color: #393939;
   background-color: rgba(0, 0, 0, 0.56);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   list-style-type: none;
 `;
 const Title = styled.h1`
   color: #ffffff;
+  margin-left: 36px;
   span {
     color: #7497ad;
+  }
+  @media (min-width: 768px) {
+    margin-left: 70px;
   }
 `;
 
@@ -82,6 +87,9 @@ text-decoration: none;
 `;
 const TripPage = styled.li`
   margin-right: 30px;
+  @media (min-width: 768px) {
+    margin-right: 20px;
+  }
 `;
 const InfoPage = styled(TripPage)``;
 const ChecklistPage = styled(TripPage)``;
