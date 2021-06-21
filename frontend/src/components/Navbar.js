@@ -47,6 +47,7 @@ const HeaderNavbar = styled.header`
   // background-color: rgba(33, 33, 33, 0.86);
   // background-color: #393939;
   background-color: rgba(0, 0, 0, 0.56);
+  overflow: hidden;
   width: 100%;
   display: flex;
   align-items: center;
