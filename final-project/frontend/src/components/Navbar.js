@@ -25,13 +25,13 @@ const Navbar = () => {
         <BurgerMenu />
         <NavbarMenu>
           <TripPage>
-            <PageLink to={`/users/${userId}/trip`}>MINA RESOR</PageLink>
+            <PageLink to={`/users/trip`}>MINA RESOR</PageLink>
           </TripPage>
           <InfoPage>
             <PageLink to="/users/info">VIKTIG INFO</PageLink>
           </InfoPage>
           <ChecklistPage>
-            <PageLink to={`/users/${userId}/checklist`}>CHECKLISTA</PageLink>
+            <PageLink to={`/users/checklist`}>CHECKLISTA</PageLink>
           </ChecklistPage>
           <LogOutButton>Log out</LogOutButton>
         </NavbarMenu>

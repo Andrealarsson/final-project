@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import { time } from "console";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.connect(mongoUrl, {
@@ -24,7 +25,7 @@ const User = mongoose.model("User", {
   },
   password: {
     type: String,
-    requered: true,
+    required: true,
     minlength: 4,
   },
   accessToken: {
@@ -35,11 +36,11 @@ const User = mongoose.model("User", {
     {
       destination: {
         type: String,
-        required: true,
+        // required: true,
       },
       departure: {
         type: Date,
-        requered: true,
+        // required: true,
       },
       //YYYY-MM-DDThh:mmTZD, (eg 1997-07-16T19:20+01:00)
     },
@@ -48,6 +49,7 @@ const User = mongoose.model("User", {
     {
       description: {
         type: String,
+        // required: true,
       },
       createdAt: {
         type: Date,
@@ -72,6 +74,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ accessToken });
     if (user) {
+      req.user=user
       next();
     } else {
       res.status(401).json({ success: false, message: "Not authorized" });
@@ -125,23 +128,18 @@ app.post("/login", async (req, res) => {
     res.status(400).json({ success: false, message: "Invalid request", error });
   }
 });
+
 // Post Trip
-app.post("/users/:userId/trip", authenticateUser, async (req, res) => {
+app.post("/users/trip", authenticateUser, async (req, res) => {
   try {
-    const { userId } = req.params;
-    const { destination, departure } = req.body;
-    let user;
-    try {
-      user = await User.findOne({ _id: userId });
-    } catch (error) {
-      throw "User not found";
-    }
-    user.trip.push({
-      destination: destination,
+    const { trip, departure} = req.body;
+    console.log(req.body)
+    req.user.trip.push({
+      destination: trip,
       departure: departure,
     });
-    user.save();
-    res.status(200).json({ success: true });
+    req.user.save();
+    res.status(200).json({ success: true, trip: req.user.trip });
   } catch (error) {
     res
       .status(400)
@@ -150,12 +148,9 @@ app.post("/users/:userId/trip", authenticateUser, async (req, res) => {
 });
 
 // Get Trip
-app.get("/users/:userId/trip", authenticateUser, async (req, res) => {
+app.get("/users/trip", authenticateUser, async (req, res) => {
   try {
-    const { userId } = req.params;
-    const user = await User.findOne({ _id: userId });
-
-    res.status(200).json({ success: true, trip: user.trip });
+    res.status(200).json({ success: true, trip: req.user.trip });
   } catch {
     res
       .status(400)
@@ -168,44 +163,35 @@ app.get("/users/:userId/trip", authenticateUser, async (req, res) => {
 });
 
 //DELETE Trip
-app.delete(
-  "/users/:userId/trip/:tripId",
-  authenticateUser,
-  async (req, res) => {
-    const { userId, tripId } = req.params;
-    try {
-      const user = await User.findByIdAndUpdate(
-        { _id: userId },
-        { $pull: { trip: { _id: tripId } } },
-        { new: true }
-      );
-      res.status(200).json({ trip: user.trip, success: true });
-    } catch (error) {
-      res
-        .status(400)
-        .json({ success: false, message: "Invalid request", error });
-    }
+app.delete("/users/trip/:tripId", authenticateUser, async (req, res) => {
+  const { tripId } = req.params;
+  try {
+    const user = await User.findByIdAndUpdate(
+      { _id: req.user._id },
+      { $pull: { trip: { _id: tripId } } },
+      { new: true }
+    );
+    res.status(200).json({ trip: req.user.trip, success: true });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ success: false, message: "Invalid request", error });
+  }
   }
 );
 
 // POST Items
-app.post("/users/:userId/checklist", authenticateUser, async (req, res) => {
+app.post("/users/checklist", authenticateUser, async (req, res) => {
   try {
-    const { userId } = req.params;
-    const { isComplete, description, createdAt } = req.body;
-    let user;
-    try {
-      user = await User.findOne({ _id: userId });
-    } catch (error) {
-      throw "User not found";
-    }
-    user.items.push({
-      isComplete: isComplete,
-      description: description,
-      createdAt: createdAt,
+    const { items } = req.body;
+    console.log(req.body)
+    req.user.items.push({
+      isComplete: false,
+      description: items,
+      createdAt: new Date(),
     });
-    user.save();
-    res.status(200).json({ success: true });
+    req.user.save();
+    res.status(200).json({ success: true, items: req.user.items});
   } catch (error) {
     res
       .status(400)
@@ -214,12 +200,9 @@ app.post("/users/:userId/checklist", authenticateUser, async (req, res) => {
 });
 
 // GET Items
-app.get("/users/:userId/checklist", authenticateUser, async (req, res) => {
+app.get("/users/checklist", authenticateUser, async (req, res) => {
   try {
-    const { userId } = req.params;
-    const user = await User.findOne({ _id: userId });
-
-    res.status(200).json({ success: true, items: user.items });
+    res.status(200).json({ success: true, items: req.user.items });
   } catch {
     res
       .status(400)
@@ -231,24 +214,33 @@ app.get("/users/:userId/checklist", authenticateUser, async (req, res) => {
   }
 });
 
+// PATCH Items
+app.patch("/users/checklist/:todoId", authenticateUser, async (req, res) => {
+  const { todoId } = req.params
+  try {
+    const user = await User.findByIdAndUpdate({ _id: req.user._id }, { $push: { items: { _id: todoId } } }, { new: true })
+    res.status(200).json({ Items: user.items, success: true });
+  } catch (error) {
+    res.status(400).json({ message: 'Invalid request', error })
+  }
+})
+
+
 //DELETE Items
-app.delete(
-  "/users/:userId/checklist/:todoId",
-  authenticateUser,
-  async (req, res) => {
-    const { userId, todoId } = req.params;
-    try {
-      const user = await User.findByIdAndUpdate(
-        { _id: userId },
-        { $pull: { items: { _id: todoId } } },
-        { new: true }
-      );
-      res.status(200).json({ Items: user.items, success: true });
-    } catch (error) {
-      res
-        .status(400)
-        .json({ success: false, message: "Invalid request", error });
-    }
+app.delete("/users/checklist/:todoId", authenticateUser, async (req, res) => {
+  const { todoId } = req.params;
+  try {
+    const user = await User.findByIdAndUpdate(
+      { _id: req.user._id },
+      { $pull: { items: { _id: todoId } } },
+      { new: true }
+    );
+    res.status(200).json({ Items: user.items, success: true });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ success: false, message: "Invalid request", error });
+  }
   }
 );
 

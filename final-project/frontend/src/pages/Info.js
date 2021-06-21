@@ -12,8 +12,8 @@ const Info = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
 
   useEffect(() => {
-    const accessTokenLocalStorage = localStorage.getItem("accessToken");
-    if (!accessTokenLocalStorage) {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
       history.push("/");
     }
   }, [accessToken, history]);

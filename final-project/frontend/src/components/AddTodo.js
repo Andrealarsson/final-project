@@ -24,12 +24,12 @@ const AddTodo = () => {
       },
       body: JSON.stringify({ items }),
     };
-    fetch(API_URL(`users/${userId}/checklist`), options)
+    fetch(API_URL(`users/checklist`), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          console.log("data success", data.success);
-          console.log("data.todos", data.items);
+          console.log( data.success);
+          console.log( data.items);
           dispatch(todos.actions.addNewTodo({ items: data.items }));
           dispatch(todos.actions.setErrors(null));
         } else {

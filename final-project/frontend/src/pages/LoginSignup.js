@@ -20,11 +20,11 @@ const LoginSignup = () => {
   const userId = useSelector((store) => store.user.userId);
 
   useEffect(() => {
-    localStorage.setItem("accesstoken", accessToken);
     if (accessToken) {
-      history.push(`/users/${userId}/trip`);
+      localStorage.setItem("accessToken", accessToken)
+      history.push(`/users/trip`);
     }
-  }, [accessToken, history, userId]);
+  }, [accessToken, history]);
 
   const onFormSubmit = (e) => {
     e.preventDefault();

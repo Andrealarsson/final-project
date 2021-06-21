@@ -8,6 +8,7 @@ import { API_URL } from "../reusable/urls";
 import trip from "../reducers/trip";
 import Navbar from "../components/Navbar";
 import Timer from "../components/Timer";
+import AddTrip from "../components/AddTrip"
 import sfomobile from "../assets/sfomobile.jpg";
 import sfo from "../assets/sfo.jpg";
 import airplane from "../assets/airplane.png";
@@ -20,8 +21,8 @@ const Trip = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const accessTokenLocalStorage = localStorage.getItem("accessToken");
-    if (!accessTokenLocalStorage) {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
       history.push("/");
     }
   }, [accessToken, history]);
@@ -33,7 +34,7 @@ const Trip = () => {
         Authorization: accessToken,
       },
     };
-    fetch(API_URL(`users/${userId}/trip`), options)
+    fetch(API_URL(`users/trip`), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -62,7 +63,7 @@ const Trip = () => {
       },
     };
 
-    fetch(API_URL(`users/${userId}/trip/${tripId}`), options)
+    fetch(API_URL(`users/trip/${tripId}`), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -75,7 +76,7 @@ const Trip = () => {
           dispatch(trip.actions.setErrors(data));
         }
       });
-    return fetch(API_URL(`users/${userId}/trip`), options2)
+    return fetch(API_URL(`users/trip`), options2)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -101,11 +102,11 @@ const Trip = () => {
             .sort((b, a) => new Date(b.departure) - new Date(a.departure))
             .map((trip, index) => (
               <TripInfo key={trip._id}>
-                <Timer
+                {index === 0 && <Timer
                   countdownDate={trips[0].departure}
                   destination={trips[0].destination}
-                />
-                <TitleContainer>
+                />}
+                {index === 0 && <TitleContainer>
                   <TripIcon
                     src={airplane}
                     width="20"
@@ -113,7 +114,7 @@ const Trip = () => {
                     alt="airplane icon"
                   />
                   <TripTitle>Kommande avresor</TripTitle>
-                </TitleContainer>
+                </TitleContainer>}
                 <TripList>
                   <Destination>{trip.destination}</Destination>
                   <Departure>
@@ -129,6 +130,7 @@ const Trip = () => {
               </TripInfo>
             ))}
         </TripContainer>
+        <AddTrip/>
       </TripSection>
     </>
   );

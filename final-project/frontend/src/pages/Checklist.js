@@ -15,15 +15,15 @@ import checklist from "../assets/checklist.png";
 
 const Checklist = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
-  const userId = useSelector((store) => store.user.userId);
+  
   const todosItems = useSelector((store) => store.todos.items);
   const errors = useSelector((store) => store.todos.errors);
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const accessTokenLocalStorage = localStorage.getItem("accessToken");
-    if (!accessTokenLocalStorage) {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
       history.push("/");
     }
   }, [accessToken, history]);
@@ -35,7 +35,7 @@ const Checklist = () => {
         Authorization: accessToken,
       },
     };
-    fetch(API_URL(`users/${userId}/checklist`), options)
+    fetch(API_URL(`users/checklist`), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -46,7 +46,7 @@ const Checklist = () => {
         }
       })
       .catch(errors);
-  }, [accessToken, userId, dispatch, history]);
+  }, [accessToken, dispatch, history]);
 
   const onClickDelete = (todoId) => {
     const options = {
@@ -64,7 +64,7 @@ const Checklist = () => {
       },
     };
 
-    fetch(API_URL(`users/${userId}/checklist/${todoId}`), options)
+    fetch(API_URL(`users/checklist/${todoId}`), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -77,7 +77,7 @@ const Checklist = () => {
           dispatch(todos.actions.setErrors(data));
         }
       });
-    return fetch(API_URL(`users/${userId}/checklist`), options2)
+    return fetch(API_URL(`users/checklist`), options2)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

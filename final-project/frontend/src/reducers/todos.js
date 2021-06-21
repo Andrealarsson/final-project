@@ -12,7 +12,9 @@ const todos = createSlice({
       store.items = [...action.payload];
     },
     addNewTodo: (store, action) => {
-      store.items = [...store.items, action.payload];
+      console.log("addnewtodo", action)
+      store.items = action.payload.items;
+     
     },
     toggleComplete: (store, action) => {
       const updatedItems = store.items.map((todo) => {

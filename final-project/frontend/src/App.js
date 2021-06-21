@@ -8,6 +8,7 @@ import user from "./reducers/user";
 import todos from "./reducers/todos";
 
 import Footer from "./components/Footer";
+import AuthProvider from "./components/AuthProvider";
 import LoginSignup from "./pages/LoginSignup";
 import Trip from "./pages/Trip";
 import Info from "./pages/Info";
@@ -24,11 +25,12 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
+        <AuthProvider />
         <Switch>
           <Route exact path="/" component={LoginSignup} />
-          <Route path="/users/:userId/trip" component={Trip} />
+          <Route path="/users/trip" component={Trip} />
           <Route path="/users/info" component={Info} />
-          <Route path="/users/:userId/checklist" component={Checklist} />
+          <Route path="/users/checklist" component={Checklist} />
         </Switch>
         <Footer />
       </Provider>
