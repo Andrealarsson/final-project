@@ -168,7 +168,7 @@ const LogoWhite = styled.img``;
 const InformationText = styled.p`
   color: #ffffff;
   font-size: 14px;
-  margin: 8px 25px;
+  margin: 2px 25px;
 
   @media (min-width: 768px) {
     font-size:16px;

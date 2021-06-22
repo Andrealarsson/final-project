@@ -154,6 +154,7 @@ const TitleContainer = styled.div`
   flex-direction: row;
   width: 80%;
   align-items: center;
+  margin-bottom: 10px;
 
   @media (min-width: 768px) {
     max-width: 800px;
@@ -168,7 +169,11 @@ const TripIcon = styled.img`
 const TripTitle = styled.h2`
   color: #ffffff;
   margin: 0px;
-  font-size: 17px;
+  font-size: 15px;
+
+  @media (min-width: 768px) {
+    font-size: 17px;
+  }
 `;
 
 const TripContainer = styled.div`

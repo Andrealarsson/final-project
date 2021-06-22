@@ -163,6 +163,7 @@ const TitleContainer = styled.div`
   width: 80%;
   align-items: center;
   margin-top: 120px;
+  margin-bottom: 10px;
 
   @media (min-width: 768px) {
     max-width: 800px;
@@ -174,8 +175,12 @@ const TodoIcon = styled.img`
 `;
 const TodoTitle = styled.h2`
   color: #ffffff;
-  font-size: 17px;
+  font-size: 15px;
   margin: 0px;
+
+  @media (min-width: 768px) {
+    font-size: 17px;
+  }
 `;
 const TodoListContainer = styled.div`
   min-height: 300px;
