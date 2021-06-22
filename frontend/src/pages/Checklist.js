@@ -9,7 +9,7 @@ import todos from "../reducers/todos";
 import AddTodo from "../components/AddTodo";
 import Navbar from "../components/Navbar";
 import italycoast from "../assets/italycoast.jpg";
-import italy from "../assets/italy.jpg";
+import santorini from "../assets/santorini.jpg";
 import checklist from "../assets/checklist.png";
 
 const Checklist = () => {
@@ -101,7 +101,7 @@ const Checklist = () => {
             height="20"
             alt="checklist icon"
           />
-          <TodoTitle>Checklista</TodoTitle>
+          <TodoTitle>CHECKLISTA</TodoTitle>
         </TitleContainer>
         <TodoListContainer>
           {todosItems.map((todo) => (
@@ -114,9 +114,9 @@ const Checklist = () => {
                   dispatch(todos.actions.toggleComplete(todo._id))
                 }
               />
-              {/* <TimeAdded>
+               {/* <TimeAdded>
             {moment(todo.createdAt).format('ddd HH:mm')}
-          </TimeAdded> */}
+          </TimeAdded>  */}
               <TodoDescription
                 style={{
                   textDecoration: todo.isComplete ? "line-through" : "",
@@ -147,14 +147,14 @@ export default Checklist;
 const TodoSection = styled.section`
   background-image: url("${italycoast}");
   background-size: cover;
-  overflow: scroll;
+  overflow-x: hidden;
   height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
 
   @media (min-width: 1024px) {
-    background-image: url("${italy}");
+    background-image: url("${santorini}");
   }
 `;
 const TitleContainer = styled.div`
@@ -203,12 +203,17 @@ const TodoDescription = styled.p`
   margin: 0px;
   color: #414344;
   font-size: 14px;
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+
 `;
 
 const RemoveButton = styled.button`
   font-size: 14px;
   background-color: #ffffff;
   color: #414344;
+  font-family: 'Sarabun', sans-serif;
   cursor: pointer;
   border-radius: 15px;
   border: solid 1px #f3f3f3;

@@ -63,9 +63,6 @@ const AddTrip = () => {
       <AddButton type="button" onClick={handleClickOpen}>
         +
       </AddButton>
-      {/* <Button variant="contained" color="default" onClick={handleClickOpen}>
-        REGISTRERA NY RESA
-      </Button> */}
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Ny resa</DialogTitle>
         <DialogContent>
@@ -136,4 +133,10 @@ align-items: center;
 cursor: pointer;
 outline: none;
 &:hover {
-  color: #7497AD;`
+  color: #7497AD;
+}
+  @media (min-width: 768px) {
+    bottom: 40px;
+    height: 75px;
+width: 75px;
+  }`

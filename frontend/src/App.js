@@ -7,7 +7,6 @@ import trip from "./reducers/trip";
 import user from "./reducers/user";
 import todos from "./reducers/todos";
 
-import Footer from "./components/Footer";
 import AuthProvider from "./components/AuthProvider";
 import LoginSignup from "./pages/LoginSignup";
 import Trip from "./pages/Trip";
@@ -32,7 +31,6 @@ export const App = () => {
           <Route path="/users/info" component={Info} />
           <Route path="/users/checklist" component={Checklist} />
         </Switch>
-        <Footer />
       </Provider>
     </BrowserRouter>
   );

@@ -98,8 +98,6 @@ const Trip = () => {
         <Navbar />
         <TripContainer>
           {trips
-            .slice()
-            .sort((b, a) => new Date(b.departure) - new Date(a.departure))
             .map((trip, index) => (
               <TripInfo key={trip._id}>
                 {index === 0 && <Timer
@@ -113,7 +111,7 @@ const Trip = () => {
                     height="20"
                     alt="airplane icon"
                   />
-                  <TripTitle>Kommande resor</TripTitle>
+                  <TripTitle>KOMMANDE RESOR</TripTitle>
                 </TitleContainer>}
                 <TripList>
                   <Destination>{trip.destination}</Destination>
@@ -141,10 +139,9 @@ export default Trip;
 const TripSection = styled.section`
   background-image: url("${sfomobile}");
   background-size: cover;
-  overflow: scroll;
+  overflow-x: hidden;
   height: 100vh;
   display: flex;
-  // justify-content: center;
   align-items: center;
   flex-direction: column;
 
@@ -160,6 +157,7 @@ const TitleContainer = styled.div`
 
   @media (min-width: 768px) {
     max-width: 800px;
+    margin-bottom: 20px;
   }
 `;
 
@@ -181,6 +179,7 @@ const TripContainer = styled.div`
   @media (min-width: 768px) {
     max-width: 800px;
   }
+ 
 `;
 const TripInfo = styled.div``;
 
@@ -198,6 +197,10 @@ const Destination = styled.h2`
   font-size: 14px;
   margin: 5px;
   color: #414344;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const Departure = styled(Destination)``;
@@ -207,10 +210,7 @@ const RemoveButton = styled.button`
   background-color: #ffffff;
   color: #414344;
   cursor: pointer;
-  // border-radius: 50%;
-  // border: solid 1px #f3f3f3;
   border: none;
-  // margin-right: 8px;
   outline: none;
   &:hover {
     color: #7497ad;

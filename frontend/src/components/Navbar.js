@@ -20,7 +20,7 @@ const Navbar = () => {
         <Title>
           TRAVEL<span>POCKET</span>
         </Title>
-        <BurgerMenu />
+        <BurgerMenu/>
         <NavbarMenu>
           <TripPage>
             <PageLink to="/users/trip">MINA RESOR</PageLink>
@@ -63,6 +63,10 @@ const Title = styled.h1`
   }
   @media (min-width: 768px) {
     margin-left: 70px;
+    font-size: 30px;
+  }
+  @media (min-width: 1024px) {
+    margin-left: 100px;
   }
 `;
 
@@ -84,12 +88,19 @@ text-decoration: none;
 &:hover{
   color: #7497AD;
 }
+
+@media (min-width: 1025px) {
+  font-size: 17px;
+}
 `;
 const TripPage = styled.li`
   margin-right: 30px;
   @media (min-width: 768px) {
     margin-right: 20px;
   }
+  @media (min-width: 1025px) {
+    margin-right: 80px;
+}
 `;
 const InfoPage = styled(TripPage)``;
 const ChecklistPage = styled(TripPage)``;

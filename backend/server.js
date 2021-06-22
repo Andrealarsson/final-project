@@ -147,7 +147,8 @@ app.post("/users/trip", authenticateUser, async (req, res) => {
 // Get Trip
 app.get("/users/trip", authenticateUser, async (req, res) => {
   try {
-    res.status(200).json({ success: true, trip: req.user.trip });
+    res.status(200).json({ success: true, trip: req.user.trip.slice()
+    .sort((b, a) => new Date(b.departure) - new Date(a.departure)) });
   } catch {
     res
       .status(400)

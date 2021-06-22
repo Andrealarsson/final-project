@@ -28,7 +28,7 @@ const Button = styled.button`
   color: #ffffff;
   font-size: 16px;
   border: none;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Sarabun', sans-serif;
   padding: 0px;
 
   &:hover {
@@ -36,5 +36,10 @@ const Button = styled.button`
   }
   @media (min-width: 768px) {
     margin-right: 70px;
+  }
+
+  @media (min-width: 1025px) {
+    margin-right: 100px;
+    font-size: 17px;
   }
 `;

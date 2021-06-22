@@ -152,18 +152,29 @@ const InformationContainer = styled.div`
 `;
 const InformationTitle = styled.h2`
   color: #ffffff;
-  font-size: 25px;
+  font-size: 28px;
   margin: 25px 0px 10px 0px;
   span {
     color: #7497ad;
+  }
+  @media (min-width: 768px) {
+    
+    margin-top: 40px;
+    
   }
 `;
 
 const LogoWhite = styled.img``;
 const InformationText = styled.p`
   color: #ffffff;
-  font-size: 13px;
+  font-size: 14px;
   margin: 8px 25px;
+
+  @media (min-width: 768px) {
+    font-size:16px;
+    margin-top: 40px;
+    
+  }
 `;
 
 const Form = styled.form`
@@ -188,10 +199,20 @@ const InputTitle = styled.h3`
   color: #414344;
   font-size: 15px;
   margin: 15px 10px 0px;
+  @media (min-width: 768px) {
+    font-size: 18px;
+    margin-top: 40px;
+    
+  }
 `;
 const InputText = styled(InputTitle)`
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 15px;
+  @media (min-width: 768px) {
+    font-size: 16px;
+    margin-top: 10px;
+    
+  }
 `;
 const InputContainer = styled.div`
   display: flex;
@@ -219,7 +240,7 @@ const InputRow = styled.input`
 const ButtonContainer = styled(InputContainer)``;
 const SubmitButton = styled.button`
   background-color: #414344;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Sarabun', sans-serif;
   color: #ffffff;
   border-radius: 2px;
   padding: 5px;

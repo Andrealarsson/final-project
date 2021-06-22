@@ -1,20 +1,10 @@
 body {
   position: relative;
   margin: 0;
-   /* font-family: -apple-system, BlinkMacSystemFont, "Cantarell", "Ubuntu",
-      "Helvetica Neue", "Segoe UI","Oxygen",  "Droid Sans","Fira Sans",
-    "Roboto", 
-    "Open Sans",sans-serif; */
-    font-family: 'Open Sans', sans-serif;
+  font-family: 'Sarabun', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-image: url('./assets/mobile.jpg');
-  min-width: 100vw;
-  object-fit: contain; */
   background: #F6F6F6;
-  
-
-
 }
 
 code {

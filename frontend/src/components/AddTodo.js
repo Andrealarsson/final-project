@@ -62,7 +62,9 @@ const AddTodo = () => {
 export default AddTodo;
 
 const TodoForm = styled.form`
-  // padding: 5px 10px 20px 10px;
+  padding: 5px 10px 20px 10px;
+  position absolute;
+  bottom: 20px;
   width: 80%;
   display: flex;
   flex-direction: row;
@@ -87,7 +89,7 @@ const TodoInput = styled.input`
   overflow-wrap: break-word;
   outline: none;
   @media (min-width: 768px) {
-    min-height: 60px;
+    height: 60px;
     min-width: 313px;
     font-size: 16px;
   }
@@ -96,23 +98,21 @@ const AddButton = styled.button`
 background-color: rgba(0, 0, 0, 0.56);
 color: #ffffff;
 height: 55px;
+resize: none;
 width: 65px;
 font-size: 40px;
 border-radius: 2px;
 border: none;
-padding: 0px;
 display: flex;
 justify-content: center;
 align-items: center;
 cursor: pointer;
 outline: none;
 &:hover {
-  color: #7497AD;
- 
-
-@media (min-width: 768px) {
-  height: 65px;
-  width: 65px;
+color: #7497AD;}
   
+@media (min-width: 768px) {
+  height: 60px;
+  width: 65px;
 } 
 `;

@@ -59,5 +59,6 @@ const TimerText = styled.h2`
   font-size: 30px;
   display: flex;
   margin: 0px 0px 15px 0px;
+  font-family: 'Sarabun', sans-serif;
   justify-content: center;
 `;

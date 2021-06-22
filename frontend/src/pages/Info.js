@@ -5,7 +5,7 @@ import styled from "styled-components/macro";
 
 import Navbar from "../components/Navbar";
 import rome from "../assets/rome.jpg";
-import beach from "../assets/beach.jpg";
+import madrid from "../assets/madrid.jpg";
 
 const Info = () => {
   const history = useHistory();
@@ -136,7 +136,7 @@ const InfoSection = styled.section`
   flex-direction: column;
 
   @media (min-width: 1024px) {
-    background-image: url("${beach}");
+    background-image: url("${madrid}");
   }
 `;
 const InfoContainer = styled.div`
