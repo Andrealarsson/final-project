@@ -169,7 +169,7 @@ app.delete("/users/trip/:tripId", authenticateUser, async (req, res) => {
       { $pull: { trip: { _id: tripId } } },
       { new: true }
     );
-    res.status(200).json({ trip: req.user.trip, success: true });
+    res.status(200).json({ trip: user.trip, success: true });
   } catch (error) {
     res
       .status(400)
@@ -215,9 +215,16 @@ app.get("/users/checklist", authenticateUser, async (req, res) => {
 // PATCH Items
 app.patch("/users/checklist/:todoId", authenticateUser, async (req, res) => {
   const { todoId } = req.params
+  const { isComplete } = req.body
+
   try {
-    const user = await User.findByIdAndUpdate({ _id: req.user._id }, { $push: { items: { _id: todoId } } }, { new: true })
-    res.status(200).json({ Items: user.items, success: true });
+    const user = await User.findOneAndUpdate(
+      {_id: req.user._id, items: {$elemMatch: {_id: todoId}}},
+      {$set: {'items.$.isComplete': isComplete}},
+      {new: true}
+    );
+
+    res.status(200).json({ items: user.items, success: true });
   } catch (error) {
     res.status(400).json({ message: 'Invalid request', error })
   }
@@ -233,7 +240,7 @@ app.delete("/users/checklist/:todoId", authenticateUser, async (req, res) => {
       { $pull: { items: { _id: todoId } } },
       { new: true }
     );
-    res.status(200).json({ Items: user.items, success: true });
+    res.status(200).json({ items: user.items, success: true });
   } catch (error) {
     res
       .status(400)

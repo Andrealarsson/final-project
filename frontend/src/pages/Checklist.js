@@ -28,16 +28,21 @@ const Checklist = () => {
     }
   }, [accessToken, history]);
 
-  useEffect(() => {
-    const options = {
-      method: "GET",
+  const getOptions = (method) => {
+    return {
+      method: method,
       headers: {
         Authorization: accessToken,
+        'Content-Type': 'application/json'
       },
     };
-    fetch(API_URL("users/checklist"), options)
+  }
+
+  useEffect(() => {
+    fetch(API_URL("users/checklist"), getOptions('GET'))
       .then((res) => res.json())
       .then((data) => {
+        console.log('GET', data);
         if (data.success) {
           dispatch(todos.actions.setItems(data.items));
           dispatch(todos.actions.setErrors(null));
@@ -49,40 +54,46 @@ const Checklist = () => {
   }, [accessToken, dispatch, history, errors]);
 
   const onClickDelete = (todoId) => {
-    const options = {
-      method: "DELETE",
-      headers: {
-        Authorization: accessToken,
-        "Content-Type": "application/json",
-      },
-    };
-
-    const options2 = {
-      method: "GET",
-      headers: {
-        Authorization: accessToken,
-      },
-    };
-
-    fetch(API_URL(`users/checklist/${todoId}`), options)
+    fetch(API_URL(`users/checklist/${todoId}`), getOptions('DELETE'))
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           console.log(data);
           batch(() => {
-            dispatch(todos.actions.removeTodo(data.removeItem));
+            dispatch(todos.actions.setItems(data.items));
             dispatch(todos.actions.setErrors(null));
           });
         } else {
           dispatch(todos.actions.setErrors(data));
         }
       });
-    return fetch(API_URL("users/checklist"), options2)
+    // return fetch(API_URL("users/checklist"), getOptions('GET'))
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.success) {
+    //       batch(() => {
+    //         dispatch(todos.actions.setItems(data.items));
+    //         dispatch(todos.actions.setErrors(null));
+    //       });
+    //     } else {
+    //       dispatch(todos.actions.setErrors(data));
+    //     }
+    //   });
+  };
+
+  const onClickComplete = (todo) => {
+    fetch(API_URL(`users/checklist/${todo._id}`), {
+      ...getOptions('PATCH'),
+      body: JSON.stringify({
+        isComplete: !todo.isComplete
+      })
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          console.log('CHECK', data);
           batch(() => {
-            dispatch(todos.actions.setItems(data.items));
+            dispatch(todos.actions.setItems(data.items))
             dispatch(todos.actions.setErrors(null));
           });
         } else {
@@ -112,7 +123,7 @@ const Checklist = () => {
                 type="checkbox"
                 checked={todo.isComplete}
                 onChange={() =>
-                  dispatch(todos.actions.toggleComplete(todo._id))
+                  onClickComplete(todo)
                 }
               />
                {/* <TimeAdded>

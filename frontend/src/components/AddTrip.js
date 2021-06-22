@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, batch } from "react-redux";
 import styled from "styled-components/macro";
 
 import { API_URL } from "../reusable/urls";
-// import trip from "../reducers/trip";
+import tripReducer from "../reducers/trip";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -33,13 +33,15 @@ const AddTrip = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
 
+    const departure = `${date} ${time}`
+
     const options = {
       method: "POST",
       headers: {
         Authorization: accessToken,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ trip, departure: date, time}),
+      body: JSON.stringify({ trip, departure}),
     };
     fetch(API_URL("users/trip"), options)
       .then((res) => res.json())
@@ -47,17 +49,20 @@ const AddTrip = () => {
         if (data.success) {
           console.log( data.success);
           console.log( 'post', data.trip);
-          dispatch(trip.actions.addNewTrip({ trip: data.trip }));
-          dispatch(trip.actions.setErrors(null));
+          batch(() => {
+          dispatch(tripReducer.actions.setTrip(data.trip));
+          dispatch(tripReducer.actions.setErrors(null));
+          })
         } else {
-          dispatch(trip.actions.setErrors(data));
+          dispatch(tripReducer.actions.setErrors(data));
         }
       });
-    setTrip("");
-    setDate("");
-    setTime("");
-  }
 
+      setTrip("");
+      setDate("");
+      setTime("");
+    }
+   
   return (
     <>
       <AddButton type="button" onClick={handleClickOpen}>
@@ -104,7 +109,7 @@ const AddTrip = () => {
           <Button onClick={handleClose} color="primary">
             Stäng
           </Button>
-          <Button onClick={onFormSubmit} color="primary">
+          <Button /*onClick={handleClose}*/ onClick={onFormSubmit} color="primary">
             Spara
           </Button>
         </DialogActions>

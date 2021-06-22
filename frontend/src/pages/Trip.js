@@ -57,30 +57,18 @@ const Trip = () => {
       },
     };
 
-    const options2 = {
-      method: "GET",
-      headers: {
-        Authorization: accessToken,
-      },
-    };
+    // const options2 = {
+    //   method: "GET",
+    //   headers: {
+    //     Authorization: accessToken,
+    //   },
+    // };
 
     fetch(API_URL(`users/trip/${tripId}`), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           console.log(data);
-          batch(() => {
-            dispatch(trip.actions.removeTrip(data.removeTrip));
-            dispatch(trip.actions.setErrors(null));
-          });
-        } else {
-          dispatch(trip.actions.setErrors(data));
-        }
-      });
-    return fetch(API_URL("users/trip"), options2)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
           batch(() => {
             dispatch(trip.actions.setTrip(data.trip));
             dispatch(trip.actions.setErrors(null));
@@ -89,6 +77,18 @@ const Trip = () => {
           dispatch(trip.actions.setErrors(data));
         }
       });
+    // return fetch(API_URL("users/trip"), options2)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.success) {
+    //       batch(() => {
+    //         dispatch(trip.actions.setTrip(data.trip));
+    //         dispatch(trip.actions.setErrors(null));
+    //       });
+    //     } else {
+    //       dispatch(trip.actions.setErrors(data));
+    //     }
+    //   });
   };
 
   console.log(trips);
