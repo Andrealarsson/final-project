@@ -47,7 +47,7 @@ const TimerContainer = styled.div`
   margin-bottom: 110px;
   margin-top: 160px;
   color: #ffffff;
-  transform: scale(1.4); 
+  transform: scale(1.3); 
   font-family: 'Open Sans', sans-serif;
   @media (min-width: 768px) {
     transform: scale(1.1);
