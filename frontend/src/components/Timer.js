@@ -52,7 +52,6 @@ const TimerContainer = styled.div`
   @media (min-width: 768px) {
     transform: scale(1.1);
   }
-  // background-color: rgba(0, 0, 0, 0.56);
 `;
 const TimerText = styled.h2`
   color: #ffffff;

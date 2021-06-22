@@ -12,6 +12,7 @@ import AddTrip from "../components/AddTrip"
 import sfomobile from "../assets/sfomobile.jpg";
 import sfo from "../assets/sfo.jpg";
 import airplane from "../assets/airplane.png";
+import bin from "../assets/bin.png";
 
 const Trip = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -122,7 +123,11 @@ const Trip = () => {
                     type="button"
                     onClick={() => onClickDelete(trip._id)}
                   >
-                    x
+                    <img src={bin}
+                    width="18"
+                    height="18"
+                    alt="bin icon"
+                  />
                   </RemoveButton>
                 </TripList>
               </TripInfo>
@@ -194,8 +199,9 @@ const TripList = styled.div`
   flex-direction: row;
   text-align: start;
   justify-content: space-between;
+  align-items: center;
   margin: 3px;
-  padding: 11px;
+  padding: 5px;
 `;
 
 const Destination = styled.h2`
@@ -211,15 +217,17 @@ const Destination = styled.h2`
 const Departure = styled(Destination)``;
 
 const RemoveButton = styled.button`
-  font-size: 20px;
   background-color: #ffffff;
-  color: #414344;
   cursor: pointer;
+  border-radius: 50%;
   border: none;
+  padding: 10px 12px;
   outline: none;
   &:hover {
-    color: #7497ad;
+    color: #ffffff;
+    background-color: #f3f3f3;
   }
   @media (min-width: 768px) {
   }
 `;
+

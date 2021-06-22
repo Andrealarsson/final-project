@@ -11,6 +11,7 @@ import Navbar from "../components/Navbar";
 import italycoast from "../assets/italycoast.jpg";
 import santorini from "../assets/santorini.jpg";
 import checklist from "../assets/checklist.png";
+import bin from "../assets/bin.png";
 
 const Checklist = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -128,7 +129,11 @@ const Checklist = () => {
                 type="button"
                 onClick={() => onClickDelete(todo._id)}
               >
-                ta bort
+                <img src={bin}
+                    width="18"
+                    height="18"
+                    alt="bin icon"
+                  />
               </RemoveButton>
               {/* <RemoveButton onClick={() => dispatch(todos.actions.removeTodo(todo._id))}>
             Radera
@@ -215,18 +220,16 @@ const TodoDescription = styled.p`
 `;
 
 const RemoveButton = styled.button`
-  font-size: 14px;
   background-color: #ffffff;
-  color: #414344;
-  font-family: 'Sarabun', sans-serif;
   cursor: pointer;
-  border-radius: 15px;
-  border: solid 1px #f3f3f3;
+  border-radius: 50%;
+  border: none;
   margin-right: 8px;
+  padding: 10px 12px;
   outline: none;
   &:hover {
     color: #ffffff;
-    background-color: #7497ad;
+    background-color: #f3f3f3;
   }
   @media (min-width: 768px) {
   }
