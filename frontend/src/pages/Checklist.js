@@ -50,7 +50,7 @@ const Checklist = () => {
         }
       })
       .catch(errors);
-  }, [accessToken, dispatch, history, errors]);
+  }, [accessToken, getOptions, dispatch, history, errors]);
 
   const onClickDelete = (todoId) => {
     fetch(API_URL(`users/checklist/${todoId}`), getOptions('DELETE'))
