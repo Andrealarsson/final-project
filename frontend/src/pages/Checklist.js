@@ -1,17 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components/macro";
 import Checkbox from "@material-ui/core/Checkbox";
 
 import { API_URL } from "../reusable/urls";
 import todos from "../reducers/todos";
 import AddTodo from "../components/AddTodo";
 import Navbar from "../components/Navbar";
-import italycoast from "../assets/italycoast.jpg";
-import santorini from "../assets/santorini.jpg";
 import checklist from "../assets/checklist.png";
 import bin from "../assets/bin.png";
+import { 
+  TodoSection, 
+  TitleContainer, 
+  TodoIcon, 
+  TodoTitle, 
+  TodoListContainer, 
+  TodoItem, 
+  TodoDescription, 
+  RemoveButton 
+} from "./Checklist.style";
 
 const Checklist = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -27,7 +34,7 @@ const Checklist = () => {
     }
   }, [accessToken, history]);
 
-  const getOptions = (method) => {
+  const getOptions = useCallback((method) => {
     return {
       method: method,
       headers: {
@@ -35,13 +42,12 @@ const Checklist = () => {
         'Content-Type': 'application/json'
       },
     };
-  }
+  }, [accessToken]);
 
   useEffect(() => {
     fetch(API_URL("users/checklist"), getOptions('GET'))
       .then((res) => res.json())
       .then((data) => {
-        console.log('GET', data);
         if (data.success) {
           dispatch(todos.actions.setItems(data.items));
           dispatch(todos.actions.setErrors(null));
@@ -111,9 +117,6 @@ const Checklist = () => {
                   onClickComplete(todo)
                 }
               />
-               {/* <TimeAdded>
-            {moment(todo.createdAt).format('ddd HH:mm')}
-          </TimeAdded>  */}
               <TodoDescription
                 style={{
                   textDecoration: todo.isComplete ? "line-through" : "",
@@ -141,90 +144,3 @@ const Checklist = () => {
 };
 
 export default Checklist;
-
-const TodoSection = styled.section`
-  background-image: url("${italycoast}");
-  background-size: cover;
-  overflow-x: hidden;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
-  @media (min-width: 1024px) {
-    background-image: url("${santorini}");
-  }
-`;
-
-const TitleContainer = styled.div`
-  width: 80%;
-  margin-top: 60px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  
-  @media (min-width: 768px) {
-    max-width: 800px;
-  }
-`;
-
-const TodoIcon = styled.img`
-  margin-right: 2px;
-`;
-
-const TodoTitle = styled.h2`
-  color: #ffffff;
-  font-size: 15px;
-  margin: 0px;
-
-  @media (min-width: 768px) {
-    font-size: 17px;
-  }
-`;
-
-const TodoListContainer = styled.div`
-  width: 80%;
-  min-height: 300px;
-  
-  @media (min-width: 768px) {
-    max-width: 800px;
-    margin-top: 20px;
-  }
-`;
-
-const TodoItem = styled.div`
-  background: #ffffff;
-  color: black;
-  margin: 3px;
-  padding: 5px;
-  border-radius: 2px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const TodoDescription = styled.p`
-color: #414344;
-  font-size: 14px;
-  margin: 0px;
-  
-  @media (min-width: 768px) {
-    font-size: 16px;
-  }
-`;
-
-const RemoveButton = styled.button`
-  background-color: #ffffff;
-  margin-right: 8px;
-  padding: 10px 12px;
-  cursor: pointer;
-  border-radius: 50%;
-  border: none;
-  outline: none;
-  &:hover {
-    color: #ffffff;
-    background-color: #f3f3f3;
-  }
-`;

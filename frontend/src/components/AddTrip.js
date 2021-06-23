@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector, batch } from "react-redux";
-import styled from "styled-components/macro";
 
 import { API_URL } from "../reusable/urls";
 import tripReducer from "../reducers/trip";
@@ -11,6 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { AddButton } from './AddTrip.style'
 
 const AddTrip = () => {
   const [open, setOpen] = useState(false);
@@ -46,8 +46,8 @@ const AddTrip = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
-          dispatch(tripReducer.actions.setTrip(data.trip));
-          dispatch(tripReducer.actions.setErrors(null));
+            dispatch(tripReducer.actions.setTrip(data.trip));
+            dispatch(tripReducer.actions.setErrors(null));
           })
         } else {
           dispatch(tripReducer.actions.setErrors(data));
@@ -57,6 +57,7 @@ const AddTrip = () => {
       setTrip("");
       setDate("");
       setTime("");
+      handleClose();
     }
    
   return (
@@ -105,7 +106,7 @@ const AddTrip = () => {
           <Button onClick={handleClose} color="primary">
             Stäng
           </Button>
-          <Button /*onClick={handleClose}*/ onClick={onFormSubmit} color="primary">
+          <Button onClick={onFormSubmit} color="primary">
             Spara
           </Button>
         </DialogActions>
@@ -115,29 +116,3 @@ const AddTrip = () => {
 }
 
 export default AddTrip
-
-const AddButton = styled.button`
-  position: absolute;
-  bottom: 20px;
-  background-color: rgba(0, 0, 0, 0.56);
-  color: #ffffff;
-  height: 65px;
-  width: 65px;
-  font-size: 40px;
-  margin-top: 20px;
-  border-radius: 50px;
-  border: none;
-  padding: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  outline: none;
-  &:hover {
-    color: #7497AD;
-  }
-  @media (min-width: 768px) {
-    bottom: 40px;
-    height: 75px;
-    width: 75px;
-  }`

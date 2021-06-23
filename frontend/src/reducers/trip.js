@@ -11,10 +11,6 @@ const trip = createSlice({
     setTrip: (store, action) => {
       store.trip = [...action.payload];
     },
-    // addNewTrip: (store, action) => {
-    //   store.trip = [...store.trip, action.payload];
-    // },
-  
     setErrors: (store, action) => {
       store.errors = action.payload;
     },

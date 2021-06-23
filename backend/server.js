@@ -4,7 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-import { time } from "console";
+// import { time } from "console";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.connect(mongoUrl, {
@@ -40,7 +40,6 @@ const User = mongoose.model("User", {
       departure: {
         type: Date,
       },
-      //YYYY-MM-DDThh:mmTZD, (eg 1997-07-16T19:20+01:00)
     },
   ],
   items: [
@@ -77,13 +76,10 @@ const authenticateUser = async (req, res, next) => {
       res.status(401).json({ success: false, message: "Not authorized" });
     }
   } catch (error) {
-    res
-      .status(400)
-      .json({ success: false, message: "Invalid request", errors: err });
+    res.status(400).json({ success: false, message: "Invalid request", errors: err });
   }
 };
 
-// Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
@@ -130,17 +126,15 @@ app.post("/login", async (req, res) => {
 app.post("/users/trip", authenticateUser, async (req, res) => {
   try {
     const { trip, departure} = req.body;
-    console.log(req.body)
     req.user.trip.push({
       destination: trip,
       departure: departure,
     });
     req.user.save();
-    res.status(200).json({ success: true, trip: req.user.trip });
+    res.status(200).json({ success: true, trip: req.user.trip.slice()
+    .sort((b, a) => new Date(b.departure) - new Date(a.departure))})
   } catch (error) {
-    res
-      .status(400)
-      .json({ success: false, message: "Could not add trip", error });
+    res.status(400).json({ success: false, message: "Could not add trip", error });
   }
 });
 
@@ -148,15 +142,9 @@ app.post("/users/trip", authenticateUser, async (req, res) => {
 app.get("/users/trip", authenticateUser, async (req, res) => {
   try {
     res.status(200).json({ success: true, trip: req.user.trip.slice()
-    .sort((b, a) => new Date(b.departure) - new Date(a.departure)) });
+      .sort((b, a) => new Date(b.departure) - new Date(a.departure))});
   } catch {
-    res
-      .status(400)
-      .json({
-        success: false,
-        message: "Something went wrong, could not fetch trip",
-        error,
-      });
+    res.status(400).json({success: false, message: "Could not fetch trip", error,});
   }
 });
 
@@ -169,11 +157,10 @@ app.delete("/users/trip/:tripId", authenticateUser, async (req, res) => {
       { $pull: { trip: { _id: tripId } } },
       { new: true }
     );
-    res.status(200).json({ trip: user.trip, success: true });
+    res.status(200).json({ success: true, trip: user.trip.slice()
+    .sort((b, a) => new Date(b.departure) - new Date(a.departure))});
   } catch (error) {
-    res
-      .status(400)
-      .json({ success: false, message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Invalid request", error });
   }
   }
 );
@@ -182,7 +169,6 @@ app.delete("/users/trip/:tripId", authenticateUser, async (req, res) => {
 app.post("/users/checklist", authenticateUser, async (req, res) => {
   try {
     const { items } = req.body;
-    console.log(req.body)
     req.user.items.push({
       isComplete: false,
       description: items,
@@ -191,9 +177,7 @@ app.post("/users/checklist", authenticateUser, async (req, res) => {
     req.user.save();
     res.status(200).json({ success: true, items: req.user.items});
   } catch (error) {
-    res
-      .status(400)
-      .json({ success: false, message: "Could not add item", error });
+    res.status(400).json({ success: false, message: "Could not add item", error });
   }
 });
 
@@ -202,13 +186,7 @@ app.get("/users/checklist", authenticateUser, async (req, res) => {
   try {
     res.status(200).json({ success: true, items: req.user.items });
   } catch {
-    res
-      .status(400)
-      .json({
-        success: false,
-        message: "Something went wrong, could not fetch checklist",
-        error,
-      });
+    res.status(400).json({ success: false, message: "Could not fetch checklist", error });
   }
 });
 
@@ -216,20 +194,17 @@ app.get("/users/checklist", authenticateUser, async (req, res) => {
 app.patch("/users/checklist/:todoId", authenticateUser, async (req, res) => {
   const { todoId } = req.params
   const { isComplete } = req.body
-
   try {
     const user = await User.findOneAndUpdate(
       {_id: req.user._id, items: {$elemMatch: {_id: todoId}}},
       {$set: {'items.$.isComplete': isComplete}},
       {new: true}
     );
-
     res.status(200).json({ items: user.items, success: true });
   } catch (error) {
     res.status(400).json({ message: 'Invalid request', error })
   }
 })
-
 
 //DELETE Items
 app.delete("/users/checklist/:todoId", authenticateUser, async (req, res) => {
@@ -242,9 +217,7 @@ app.delete("/users/checklist/:todoId", authenticateUser, async (req, res) => {
     );
     res.status(200).json({ items: user.items, success: true });
   } catch (error) {
-    res
-      .status(400)
-      .json({ success: false, message: "Invalid request", error });
+    res.status(400).json({ success: false, message: "Invalid request", error });
   }
   }
 );
