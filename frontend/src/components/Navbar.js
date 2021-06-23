@@ -41,19 +41,15 @@ const Navbar = () => {
 export default Navbar;
 
 const HeaderNavbar = styled.header`
-  position: fixed;
-  top: 0px;
-  // background-color: rgba(33, 33, 33, 0.86);
-  // background-color: #393939;
   background-color: rgba(0, 0, 0, 0.56);
   overflow: hidden;
   width: 100%;
+  list-style-type: none;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   justify-content: space-between;
-  list-style-type: none;
 `;
 const Title = styled.h1`
   color: #ffffff;
@@ -74,25 +70,26 @@ const NavbarMenu = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   @media (max-width: 767px) {
     display: none;
   }
 `;
 const PageLink = styled(Link)`
-text-decoration: none;
-color: #ffffff;
-font-size: 16px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 16px;
 
-&:focus, &:hover, &:visited, &:link, &:active {
-text-decoration: none;
-&:hover{
-  color: #7497AD;
-}
+  &:focus, &:hover, &:visited, &:link, &:active {
+  text-decoration: none;
+  &:hover, &:active{
+    color: #7497AD;
+  }
 
-@media (min-width: 1025px) {
-  font-size: 17px;
-}
-`;
+  @media (min-width: 1025px) {
+    font-size: 17px;
+  }
+  `;
 const TripPage = styled.li`
   margin-right: 30px;
   @media (min-width: 768px) {

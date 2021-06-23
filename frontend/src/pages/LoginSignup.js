@@ -40,7 +40,6 @@ const LoginSignup = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           dispatch(
             user.actions.setUser({
@@ -68,14 +67,13 @@ const LoginSignup = () => {
         <InformationText>
           Har du bokat en resa och tycker det är jobbigt att planera allt inför
           avresa? Här kan du registrera dina kommande resor, lista allt som
-          behöver fixas innan avresa och få viktig info om pass, visum och
+          behöver fixas innan avresa och hitta viktig info om pass, visum och
           försäkringar. Allt på ett och samma ställe.
         </InformationText>
       </InformationContainer>
       <Form onSubmit={onFormSubmit}>
         <InputContainer>
           <InputTitle>VÄLKOMMEN TILL TRAVEL POCKET</InputTitle>
-          {/* <img src= {logored} alt='logo'/> */}
           <InputText>
             Logga in eller registrera dig för att börja din planering
           </InputText>
@@ -119,8 +117,8 @@ const Wrapper = styled.div`
   background-image: url("${bali}");
   background-size: cover;
   overflow: scroll;
-  display: flex;
   height: 100vh;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -133,6 +131,7 @@ const Wrapper = styled.div`
     background-image: url("${beach}");
   }
 `;
+
 const InformationContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.56);
   width: 75%;
@@ -140,16 +139,16 @@ const InformationContainer = styled.div`
   margin-top: 20px;
   border-radius: 2px 2px 0px 0px;
   text-align: center;
-  // box-shadow: 3px 40px 30px 2px #ccc;
-
+ 
   @media (min-width: 768px) {
-    border-radius: 2px 0px 0px 2px;
     height: 400px;
+    max-width: 400px;
     margin-bottom: 20px;
     margin-left: 40px;
-    max-width: 400px;
+    border-radius: 2px 0px 0px 2px;
   }
 `;
+
 const InformationTitle = styled.h2`
   color: #ffffff;
   font-size: 28px;
@@ -158,13 +157,12 @@ const InformationTitle = styled.h2`
     color: #7497ad;
   }
   @media (min-width: 768px) {
-    
     margin-top: 40px;
-    
   }
 `;
 
 const LogoWhite = styled.img``;
+
 const InformationText = styled.p`
   color: #ffffff;
   font-size: 14px;
@@ -173,61 +171,63 @@ const InformationText = styled.p`
   @media (min-width: 768px) {
     font-size:16px;
     margin-top: 40px;
-    
   }
 `;
 
 const Form = styled.form`
+  background: white;
   width: 75%;
   height: 330px;
-  background: white;
   margin-bottom: 20px;
   border-radius: 0px 0px 2px 2px;
-  // box-shadow: 3px 40px 30px 2px #ccc;
   text-align: center;
 
   @media (min-width: 768px) {
     height: 400px;
+    max-width: 400px;
     margin-top: 20px;
     margin-right: 40px;
-    max-width: 400px;
   }
 `;
+
 const InputTitle = styled.h3`
-  display: flex;
-  justify-content: center;
   color: #414344;
   font-size: 15px;
-  margin: 15px 10px 0px;
+  margin: 15px 10px 0px;display: flex;
+  justify-content: center;
+
   @media (min-width: 768px) {
     font-size: 18px;
     margin-top: 40px;
-    
   }
 `;
+
 const InputText = styled(InputTitle)`
   font-size: 14px;
   margin-bottom: 15px;
+
   @media (min-width: 768px) {
     font-size: 16px;
     margin-top: 10px;
-    
   }
 `;
+
 const InputContainer = styled.div`
+  margin: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 10px;
 `;
+
 const InputRow = styled.input`
+  background: #ffffff;
+  color: #414344;
   border-radius: 2px;
   border: solid 3px #f3f3f3;
-  color: #000000;
   outline: none;
   padding: 5px;
   margin: 5px 15px;
-  background: #ffffff;
+  text-align: center;
   ::placeholder,
   ::-webkit-input-placeholder {
     text-align: center;
@@ -237,16 +237,18 @@ const InputRow = styled.input`
     color: #a4a3a3;
   }
 `;
+
 const ButtonContainer = styled(InputContainer)``;
+
 const SubmitButton = styled.button`
   background-color: #414344;
   font-family: 'Sarabun', sans-serif;
   color: #ffffff;
   border-radius: 2px;
+  border: none;
   padding: 5px;
   margin: 10px 15px;
-  border: none;
-  // box-shadow: 0px 3px 6px 3px #FFB1A6;
+ 
   &:hover {
     background: #7497ad;
     color: white;

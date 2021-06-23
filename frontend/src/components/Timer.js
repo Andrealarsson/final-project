@@ -44,20 +44,25 @@ const Timer = ({ countdownDate, destination }) => {
 export default Timer;
 
 const TimerContainer = styled.div`
-  margin-bottom: 110px;
-  margin-top: 160px;
   color: #ffffff;
   transform: scale(1.3); 
   font-family: 'Open Sans', sans-serif;
+  margin-bottom: 110px;
+  margin-top: 80px;
+
   @media (min-width: 768px) {
     transform: scale(1.1);
   }
 `;
 const TimerText = styled.h2`
   color: #ffffff;
-  font-size: 30px;
-  display: flex;
-  margin: 0px 0px 15px 0px;
   font-family: 'Sarabun', sans-serif;
+  font-size: 30px;
+  margin: 0px 0px 15px 0px;
+  display: flex;
   justify-content: center;
+  
+  @media (min-width: 768px) {
+    font-size: 45px;
+  }
 `;

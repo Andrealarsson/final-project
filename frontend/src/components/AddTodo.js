@@ -26,8 +26,6 @@ const AddTodo = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          console.log( data.success);
-          console.log( data.items);
           dispatch(todos.actions.addNewTodo({ items: data.items }));
           dispatch(todos.actions.setErrors(null));
         } else {
@@ -62,18 +60,18 @@ const AddTodo = () => {
 export default AddTodo;
 
 const TodoForm = styled.form`
-  padding: 5px 10px 20px 10px;
   position absolute;
   bottom: 20px;
   width: 80%;
+  padding: 5px 10px 20px 10px;
+  margin: 20px 0px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 20px 0px;
-
+  
   @media (min-width: 768px) {
-    margin-top: 20px;
     max-width: 800px;
+    margin-top: 20px;
   }
 `;
 const TodoInput = styled.input`
@@ -95,24 +93,24 @@ const TodoInput = styled.input`
   }
 `;
 const AddButton = styled.button`
-background-color: rgba(0, 0, 0, 0.56);
-color: #ffffff;
-height: 55px;
-resize: none;
-width: 65px;
-font-size: 40px;
-border-radius: 2px;
-border: none;
-display: flex;
-justify-content: center;
-align-items: center;
-cursor: pointer;
-outline: none;
-&:hover {
-color: #7497AD;}
-  
-@media (min-width: 768px) {
-  height: 60px;
+  background-color: rgba(0, 0, 0, 0.56);
+  color: #ffffff;
+  height: 55px;
+  resize: none;
   width: 65px;
-} 
-`;
+  font-size: 40px;
+  border-radius: 2px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  &:hover {
+  color: #7497AD;}
+    
+  @media (min-width: 768px) {
+    height: 60px;
+    width: 65px;
+  } 
+  `;

@@ -25,7 +25,7 @@ const Info = () => {
         <InfoContainer>
           <InfoTitle>Förberedelser inför resan </InfoTitle>
           <Title>Se till att vara försäkrad</Title>
-          <Link href="https://www.konsumenternas.se/forsakringar/reseforsakringar/">
+          <Link href="https://www.konsumenternas.se/forsakringar/reseforsakringar/" target="_blank">
             <Text>
               Om olyckan är framme och du saknar försäkring kan din resa bli
               väldigt dyr. De flesta hemförsäkringar har ett reseskydd som
@@ -41,7 +41,7 @@ const Info = () => {
           </Link>
 
           <Title>Europeiska sjukförsäkringskortet</Title>
-          <Link href="https://www.forsakringskassan.se/privatpers/resa_arbeta_studera_eller_fa_vard_utomlands/resa_utomlands">
+          <Link href="https://www.forsakringskassan.se/privatpers/resa_arbeta_studera_eller_fa_vard_utomlands/resa_utomlands" target="_blank">
             <Text>
               Ta med det europeiska sjukförsäkringskortet om du ska resa inom
               EU/EES-land eller Schweiz. Kortet beställer man hos
@@ -51,7 +51,7 @@ const Info = () => {
           </Link>
 
           <Title>Visum till andra länder</Title>
-          <Link href="https://www.swedenabroad.se/sv/">
+          <Link href="https://www.swedenabroad.se/sv/" target="_blank">
             <Text>
               En svensk medborgare behöver visum för att besöka vissa länder. UD
               ansvarar inte för detta, utan vänd dig till landets ambassad,
@@ -61,7 +61,7 @@ const Info = () => {
           </Link>
 
           <Title>Behövs vaccination</Title>
-          <Link href="https://www.1177.se/Vastra-Gotaland/">
+          <Link href="https://www.1177.se/Vastra-Gotaland/" target="_blank">
             <Text>
               Innan du reser till något land utanför Europa är det viktigt att
               du ser över vilka vaccinationer du behöver. Många länder kräver
@@ -73,7 +73,7 @@ const Info = () => {
           </Link>
 
           <Title>Pass och ID-kort</Title>
-          <Link href="https://polisen.se/tjanster-tillstand/pass-och-nationellt-id-kort/">
+          <Link href="https://polisen.se/tjanster-tillstand/pass-och-nationellt-id-kort/" target="_blank">
             <Text>
               Innan du reser utomlands bör du kontrollera att du har en giltig
               resehandling (pass- eller nationellt id-kort). Du behöver alltid
@@ -114,8 +114,7 @@ const Info = () => {
               ambassad än där du ansökt, eller på ett konsulat, tillkommer en
               extra utlämningsavgift på 200:-. Avgifter utomlands: • Vanligt
               pass: 1600:- • Provisoriskt pass: 1800:- • Nationellt id-kort:
-              1600:- Tips: Ta en kopia på ditt pass och bär med dig{" "}
-              <span>{">>"}</span>
+              1600:- Tips: Ta en kopia på ditt pass och bär med dig <span>{">>"}</span>
             </Text>
           </Link>
         </InfoContainer>
@@ -139,27 +138,28 @@ const InfoSection = styled.section`
     background-image: url("${madrid}");
   }
 `;
+
 const InfoContainer = styled.div`
-  text-decoration: none;
-  width: 80%;
-  margin: 100px 0px;
-  padding: 20px;
-  flex-direction: row;
-  align-items: center;
   background-color: #ffffff;
+  width: 80%;
+  text-decoration: none;
+  margin: 60px 0px;
+  padding: 20px;
 
   @media (min-width: 768px) {
     max-width: 800px;
   }
 `;
+
 const Link = styled.a`
   text-decoration: none;
 `;
 
 const InfoTitle = styled.h1`
+  color: #414344;
   font-size: 20px;
   margin-top: 0px;
-  color: #414344;
+  
 `;
 
 const Title = styled.h2`
@@ -169,8 +169,8 @@ const Title = styled.h2`
 `;
 
 const Text = styled.p`
-  font-size: 14px;
   color: #414344;
+  font-size: 14px;
   span {
     color: #7497ad;
     font-weight: bold;

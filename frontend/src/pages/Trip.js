@@ -121,8 +121,7 @@ const Trip = () => {
                   </Departure>
                   <RemoveButton
                     type="button"
-                    onClick={() => onClickDelete(trip._id)}
-                  >
+                    onClick={() => onClickDelete(trip._id)}>
                     <img src={bin}
                     width="18"
                     height="18"
@@ -154,12 +153,13 @@ const TripSection = styled.section`
     background-image: url("${sfo}");
   }
 `;
+
 const TitleContainer = styled.div`
+  width: 80%;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: row;
-  width: 80%;
   align-items: center;
-  margin-bottom: 10px;
 
   @media (min-width: 768px) {
     max-width: 800px;
@@ -173,8 +173,8 @@ const TripIcon = styled.img`
 
 const TripTitle = styled.h2`
   color: #ffffff;
-  margin: 0px;
   font-size: 15px;
+  margin: 0px;
 
   @media (min-width: 768px) {
     font-size: 17px;
@@ -182,26 +182,26 @@ const TripTitle = styled.h2`
 `;
 
 const TripContainer = styled.div`
-  min-height: 300px;
   width: 80%;
+  min-height: 300px;
   margin-bottom: 80px;
 
   @media (min-width: 768px) {
     max-width: 800px;
   }
- 
 `;
+
 const TripInfo = styled.div``;
 
 const TripList = styled.div`
   background-color: #ffffff;
+  margin: 3px;
+  padding: 5px;
   display: flex;
   flex-direction: row;
   text-align: start;
   justify-content: space-between;
   align-items: center;
-  margin: 3px;
-  padding: 5px;
 `;
 
 const Destination = styled.h2`

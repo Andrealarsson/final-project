@@ -65,16 +65,9 @@ const StyledBurgerMenu = styled.div`
     background: #7497ad;
   }
 
-  /*
-Sidebar wrapper styles
-Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
-*/
   .bm-menu-wrap {
     bottom: 0;
     left: 0;
-    position: fixed;
-    // right: 250px;
-    // top: 65px;
     height: 100%;
   }
 
@@ -83,11 +76,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
     background: #414344;
     padding: 2.5em 1.5em 0;
     font-size: 1.15em;
-  }
-
-  /* Morph shape necessary with bubble or elastic */
-  .bm-morph-shape {
-    fill: #373a47;
   }
 
   /* Wrapper for item list */
@@ -100,6 +88,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   .bm-item {
     display: inline-block;
   }
+
   .bm-item-hover {
     color: #7497AD;
   }
@@ -113,19 +102,23 @@ Note: Beware of modifying this element as it can break the animations - you shou
     display: none;
   }
 `;
-const PageLink = styled(Link)`
-text-decoration: none;
-color: #ffffff;
-font-size: 16px;
 
-&:focus, &:hover, &:visited, &:link, &:active {
-text-decoration: none;
-&:hover{
-  color: #7497AD;
-}
+const PageLink = styled(Link)`
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+
+  &:focus, &:hover, &:visited, &:link, &:active {
+  text-decoration: none;
+  &:hover{
+    color: #7497AD;
+  }
 `;
+
 const TripPage = styled.li`
   padding-bottom: 20px;
 `;
+
 const InfoPage = styled(TripPage)``;
+
 const ChecklistPage = styled(TripPage)``;

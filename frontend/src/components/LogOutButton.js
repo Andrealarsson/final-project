@@ -26,9 +26,9 @@ export default LogOutButton;
 const Button = styled.button`
   background: none;
   color: #ffffff;
+  font-family: 'Sarabun', sans-serif;
   font-size: 16px;
   border: none;
-  font-family: 'Sarabun', sans-serif;
   padding: 0px;
 
   &:hover {
