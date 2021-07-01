@@ -19,11 +19,11 @@ const Timer = ({ countdownDate, destination }) => {
           hourTitle="timmar"
           minuteTitle="minuter"
           secondTitle="sekunder"
-          titlePosition="bottom" // Options (Default: top): top, bottom.
+          titlePosition="bottom" 
           theme="dark"
           size="small"
           endAtZero
-          endAt={countdownDate} // Date/Time
+          endAt={countdownDate} 
         />
       </MediaQuery>
       <MediaQuery minWidth={768}>
@@ -34,11 +34,11 @@ const Timer = ({ countdownDate, destination }) => {
           hourTitle="timmar"
           minuteTitle="minuter"
           secondTitle="sekunder"
-          titlePosition="bottom" // Options (Default: top): top, bottom.
+          titlePosition="bottom" 
           theme="dark"
           size="medium"
           endAtZero
-          endAt={countdownDate} // Date/Time
+          endAt={countdownDate}
         />
       </MediaQuery>
     </TimerContainer>

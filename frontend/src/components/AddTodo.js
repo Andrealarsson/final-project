@@ -7,7 +7,7 @@ import {
   TodoForm, 
   TodoInput, 
   AddButton 
-} from './AddTodo.style'
+} from "./AddTodo.style";
 
 const AddTodo = () => {
   const [items, setItems] = useState("");

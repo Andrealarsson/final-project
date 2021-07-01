@@ -21,7 +21,7 @@ import {
   Destination, 
   Departure, 
   RemoveButton 
-} from "./Trip.style"
+} from "./Trip.style";
 
 const Trip = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -104,7 +104,7 @@ const Trip = () => {
                 <TripList>
                   <Destination>{trip.destination}</Destination>
                   <Departure>
-                    {moment(trip.departure).format("D MMM YYYY, HH:mm")}
+                    {moment(trip.departure).local().format("D MMM YYYY, HH:mm")}
                   </Departure>
                   <RemoveButton
                     type="button"

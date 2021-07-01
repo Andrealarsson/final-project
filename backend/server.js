@@ -1,10 +1,8 @@
 import express from "express";
-import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-// import { time } from "console";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.connect(mongoUrl, {
@@ -122,7 +120,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Post Trip
+// POST Trip
 app.post("/users/trip", authenticateUser, async (req, res) => {
   try {
     const { trip, departure} = req.body;
@@ -138,7 +136,7 @@ app.post("/users/trip", authenticateUser, async (req, res) => {
   }
 });
 
-// Get Trip
+// GET Trip
 app.get("/users/trip", authenticateUser, async (req, res) => {
   try {
     res.status(200).json({ success: true, trip: req.user.trip.slice()

@@ -39,13 +39,13 @@ const Checklist = () => {
       method: method,
       headers: {
         Authorization: accessToken,
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
     };
   }, [accessToken]);
 
   useEffect(() => {
-    fetch(API_URL("users/checklist"), getOptions('GET'))
+    fetch(API_URL("users/checklist"), getOptions("GET"))
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -59,7 +59,7 @@ const Checklist = () => {
   }, [accessToken, getOptions, dispatch, history, errors]);
 
   const onClickDelete = (todoId) => {
-    fetch(API_URL(`users/checklist/${todoId}`), getOptions('DELETE'))
+    fetch(API_URL(`users/checklist/${todoId}`), getOptions("DELETE"))
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -75,7 +75,7 @@ const Checklist = () => {
 
   const onClickComplete = (todo) => {
     fetch(API_URL(`users/checklist/${todo._id}`), {
-      ...getOptions('PATCH'),
+      ...getOptions("PATCH"),
       body: JSON.stringify({
         isComplete: !todo.isComplete
       })
@@ -84,7 +84,7 @@ const Checklist = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
-            dispatch(todos.actions.setItems(data.items))
+            dispatch(todos.actions.setItems(data.items));
             dispatch(todos.actions.setErrors(null));
           });
         } else {
@@ -114,25 +114,21 @@ const Checklist = () => {
                 type="checkbox"
                 checked={todo.isComplete}
                 onChange={() =>
-                  onClickComplete(todo)
-                }
-              />
+                  onClickComplete(todo)}
+                  />
               <TodoDescription
                 style={{
-                  textDecoration: todo.isComplete ? "line-through" : "",
-                }}
-              >
+                  textDecoration: todo.isComplete ? "line-through" : "",}}>
                 {todo.description}
               </TodoDescription>
               <RemoveButton
                 type="button"
-                onClick={() => onClickDelete(todo._id)}
-              >
+                onClick={() => onClickDelete(todo._id)}>
                 <img src={bin}
                     width="18"
                     height="18"
                     alt="bin icon"
-                  />
+                    />
               </RemoveButton>
             </TodoItem>
           ))}

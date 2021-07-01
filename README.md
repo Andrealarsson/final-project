@@ -1,13 +1,24 @@
-# Project Auth
+# Project Travel Pocket ✈️
 
-Replace this readme with your own information about your project.
+How many of you are longing to be able to travel again?✋ 
+And when you finally have book your next trip and will start planning, you will maybe have questions like can I travel to London with my passport that expires in 2 months? If something happens when I'm surfing in Costa Rica, will my insurance cover that? As a former travel agent I know that will result in many things to look up before departure. 
+In my application called Travel Pocket you will get some help with that, you are able to put in departure information about your future trips and it will help you to countdown time until your next departure.⏲️
+You will find information and links to look up if you need a new passport for London or extra travel insurance for your trip to Costa Rica. You will also have a checklist, where you can put all the tasks that need to be done before departure or maybe use it as your packing list.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+I built my application with:
+Frontend
+•	React
+•	Redux
+•	React Router
+•	Styled components
+Backend
+•	Node
+•	Express
+•	MongoDB
 
-## The problem
+Library
+Moment.js, material-ui, react-burger-menu, @rumess/react-flip-countdown
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+## View it live 💻
 
-## View it live
-
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+https://travel-pocket.netlify.app

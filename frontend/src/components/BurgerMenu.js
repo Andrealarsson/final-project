@@ -8,7 +8,7 @@ import {
   TripPage, 
   InfoPage, 
   ChecklistPage 
-} from './BurgerMenu.style'
+} from "./BurgerMenu.style";
 
 const toggleMenu = ({ isOpen }) => {
   const menuWrap = document.querySelector(".bm-menu-wrap");
