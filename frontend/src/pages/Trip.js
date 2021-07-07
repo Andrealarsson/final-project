@@ -104,7 +104,8 @@ const Trip = () => {
                 <TripList>
                   <Destination>{trip.destination}</Destination>
                   <Departure>
-                    {moment.utc(trip.departure).local().format("D MMM YYYY, HH:mm")}
+                    {/* {moment(trip.departure).local().format("D MMM YYYY, HH:mm")} */}
+                    {moment.utc(trip.departure).format("D MMM YYYY, HH:mm")}
                   </Departure>
                   <RemoveButton
                     type="button"
