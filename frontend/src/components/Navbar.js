@@ -2,15 +2,8 @@ import React, { useEffect } from "react";
 
 import BurgerMenu from "../components/BurgerMenu";
 import LogOutButton from "../components/LogOutButton";
-import { 
-  HeaderNavbar, 
-  Title, 
-  NavbarMenu, 
-  PageLink, 
-  TripPage, 
-  InfoPage, 
-  ChecklistPage 
-} from "./Navbar.style";
+
+import { HeaderNavbar, Title, NavbarMenu, PageLink, TripPage, InfoPage, ChecklistPage } from "./Navbar.style";
 
 const Navbar = () => {
   useEffect(() => {

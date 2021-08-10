@@ -1,14 +1,9 @@
 import React from "react";
 
-import { slide as Menu } from "react-burger-menu";
 import LogOutButton from "./LogOutButton";
-import { 
-  StyledBurgerMenu, 
-  PageLink, 
-  TripPage, 
-  InfoPage, 
-  ChecklistPage 
-} from "./BurgerMenu.style";
+
+import { slide as Menu } from "react-burger-menu";
+import { StyledBurgerMenu, PageLink, TripPage, InfoPage, ChecklistPage } from "./BurgerMenu.style";
 
 const toggleMenu = ({ isOpen }) => {
   const menuWrap = document.querySelector(".bm-menu-wrap");

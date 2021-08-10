@@ -1,11 +1,9 @@
 import React from "react";
 
+import { TimerContainer, TimerText } from "./Timer.style";
+
 import FlipCountdown from "@rumess/react-flip-countdown";
 import MediaQuery from "react-responsive";
-import { 
-  TimerContainer, 
-  TimerText 
-} from "./Timer.style";
 
 const Timer = ({ countdownDate, destination }) => {
   return (

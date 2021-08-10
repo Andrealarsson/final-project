@@ -3,11 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { API_URL } from "../reusable/urls";
 import todos from "../reducers/todos";
-import { 
-  TodoForm, 
-  TodoInput, 
-  AddButton 
-} from "./AddTodo.style";
+import { TodoForm, TodoInput, AddButton } from "./AddTodo.style";
 
 const AddTodo = () => {
   const [items, setItems] = useState("");

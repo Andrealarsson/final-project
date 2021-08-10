@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch, batch } from "react-redux";
+
 import moment from "moment";
 
 import { API_URL } from "../reusable/urls";
@@ -81,48 +82,45 @@ const Trip = () => {
   };
 
   return (
-    <>
-      <TripSection>
-        <Navbar />
-        <TripContainer>
-          {trips
-            .map((trip, index) => (
-              <TripInfo key={trip._id}>
-                {index === 0 && <Timer
-                  countdownDate={trips[0].departure}
-                  destination={trips[0].destination}
-                />}
-                {index === 0 && <TitleContainer>
-                  <TripIcon
-                    src={airplane}
-                    width="20"
-                    height="20"
-                    alt="airplane icon"
-                  />
-                  <TripTitle>KOMMANDE RESOR</TripTitle>
-                </TitleContainer>}
-                <TripList>
-                  <Destination>{trip.destination}</Destination>
-                  <Departure>
-                    {/* {moment(trip.departure).local().format("D MMM YYYY, HH:mm")} */}
-                    {moment.utc(trip.departure).format("D MMM YYYY, HH:mm")}
-                  </Departure>
-                  <RemoveButton
-                    type="button"
-                    onClick={() => onClickDelete(trip._id)}>
-                    <img src={bin}
-                    width="18"
-                    height="18"
-                    alt="bin icon"
-                  />
-                  </RemoveButton>
-                </TripList>
-              </TripInfo>
-            ))}
-        </TripContainer>
-        <AddTrip/>
-      </TripSection>
-    </>
+    <TripSection>
+      <Navbar />
+      <TripContainer>
+        {trips
+          .map((trip, index) => (
+            <TripInfo key={trip._id}>
+              {index === 0 && <Timer
+                countdownDate={trips[0].departure}
+                destination={trips[0].destination}
+              />}
+              {index === 0 && <TitleContainer>
+                <TripIcon
+                  src={airplane}
+                  width="20"
+                  height="20"
+                  alt="airplane icon"
+                />
+                <TripTitle>KOMMANDE RESOR</TripTitle>
+              </TitleContainer>}
+              <TripList>
+                <Destination>{trip.destination}</Destination>
+                <Departure>
+                  {moment.utc(trip.departure).format("D MMM YYYY, HH:mm")}
+                </Departure>
+                <RemoveButton
+                  type="button"
+                  onClick={() => onClickDelete(trip._id)}>
+                  <img src={bin}
+                  width="18"
+                  height="18"
+                  alt="bin icon"
+                />
+                </RemoveButton>
+              </TripList>
+            </TripInfo>
+          ))}
+      </TripContainer>
+      <AddTrip/>
+    </TripSection>   
   );
 };
 
